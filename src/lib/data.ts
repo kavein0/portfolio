@@ -135,14 +135,12 @@ export const certifications: Certification[] = [
     issuer: "Cisco Networking Academy",
     date: "Oct 28, 2023",
     url: "https://www.credly.com/earner/earned/badge/placeholder",
-    image: "https://images.credly.com/size/340x340/images/6df683fb-db68-4f81-bed2-efd806a64273/Operating_Systems_Basics_Badge.png",
   },
   {
     name: "Computer Hardware Basics",
     issuer: "Cisco Networking Academy",
     date: "Oct 28, 2023",
     url: "https://www.credly.com/earner/earned/badge/placeholder",
-    image: "https://images.credly.com/size/340x340/images/737cfeb2-b342-4b20-ba17-fdf156efdd84/Computer_Hardware_Basics_Badge.png",
   },
 ];
 
