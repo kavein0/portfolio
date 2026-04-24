@@ -37,41 +37,49 @@ export default function CiscoPage() {
             {/* Timeline Dot */}
             <div className="absolute -left-[41px] md:-left-[57px] top-6 w-4 h-4 rounded-full bg-[var(--cyber-blue)] shadow-[0_0_10px_var(--cyber-blue)] border-4 border-[var(--bg-primary)]" />
 
-            <a
-              href={cert.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block group"
-            >
-              <div className="p-6 md:p-8 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] group-hover:border-[var(--cyber-blue)] transition-all relative overflow-hidden">
-                {/* Hover Glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[var(--cyber-blue)]/0 via-[var(--cyber-blue)]/5 to-[var(--cyber-blue)]/0 opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-1000 ease-in-out" />
-                
-                <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <div className="w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                      <Award className="w-6 h-6 text-[var(--cyber-blue)]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-blue)] transition-colors truncate whitespace-normal break-words line-clamp-2">
-                        {cert.name}
-                      </h3>
-                      <p className="text-sm font-mono text-[var(--text-muted)] mt-1 truncate">
-                        {cert.issuer}
-                      </p>
-                    </div>
-                  </div>
+            {(() => {
+              const Wrapper = cert.url ? 'a' : 'div';
+              const wrapperProps = cert.url 
+                ? { href: cert.url, target: "_blank", rel: "noopener noreferrer", className: "block group" } 
+                : { className: "block" };
 
-                  <div className="flex items-center gap-6 mt-4 md:mt-0 ml-16 md:ml-0">
-                    <div className="flex items-center gap-2 text-sm font-mono text-[var(--text-muted)] bg-[var(--bg-tertiary)] px-3 py-1.5 rounded-full">
-                      <Calendar className="w-4 h-4" />
-                      {cert.date}
+              return (
+                <Wrapper {...wrapperProps}>
+                  <div className={`p-6 md:p-8 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] ${cert.url ? 'group-hover:border-[var(--cyber-blue)]' : ''} transition-all relative overflow-hidden`}>
+                    {/* Hover Glow */}
+                    {cert.url && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-[var(--cyber-blue)]/0 via-[var(--cyber-blue)]/5 to-[var(--cyber-blue)]/0 opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-1000 ease-in-out" />
+                    )}
+                    
+                    <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                      <div className="flex items-center gap-4 flex-1 min-w-0">
+                        <div className={`w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center flex-shrink-0 ${cert.url ? 'group-hover:scale-110' : ''} transition-transform`}>
+                          <Award className="w-6 h-6 text-[var(--cyber-blue)]" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className={`text-xl font-bold text-[var(--text-primary)] ${cert.url ? 'group-hover:text-[var(--cyber-blue)]' : ''} transition-colors truncate whitespace-normal break-words line-clamp-2`}>
+                            {cert.name}
+                          </h3>
+                          <p className="text-sm font-mono text-[var(--text-muted)] mt-1 truncate">
+                            {cert.issuer}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-6 mt-4 md:mt-0 ml-16 md:ml-0">
+                        <div className="flex items-center gap-2 text-sm font-mono text-[var(--text-muted)] bg-[var(--bg-tertiary)] px-3 py-1.5 rounded-full">
+                          <Calendar className="w-4 h-4" />
+                          {cert.date}
+                        </div>
+                        {cert.url && (
+                          <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-blue)] opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-1" />
+                        )}
+                      </div>
                     </div>
-                    <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-blue)] opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-1" />
                   </div>
-                </div>
-              </div>
-            </a>
+                </Wrapper>
+              );
+            })()}
           </motion.div>
         ))}
 

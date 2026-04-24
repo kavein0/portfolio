@@ -98,49 +98,41 @@ export const certifications: Certification[] = [
     name: "Ethical Hacker",
     issuer: "Cisco Networking Academy",
     date: "Jun 17, 2024",
-    url: "https://www.credly.com/earner/earned/badge/placeholder",
   },
   {
     name: "Network Support and Security",
     issuer: "Cisco Networking Academy",
     date: "Nov 13, 2023",
-    url: "https://www.credly.com/earner/earned/badge/placeholder",
   },
   {
     name: "Network Addressing and Basic Troubleshooting",
     issuer: "Cisco Networking Academy",
     date: "Nov 13, 2023",
-    url: "https://www.credly.com/earner/earned/badge/placeholder",
   },
   {
     name: "Основи роботи в мережі",
     issuer: "Cisco Networking Academy",
     date: "Nov 13, 2023",
-    url: "https://www.credly.com/earner/earned/badge/placeholder",
   },
   {
     name: "Мережні пристрої та початкове налаштування",
     issuer: "Cisco Networking Academy",
     date: "Oct 28, 2023",
-    url: "https://www.credly.com/earner/earned/badge/placeholder",
   },
   {
     name: "Основи мережних протоколів",
     issuer: "Cisco Networking Academy",
     date: "Oct 28, 2023",
-    url: "https://www.credly.com/earner/earned/badge/placeholder",
   },
   {
     name: "Operating Systems Basics",
     issuer: "Cisco Networking Academy",
     date: "Oct 28, 2023",
-    url: "https://www.credly.com/earner/earned/badge/placeholder",
   },
   {
     name: "Computer Hardware Basics",
     issuer: "Cisco Networking Academy",
     date: "Oct 28, 2023",
-    url: "https://www.credly.com/earner/earned/badge/placeholder",
   },
 ];
 
