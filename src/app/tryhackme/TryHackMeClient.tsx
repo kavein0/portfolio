@@ -71,9 +71,21 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
                     <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors truncate whitespace-normal break-words line-clamp-2">
                       {room.name}
                     </h3>
-                    <span className="text-xs font-mono text-[var(--text-muted)] uppercase bg-[var(--bg-tertiary)] px-2 py-1 rounded mt-2 inline-block">
-                      {room.type}
-                    </span>
+                    <div className="flex gap-2 mt-2">
+                      <span className="text-xs font-mono text-[var(--text-muted)] uppercase bg-[var(--bg-tertiary)] px-2 py-1 rounded">
+                        {room.type}
+                      </span>
+                      {'difficulty' in room && room.difficulty && (
+                        <span className={`text-xs font-mono px-2 py-1 rounded ${
+                          room.difficulty === 'Easy' ? 'bg-green-500/10 text-green-400' :
+                          room.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-400' :
+                          room.difficulty === 'Hard' ? 'bg-red-500/10 text-red-400' :
+                          'bg-blue-500/10 text-blue-400'
+                        }`}>
+                          {room.difficulty}
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all" />
                 </div>
