@@ -56,9 +56,9 @@ export function getHackTheBoxDemoStats(): HackTheBoxStats {
   return {
     rank: "Apprentice (Lv. 29)",
     points: 0,
-    ownership: 10,
-    userOwns: 10,
-    systemOwns: 10,
+    ownership: 15,
+    userOwns: 15,
+    systemOwns: 15,
     challenges: 10,
     ranking: 0,
   };
