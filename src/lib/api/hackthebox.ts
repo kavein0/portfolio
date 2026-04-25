@@ -54,11 +54,11 @@ export async function fetchHackTheBoxStats(
 // Fallback demo data
 export function getHackTheBoxDemoStats(): HackTheBoxStats {
   return {
-    rank: "Apprentice",
+    rank: "Apprentice (Lv. 29)",
     points: 0,
-    ownership: 8,
-    userOwns: 8,
-    systemOwns: 8,
+    ownership: 10,
+    userOwns: 10,
+    systemOwns: 10,
     challenges: 10,
     ranking: 0,
   };

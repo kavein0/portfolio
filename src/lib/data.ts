@@ -46,20 +46,16 @@ export interface Skill {
 
 export const skills: Skill[] = [
   // Offensive
-  { name: "Pentesting Fundamentals", level: 75, category: "offensive" },
-  { name: "Web App Security", level: 65, category: "offensive" },
-  { name: "Network Exploitation", level: 70, category: "offensive" },
-  { name: "OSINT", level: 80, category: "offensive" },
-
-  // Defensive
-  { name: "Digital Forensics", level: 75, category: "defensive" },
-  { name: "Cryptography", level: 65, category: "defensive" },
-  { name: "Malware / AV Analysis", level: 55, category: "defensive" },
-
-  // Networking
-  { name: "Network Routing & Switching", level: 85, category: "networking" },
-  { name: "Network Security", level: 80, category: "networking" },
-  { name: "Packet Analysis", level: 70, category: "networking" },
+  { name: "Pentesting Fundamentals", level: 85, category: "offensive" },
+  { name: "Web App Security", level: 75, category: "offensive" },
+  { name: "Network Security", level: 85, category: "networking" },
+  { name: "Windows Forensics", level: 78, category: "defensive" },
+  { name: "Linux Administration", level: 82, category: "programming" },
+  { name: "Digital Forensics", level: 70, category: "defensive" },
+  { name: "Reverse Engineering", level: 55, category: "offensive" },
+  { name: "Python for Security", level: 75, category: "programming" },
+  { name: "C++ for Low-Level", level: 50, category: "programming" },
+  { name: "Docker & Container Security", level: 60, category: "devops" },
 
   // DevOps
   { name: "Linux Administration", level: 75, category: "devops" },

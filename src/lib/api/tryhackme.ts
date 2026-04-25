@@ -43,11 +43,11 @@ export async function fetchTryHackMeStats(
 // Fallback demo data (used when API is unreachable or no username set)
 export function getTryHackMeDemoStats(): TryHackMeStats {
   return {
-    rank: "Top 15%",
+    rank: "Top 15% (Adept)",
     points: 0,
     roomsCompleted: 20,
     streak: 0,
-    badges: 2,
-    level: 7,
+    badges: 4,
+    level: 44,
   };
 }
