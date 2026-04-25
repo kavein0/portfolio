@@ -120,7 +120,7 @@ export default function StatsClient({
               </div>
               <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
                 <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
-                  <Terminal className="w-3 h-3 text-[var(--cyber-purple)]" /> System Owns
+                  <Terminal className="w-3 h-3 text-[var(--cyber-purple)]" /> Machine Owns
                 </div>
                 <div className="text-xl font-bold text-[var(--text-primary)]">
                   {htbStats.systemOwns}

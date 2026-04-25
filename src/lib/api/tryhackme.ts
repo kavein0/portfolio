@@ -47,7 +47,7 @@ export function getTryHackMeDemoStats(): TryHackMeStats {
     points: 0,
     roomsCompleted: 20,
     streak: 0,
-    badges: 4,
+    badges: 2,
     level: 44,
   };
 }

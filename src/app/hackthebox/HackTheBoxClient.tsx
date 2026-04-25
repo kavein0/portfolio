@@ -27,21 +27,20 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
       </motion.div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
         {[
-          { label: "Rank", value: stats.rank || "...", icon: Terminal, color: "text-[var(--cyber-green)]" },
-          { label: "System Owns", value: stats.systemOwns || "...", icon: Server, color: "text-red-400" },
-          { label: "User Owns", value: stats.userOwns || "...", icon: Cpu, color: "text-blue-400" },
-          { label: "Challenges", value: stats.challenges || "...", icon: Box, color: "text-purple-400" },
+          { label: "Rank", value: stats.rank || "...", icon: Terminal },
+          { label: "Machine Owns", value: stats.systemOwns || "...", icon: Server },
+          { label: "Challenges", value: stats.challenges || "...", icon: Box },
         ].map((stat, i) => (
           <motion.div
             key={stat.label}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] transition-all group"
+            className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] transition-all group flex flex-col items-center text-center"
           >
-            <stat.icon className={`w-8 h-8 mb-4 ${stat.color} group-hover:scale-110 transition-transform`} />
+            <stat.icon className="w-8 h-8 mb-4 text-[var(--cyber-green)] group-hover:scale-110 transition-transform" />
             <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{stat.value}</div>
             <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</div>
           </motion.div>
@@ -106,7 +105,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
         {/* Challenges */}
         <div>
           <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-6 flex items-center gap-3">
-            <Box className="text-[var(--cyber-blue)]" /> Solved Challenges
+            <Box className="text-[var(--cyber-green)]" /> Solved Challenges
           </h2>
           <div className="space-y-4">
             {visibleChallenges.map((challenge, i) => (
@@ -118,16 +117,16 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-blue)] hover:bg-[var(--cyber-blue)]/5 transition-all group"
+                className="block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] hover:bg-[var(--cyber-green)]/5 transition-all group"
               >
                 <div className="flex justify-between items-center gap-4">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-md font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-blue)] transition-colors truncate whitespace-normal break-words line-clamp-2">
+                    <h3 className="text-md font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors truncate whitespace-normal break-words line-clamp-2">
                       {challenge.name}
                     </h3>
                     <div className="flex gap-2 mt-2">
                       {challenge.category && (
-                        <span className="text-xs font-mono text-[var(--cyber-blue)] bg-[var(--cyber-blue)]/10 px-2 py-1 rounded">
+                        <span className="text-xs font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 px-2 py-1 rounded">
                           {challenge.category}
                         </span>
                       )}
@@ -138,7 +137,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
                       )}
                     </div>
                   </div>
-                  <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-blue)] opacity-0 group-hover:opacity-100 transition-all" />
+                  <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all" />
                 </div>
               </motion.a>
             ))}
@@ -147,7 +146,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
             <div className="mt-6 flex justify-center">
               <button
                 onClick={() => setExpandedChallenges(!expandedChallenges)}
-                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-blue)] text-[var(--text-primary)] hover:text-[var(--cyber-blue)] transition-all group"
+                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] text-[var(--text-primary)] hover:text-[var(--cyber-green)] transition-all group"
               >
                 {expandedChallenges ? (
                   <>Show Less <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" /></>
