@@ -256,22 +256,28 @@ export interface HTBAcademyBadge {
 }
 
 export const htbAcademyBadges: HTBAcademyBadge[] = [
-  { name: "Our favorite seabird",            description: "Linux Fundamentals module completed",                url: "https://academy.hackthebox.com/achievement/badge/e60e345f-a06c-11ef-864f-bea50ffe6cb4" },
-  { name: "Every road leads back to root",   description: "File Inclusion module completed",                   url: "https://academy.hackthebox.com/achievement/badge/97a1430d-439a-11f1-9254-bea50ffe6cb4" },
-  { name: "Airborne delivery",               description: "File Transfers module completed",                   url: "https://academy.hackthebox.com/achievement/badge/d4186cff-439a-11f1-9254-bea50ffe6cb4" },
-  { name: "DROP your weapon",                description: "SQL Injection Fundamentals module completed",       url: "https://academy.hackthebox.com/achievement/badge/26aff55e-439b-11f1-9254-bea50ffe6cb4" },
-  { name: "Everything is connected",         description: "Introduction to Networking module completed",       url: "https://academy.hackthebox.com/achievement/badge/044b5e1f-4356-11f1-9254-bea50ffe6cb4" },
-  { name: "Your request is my demand",       description: "Web Requests module completed",                     url: "https://academy.hackthebox.com/achievement/badge/bb642bf8-4359-11f1-9254-bea50ffe6cb4" },
-  { name: "Combine the modules",             description: "Using The Metasploit Framework module completed",   url: "https://academy.hackthebox.com/achievement/badge/96b4c714-4399-11f1-9254-bea50ffe6cb4" },
-  { name: "Crawl, walk, run",                description: "Windows Fundamentals module completed",             url: "https://academy.hackthebox.com/achievement/badge/0c5915d6-a06f-11ef-864f-bea50ffe6cb4" },
+  // Row 1
+  { name: "Our favorite seabird",            description: "Linux Fundamentals module completed",                 url: "https://academy.hackthebox.com/achievement/badge/e60e345f-a06c-11ef-864f-bea50ffe6cb4" },
+  { name: "Every road leads back to root",   description: "File Inclusion module completed",                    url: "https://academy.hackthebox.com/achievement/badge/97a1430d-439a-11f1-9254-bea50ffe6cb4" },
+  { name: "Airborne delivery",               description: "File Transfers module completed",                    url: "https://academy.hackthebox.com/achievement/badge/d4186cff-439a-11f1-9254-bea50ffe6cb4" },
+  { name: "DROP your weapon",                description: "SQL Injection Fundamentals module completed",        url: "https://academy.hackthebox.com/achievement/badge/26aff55e-439b-11f1-9254-bea50ffe6cb4" },
+  { name: "Everything is connected",         description: "Introduction to Networking module completed",        url: "https://academy.hackthebox.com/achievement/badge/044b5e1f-4356-11f1-9254-bea50ffe6cb4" },
+  // Row 2
+  { name: "Your request is my demand",       description: "Web Requests module completed",                      url: "https://academy.hackthebox.com/achievement/badge/bb642bf8-4359-11f1-9254-bea50ffe6cb4" },
+  { name: "Combine the modules",             description: "Using The Metasploit Framework module completed",    url: "https://academy.hackthebox.com/achievement/badge/96b4c714-4399-11f1-9254-bea50ffe6cb4" },
+  { name: "Crawl, walk, run",                description: "Windows Fundamentals module completed",              url: "https://academy.hackthebox.com/achievement/badge/0c5915d6-a06f-11ef-864f-bea50ffe6cb4" },
   { name: "Fuzzing is power",                description: "Attacking Web Applications with Ffuf module completed", url: "https://academy.hackthebox.com/achievement/badge/e42d1761-4399-11f1-9254-bea50ffe6cb4" },
-  { name: "Your white belt training begins", description: "Introduction to Active Directory module completed", url: "https://academy.hackthebox.com/achievement/badge/2df7ab64-435b-11f1-9254-bea50ffe6cb4" },
-  { name: "Developer",                       description: "Introduction to Web Applications module completed", url: "https://academy.hackthebox.com/achievement/badge/78b20bad-4358-11f1-9254-bea50ffe6cb4" },
-  { name: "Lurk in the packets",             description: "Intro to Network Traffic Analysis module completed", url: "https://academy.hackthebox.com/achievement/badge/56778ec4-b443-11f0-9254-bea50ffe6cb4" },
-  { name: "Start building your arsenal",     description: "Setting Up module completed",                       url: "https://academy.hackthebox.com/achievement/badge/2aa06747-439a-11f1-9254-bea50ffe6cb4" },
-  { name: "Light in the dark",               description: "Vulnerability Assessment module completed",         url: "https://academy.hackthebox.com/achievement/badge/8e561844-b444-11f0-9254-bea50ffe6cb4" },
-  { name: "An apple a day...",               description: "MacOS Fundamentals module completed",               url: "https://academy.hackthebox.com/achievement/badge/50255da2-439b-11f1-9254-bea50ffe6cb4" },
-  { name: "Humanoid",                        description: "Brief Intro To Hardware Attacks module completed",  url: "https://academy.hackthebox.com/achievement/badge/49abd452-4399-11f1-9254-bea50ffe6cb4" },
-  { name: "Chronicle champion",              description: "Security Incident Reporting module completed",      url: "https://academy.hackthebox.com/achievement/badge/901ab868-199b-11ef-b18d-bea50ffe6cb4" },
+  { name: "Your white belt training begins", description: "Introduction to Active Directory module completed",  url: "https://academy.hackthebox.com/achievement/badge/2df7ab64-435b-11f1-9254-bea50ffe6cb4" },
+  // Row 3
+  { name: "Developer",                       description: "Introduction to Web Applications module completed",  url: "https://academy.hackthebox.com/achievement/badge/14ac055c-4399-11f1-9254-bea50ffe6cb4" },
+  { name: "Lurk in the packets",             description: "Intro to Network Traffic Analysis module completed", url: "https://academy.hackthebox.com/achievement/badge/78b20bad-4358-11f1-9254-bea50ffe6cb4" },
+  { name: "Start building your arsenal",     description: "Setting Up module completed",                        url: "https://academy.hackthebox.com/achievement/badge/56778ec4-b443-11f0-9254-bea50ffe6cb4" },
+  { name: "Light in the dark",               description: "Vulnerability Assessment module completed",          url: "https://academy.hackthebox.com/achievement/badge/2aa06747-439a-11f1-9254-bea50ffe6cb4" },
+  { name: "An apple a day...",               description: "MacOS Fundamentals module completed",                url: "https://academy.hackthebox.com/achievement/badge/8e561844-b444-11f0-9254-bea50ffe6cb4" },
+  // Row 4
+  { name: "Humanoid",                        description: "Brief Intro To Hardware Attacks module completed",   url: "https://academy.hackthebox.com/achievement/badge/50255da2-439b-11f1-9254-bea50ffe6cb4" },
+  { name: "Chronicle champion",              description: "Security Incident Reporting module completed",       url: "https://academy.hackthebox.com/achievement/badge/49abd452-4399-11f1-9254-bea50ffe6cb4" },
+  { name: "Unwavering User",                 description: "Awarded when you achieve your first weekly streak",  url: "https://academy.hackthebox.com/achievement/badge/901ab868-199b-11ef-b18d-bea50ffe6cb4" },
+  { name: "Cyber Rookie 365",                description: "Awarded after one year of learning at HTB Academy",  url: "https://academy.hackthebox.com/achievement/badge/a8f9e1b1-3946-11f0-bcfd-bea50ffe6cb4" },
 ];
 
