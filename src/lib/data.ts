@@ -194,29 +194,29 @@ export const thmBadges = [
 // ============================================================
 
 export const htbMachines = [
-  { name: "CCTV", os: "Linux", difficulty: "Easy", date: "2026", url: "https://app.hackthebox.com/machines/CCTV" },
-  { name: "Interpreter", os: "Linux", difficulty: "Medium", date: "2026", url: "https://app.hackthebox.com/machines/Interpreter" },
-  { name: "WingData", os: "Linux", difficulty: "Easy", date: "2026", url: "https://app.hackthebox.com/machines/WingData" },
-  { name: "Facts", os: "Linux", difficulty: "Easy", date: "2026", url: "https://app.hackthebox.com/machines/Facts" },
-  { name: "Overwatch", os: "Windows", difficulty: "Medium", date: "2026", url: "https://app.hackthebox.com/machines/Overwatch" },
-  { name: "MonitorsFour", os: "Windows", difficulty: "Easy", date: "2025", url: "https://app.hackthebox.com/machines/MonitorsFour" },
-  { name: "Expressway", os: "Linux", difficulty: "Easy", date: "2025", url: "https://app.hackthebox.com/machines/Expressway" },
-  { name: "Soulmate", os: "Linux", difficulty: "Easy", date: "2025", url: "https://app.hackthebox.com/machines/Soulmate" },
-  { name: "Editor", os: "Linux", difficulty: "Easy", date: "2025", url: "https://app.hackthebox.com/machines/Editor" },
-  { name: "Outbound", os: "Linux", difficulty: "Easy", date: "2025", url: "https://app.hackthebox.com/machines/Outbound" },
+  { name: "CCTV",         os: "Linux",   difficulty: "Easy",   date: "2026", url: "https://labs.hackthebox.com/achievement/machine/1945093/847" },
+  { name: "Interpreter",  os: "Linux",   difficulty: "Medium", date: "2026", url: "https://labs.hackthebox.com/achievement/machine/1945093/841" },
+  { name: "WingData",     os: "Linux",   difficulty: "Easy",   date: "2026", url: "https://labs.hackthebox.com/achievement/machine/1945093/835" },
+  { name: "Facts",        os: "Linux",   difficulty: "Easy",   date: "2026", url: "https://labs.hackthebox.com/achievement/machine/1945093/829" },
+  { name: "Overwatch",    os: "Windows", difficulty: "Medium", date: "2026", url: "https://labs.hackthebox.com/achievement/machine/1945093/826" },
+  { name: "MonitorsFour", os: "Windows", difficulty: "Easy",   date: "2025", url: "https://labs.hackthebox.com/achievement/machine/1945093/814" },
+  { name: "Expressway",   os: "Linux",   difficulty: "Easy",   date: "2025", url: "https://labs.hackthebox.com/achievement/machine/1945093/736" },
+  { name: "Soulmate",     os: "Linux",   difficulty: "Easy",   date: "2025", url: "https://labs.hackthebox.com/achievement/machine/1945093/721" },
+  { name: "Editor",       os: "Linux",   difficulty: "Easy",   date: "2025", url: "https://labs.hackthebox.com/achievement/machine/1945093/684" },
+  { name: "Outbound",     os: "Linux",   difficulty: "Easy",   date: "2025", url: "https://labs.hackthebox.com/achievement/machine/1945093/672" },
 ];
 
 export const htbChallenges = [
-  { name: "Lucky Dice", category: "Misc", difficulty: "Very Easy", url: "https://app.hackthebox.com/challenges/Lucky%20Dice" },
-  { name: "CubeMadness1", category: "GamePwn", difficulty: "Very Easy", url: "https://app.hackthebox.com/challenges/CubeMadness1" },
-  { name: "Not Posixtive", category: "Misc", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/Not%20Posixtive" },
-  { name: "Broken Shell", category: "Misc", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/Broken%20Shell" },
-  { name: "r0bob1rd", category: "Pwn", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/r0bob1rd" },
-  { name: "Execute", category: "Pwn", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/Execute" },
-  { name: "CubeMadness2", category: "GamePwn", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/CubeMadness2" },
-  { name: "Micro Storage", category: "Misc", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/Micro%20Storage" },
-  { name: "Restaurant", category: "Pwn", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/Restaurant" },
-  { name: "You know 0xDiablos", category: "Pwn", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/You%20know%200xDiablos" },
+  { name: "Lucky Dice",           category: "Misc",    difficulty: "Very Easy", url: "https://labs.hackthebox.com/achievement/challenge/1945093/1180" },
+  { name: "CubeMadness1",         category: "GamePwn", difficulty: "Very Easy", url: "https://labs.hackthebox.com/achievement/challenge/1945093/302" },
+  { name: "Not Posixtive",        category: "Misc",    difficulty: "Easy",      url: "https://labs.hackthebox.com/achievement/challenge/1945093/952" },
+  { name: "Broken Shell",         category: "Misc",    difficulty: "Easy",      url: "https://labs.hackthebox.com/achievement/challenge/1945093/883" },
+  { name: "r0bob1rd",             category: "Pwn",     difficulty: "Easy",      url: "https://labs.hackthebox.com/achievement/challenge/1945093/837" },
+  { name: "Execute",              category: "Pwn",     difficulty: "Easy",      url: "https://labs.hackthebox.com/achievement/challenge/1945093/640" },
+  { name: "CubeMadness2",         category: "GamePwn", difficulty: "Easy",      url: "https://labs.hackthebox.com/achievement/challenge/1945093/305" },
+  { name: "Micro Storage",        category: "Misc",    difficulty: "Easy",      url: "https://labs.hackthebox.com/achievement/challenge/1945093/252" },
+  { name: "Restaurant",           category: "Pwn",     difficulty: "Easy",      url: "https://labs.hackthebox.com/achievement/challenge/1945093/200" },
+  { name: "You know 0xDiablos",   category: "Pwn",     difficulty: "Easy",      url: "https://labs.hackthebox.com/achievement/challenge/1945093/106" },
 ];
 
 // ============================================================
