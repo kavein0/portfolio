@@ -120,8 +120,23 @@ body {
 
 /* Glitch Effect */
 .glitch-wrapper {
+  --glitch-main: var(--cyber-green);
+  --glitch-shadow-1: var(--cyber-blue);
+  --glitch-shadow-2: var(--cyber-magenta);
   position: relative;
   display: inline-block;
+}
+
+.glitch-wrapper.glitch-red {
+  --glitch-main: var(--cyber-red);
+  --glitch-shadow-1: var(--cyber-orange);
+  --glitch-shadow-2: var(--cyber-purple);
+}
+
+.glitch-wrapper.glitch-blue {
+  --glitch-main: var(--cyber-blue);
+  --glitch-shadow-1: var(--cyber-green);
+  --glitch-shadow-2: var(--cyber-magenta);
 }
 
 .glitch-text {
@@ -132,8 +147,8 @@ body {
 
 .glitch-wrapper:hover .glitch-text {
   animation: glitch-anim 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-  color: var(--cyber-green);
-  text-shadow: 2px 0 var(--cyber-blue), -2px 0 var(--cyber-magenta);
+  color: var(--glitch-main);
+  text-shadow: 2px 0 var(--glitch-shadow-1), -2px 0 var(--glitch-shadow-2);
 }
 
 .glitch-wrapper:hover .glitch-text::before,
@@ -149,14 +164,14 @@ body {
 
 .glitch-wrapper:hover .glitch-text::before {
   animation: glitch-anim-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite alternate;
-  color: var(--cyber-blue);
+  color: var(--glitch-shadow-1);
   z-index: -1;
   left: 2px;
 }
 
 .glitch-wrapper:hover .glitch-text::after {
   animation: glitch-anim-3 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite alternate;
-  color: var(--cyber-magenta);
+  color: var(--glitch-shadow-2);
   z-index: -2;
   left: -2px;
 }
