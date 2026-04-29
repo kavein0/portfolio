@@ -16,8 +16,8 @@ export default function CiscoPage() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-16"
       >
-        <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4">
-          Cisco Networking Academy <span className="text-[var(--cyber-blue)]">Certifications</span>
+        <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4 glitch-wrapper">
+          <span className="glitch-text" data-text="Cisco Networking Academy">Cisco Networking Academy</span> <span className="text-[var(--cyber-blue)]">Certifications</span>
         </h1>
         <p className="text-[var(--text-secondary)] font-mono text-lg">
           My academic achievements and specialized training completed through Cisco NetAcad.
