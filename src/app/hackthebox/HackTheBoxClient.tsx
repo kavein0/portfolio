@@ -20,8 +20,8 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
           <div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4 md:mb-2">
-              HackTheBox <span className="text-[var(--cyber-green)]">Profile</span>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4 md:mb-2 glitch-wrapper">
+              <span className="glitch-text" data-text="HackTheBox">HackTheBox</span> <span className="text-[var(--cyber-green)]">Profile</span>
             </h1>
             <p className="text-[var(--text-secondary)] font-mono text-lg">
               Compromised machines, solved challenges, and overall ownership statistics.

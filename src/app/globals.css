@@ -118,6 +118,76 @@ body {
   box-shadow: var(--glow-green);
 }
 
+/* Glitch Effect */
+.glitch-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.glitch-wrapper:hover .glitch-text {
+  animation: glitch-anim 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  color: var(--cyber-green);
+  text-shadow: 2px 0 var(--cyber-blue), -2px 0 var(--cyber-magenta);
+}
+
+.glitch-wrapper:hover .glitch-text::before,
+.glitch-wrapper:hover .glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-wrapper:hover .glitch-text::before {
+  animation: glitch-anim-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite alternate;
+  color: var(--cyber-blue);
+  z-index: -1;
+  left: 2px;
+}
+
+.glitch-wrapper:hover .glitch-text::after {
+  animation: glitch-anim-3 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite alternate;
+  color: var(--cyber-magenta);
+  z-index: -2;
+  left: -2px;
+}
+
+@keyframes glitch-anim {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 1px) }
+  40% { transform: translate(-1px, -1px) }
+  60% { transform: translate(2px, 1px) }
+  80% { transform: translate(1px, -1px) }
+  100% { transform: translate(0) }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+  100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
+}
+
+@keyframes glitch-anim-3 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 1px); }
+  20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 2px); }
+  40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, -1px); }
+  60% { clip-path: inset(20% 0 50% 0); transform: translate(-1px, 2px); }
+  80% { clip-path: inset(50% 0 30% 0); transform: translate(2px, 1px); }
+  100% { clip-path: inset(5% 0 80% 0); transform: translate(-2px, -1px); }
+}
+
 /* Animated border gradient */
 .border-glow {
   position: relative;
@@ -223,6 +293,7 @@ body {
 
 /* Magnetic button */
 .magnetic-btn {
+  --btn-color: var(--cyber-green);
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -230,8 +301,8 @@ body {
   gap: 8px;
   padding: 14px 32px;
   background: transparent;
-  border: 1px solid var(--cyber-green);
-  color: var(--cyber-green);
+  border: 1px solid var(--btn-color);
+  color: var(--btn-color);
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
   font-weight: 500;
@@ -246,14 +317,14 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--cyber-green);
+  background: var(--btn-color);
   transform: translateY(100%);
   transition: transform 0.3s ease;
   z-index: -1;
 }
 .magnetic-btn:hover {
-  color: var(--bg-primary);
-  box-shadow: var(--glow-green);
+  color: var(--bg-primary) !important;
+  box-shadow: 0 0 20px var(--btn-color);
 }
 .magnetic-btn:hover::before {
   transform: translateY(0);

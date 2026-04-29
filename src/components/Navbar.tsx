@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/lib/data";
 import { GithubIcon, TelegramIcon } from "@/components/icons/BrandIcons";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X, Shield, Terminal as TerminalIcon } from "lucide-react";
 import Link from "next/link";
+import TerminalWidget from "./TerminalWidget";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
@@ -19,7 +20,19 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "`" || e.key === "~") {
+        e.preventDefault();
+        setTerminalOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -82,8 +95,16 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Desktop socials */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Desktop socials & terminal */}
+          <div className="hidden md:flex items-center gap-4">
+            <button
+              onClick={() => setTerminalOpen(!terminalOpen)}
+              className="text-[var(--text-muted)] hover:text-[var(--cyber-green)] transition-colors p-1"
+              aria-label="Toggle Terminal (~)"
+            >
+              <TerminalIcon className="w-5 h-5" />
+            </button>
+            <div className="w-px h-5 bg-[var(--border-default)]"></div>
             <a
               href={siteConfig.socials.github}
               target="_blank"
@@ -143,7 +164,17 @@ export default function Navbar() {
                 </Link>
               </motion.div>
             ))}
-            <div className="flex gap-6 mt-8">
+            <div className="flex items-center gap-6 mt-8">
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  setTerminalOpen(true);
+                }}
+                className="text-[var(--text-muted)] hover:text-[var(--cyber-green)] transition-colors"
+              >
+                <TerminalIcon className="w-6 h-6" />
+              </button>
+              <div className="w-px h-6 bg-[var(--border-default)]"></div>
               <a
                 href={siteConfig.socials.github}
                 target="_blank"
@@ -165,6 +196,8 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <TerminalWidget isOpen={terminalOpen} onClose={() => setTerminalOpen(false)} />
     </>
   );
 }

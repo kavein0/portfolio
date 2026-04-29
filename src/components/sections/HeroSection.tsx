@@ -10,39 +10,35 @@ import Link from "next/link";
 function useTypingEffect(texts: string[], typingSpeed = 60, deletingSpeed = 40, pauseMs = 2000) {
   const [display, setDisplay] = useState("");
   const [textIndex, setTextIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
     const currentText = texts[textIndex];
-    const timers: ReturnType<typeof setTimeout>[] = [];
 
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          setDisplay(currentText.slice(0, charIndex + 1));
-          setCharIndex((prev) => prev + 1);
+    if (!isDeleting) {
+      if (display.length < currentText.length) {
+        timeout = setTimeout(() => {
+          setDisplay(currentText.slice(0, display.length + 1));
+        }, typingSpeed);
+      } else {
+        timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, pauseMs);
+      }
+    } else {
+      if (display.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplay(currentText.slice(0, display.length - 1));
+        }, deletingSpeed);
+      } else {
+        setIsDeleting(false);
+        setTextIndex((prev) => (prev + 1) % texts.length);
+      }
+    }
 
-          if (charIndex + 1 === currentText.length) {
-            const pauseTimer = setTimeout(() => setIsDeleting(true), pauseMs);
-            timers.push(pauseTimer);
-          }
-        } else {
-          setDisplay(currentText.slice(0, charIndex - 1));
-          setCharIndex((prev) => prev - 1);
-
-          if (charIndex - 1 === 0) {
-            setIsDeleting(false);
-            setTextIndex((prev) => (prev + 1) % texts.length);
-          }
-        }
-      },
-      isDeleting ? deletingSpeed : typingSpeed
-    );
-    timers.push(timeout);
-
-    return () => timers.forEach(clearTimeout);
-  }, [charIndex, isDeleting, textIndex, texts, typingSpeed, deletingSpeed, pauseMs]);
+    return () => clearTimeout(timeout);
+  }, [display, isDeleting, textIndex, texts, typingSpeed, deletingSpeed, pauseMs]);
 
   return display;
 }
@@ -114,11 +110,11 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-2"
+          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-2 glitch-wrapper"
         >
-          <span className="gradient-text">{siteConfig.nameEn.split(" ")[0]}</span>
+          <span className="gradient-text glitch-text" data-text={siteConfig.nameEn.split(" ")[0]}>{siteConfig.nameEn.split(" ")[0]}</span>
           <br />
-          <span className="text-[var(--text-primary)]">
+          <span className="text-[var(--text-primary)] glitch-text" data-text={siteConfig.nameEn.split(" ").slice(1).join(" ")}>
             {siteConfig.nameEn.split(" ").slice(1).join(" ")}
           </span>
         </motion.h1>
@@ -162,9 +158,8 @@ export default function HeroSection() {
             href="#contact"
             className="magnetic-btn"
             style={{
-              borderColor: "var(--cyber-blue)",
-              color: "var(--cyber-blue)",
-            }}
+              "--btn-color": "var(--cyber-blue)",
+            } as React.CSSProperties}
           >
             Get in Touch
           </a>
