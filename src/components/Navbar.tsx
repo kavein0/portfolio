@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/lib/data";
-import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/icons/BrandIcons";
+import { GithubIcon, TelegramIcon } from "@/components/icons/BrandIcons";
 import { Menu, X, Shield } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,6 +12,7 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "TryHackMe", href: "/tryhackme" },
   { label: "HackTheBox", href: "/hackthebox" },
+  { label: "HTBAcademy", href: "/htb-academy" },
   { label: "Cisco", href: "/cisco" },
 ];
 
@@ -73,7 +74,7 @@ export default function Navbar() {
                   }`}
                 >
                   <span className={`transition-opacity mr-1 ${isActive ? "opacity-100 text-[var(--cyber-green)]" : "opacity-0 group-hover:opacity-100 text-[var(--cyber-green)]"}`}>
-                    //
+                    {"//"}
                   </span>
                   {link.label}
                 </Link>
@@ -92,15 +93,7 @@ export default function Navbar() {
             >
               <GithubIcon className="w-[18px] h-[18px]" />
             </a>
-            <a
-              href={siteConfig.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--text-muted)] hover:text-[var(--cyber-blue)] transition-colors"
-              aria-label="LinkedIn"
-            >
-              <LinkedinIcon className="w-[18px] h-[18px]" />
-            </a>
+
             <a
               href={siteConfig.socials.telegram}
               target="_blank"
@@ -159,14 +152,7 @@ export default function Navbar() {
               >
                 <GithubIcon className="w-6 h-6" />
               </a>
-              <a
-                href={siteConfig.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--text-muted)] hover:text-[var(--cyber-blue)] transition-colors"
-              >
-                <LinkedinIcon className="w-6 h-6" />
-              </a>
+
               <a
                 href={siteConfig.socials.telegram}
                 target="_blank"

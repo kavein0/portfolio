@@ -50,7 +50,7 @@ export const skills: Skill[] = [
   { name: "Web App Security", level: 75, category: "offensive" },
   { name: "Network Security", level: 85, category: "networking" },
   { name: "Windows Forensics", level: 78, category: "defensive" },
-  { name: "Linux Administration", level: 82, category: "programming" },
+  { name: "Linux System Internals", level: 82, category: "programming" },
   { name: "Digital Forensics", level: 70, category: "defensive" },
   { name: "Reverse Engineering", level: 55, category: "offensive" },
   { name: "Python for Security", level: 75, category: "programming" },
@@ -218,3 +218,41 @@ export const htbChallenges = [
   { name: "Restaurant", category: "Pwn", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/Restaurant" },
   { name: "You know 0xDiablos", category: "Pwn", difficulty: "Easy", url: "https://app.hackthebox.com/challenges/You%20know%200xDiablos" },
 ];
+
+// ============================================================
+// Detailed HackTheBox Academy Data
+// ============================================================
+
+export interface HTBAcademyModule {
+  name: string;
+  status: string;
+  url: string;
+}
+
+export const htbAcademyModules: HTBAcademyModule[] = [
+  { name: "Linux Fundamentals", status: "Completed", url: "https://academy.hackthebox.com/module/details/18" },
+  { name: "Introduction To Networking", status: "Completed", url: "https://academy.hackthebox.com/module/details/34" },
+  { name: "Web Requests", status: "Completed", url: "https://academy.hackthebox.com/module/details/35" },
+  { name: "Windows Fundamentals", status: "Completed", url: "https://academy.hackthebox.com/module/details/49" },
+  { name: "Introduction To Active Directory", status: "Completed", url: "https://academy.hackthebox.com/module/details/167" },
+  { name: "Intro To Network Traffic Analysis", status: "Completed", url: "https://academy.hackthebox.com/module/details/119" },
+  { name: "Setting Up", status: "Completed", url: "https://academy.hackthebox.com/module/details/87" },
+  { name: "MacOS Fundamentals", status: "Completed", url: "https://academy.hackthebox.com/module/details/168" },
+];
+
+export interface HTBAcademyBadge {
+  name: string;
+  description: string;
+}
+
+export const htbAcademyBadges: HTBAcademyBadge[] = [
+  { name: "Our favorite seabird", description: "Linux Fundamentals module completed" },
+  { name: "Everything is connected", description: "Introduction to Networking module completed" },
+  { name: "Your request is my demand", description: "Web Requests module completed" },
+  { name: "Crawl, walk, run", description: "Windows Fundamentals module completed" },
+  { name: "Your white belt training begins", description: "Introduction to Active Directory module completed" },
+  { name: "Lurk in the packets", description: "Intro To Network Traffic Analysis module completed" },
+  { name: "Start building your arsenal", description: "Setting Up module completed" },
+  { name: "An apple a day...", description: "MacOS Fundamentals module completed" },
+];
+

@@ -13,18 +13,20 @@ export default function CyberBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) return;
 
     let animId: number;
-    let particles: Particle[] = [];
-    let mouse = { x: -1000, y: -1000 };
+    const particles: Particle[] = [];
+    const mouse = { x: -1000, y: -1000 };
 
     interface Particle {
       x: number;
       y: number;
       vx: number;
       vy: number;
+      baseVx: number;
+      baseVy: number;
       size: number;
       opacity: number;
       color: string;
@@ -37,27 +39,28 @@ export default function CyberBackground() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Mouse tracking (throttled)
-    let mouseTimeout: NodeJS.Timeout;
+    // Mouse tracking (instant update for smooth repulsion)
     function onMouseMove(e: MouseEvent) {
-      clearTimeout(mouseTimeout);
-      mouseTimeout = setTimeout(() => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-      }, 16);
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
     }
     window.addEventListener("mousemove", onMouseMove);
 
     // Create particles
-    const count = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 15000));
+    const count = Math.min(60, Math.floor((window.innerWidth * window.innerHeight) / 15000));
     const colors = ["#00ff88", "#00d4ff", "#7c3aed"];
 
     for (let i = 0; i < count; i++) {
+      const baseVx = (Math.random() - 0.5) * 0.8; // Calmer speed
+      const baseVy = (Math.random() - 0.5) * 0.8; // Calmer speed
+      
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
+        vx: baseVx,
+        vy: baseVy,
+        baseVx,
+        baseVy,
         size: Math.random() * 2 + 0.5,
         opacity: Math.random() * 0.4 + 0.1,
         color: colors[Math.floor(Math.random() * colors.length)],
@@ -75,9 +78,9 @@ export default function CyberBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < 150) {
-            const opacity = (1 - dist / 150) * 0.08;
+            const opacity = (1 - dist / 150) * 0.25; // More pronounced lines (25% max opacity)
             ctx!.strokeStyle = `rgba(0, 255, 136, ${opacity})`;
-            ctx!.lineWidth = 0.5;
+            ctx!.lineWidth = 0.8;
             ctx!.beginPath();
             ctx!.moveTo(particles[i].x, particles[i].y);
             ctx!.lineTo(particles[j].x, particles[j].y);
@@ -92,15 +95,15 @@ export default function CyberBackground() {
         const mdx = p.x - mouse.x;
         const mdy = p.y - mouse.y;
         const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (mDist < 120) {
-          const force = (120 - mDist) / 120;
-          p.vx += (mdx / mDist) * force * 0.3;
-          p.vy += (mdy / mDist) * force * 0.3;
+        if (mDist < 150) {
+          const force = (150 - mDist) / 150;
+          p.vx += (mdx / mDist) * force * 0.05;
+          p.vy += (mdy / mDist) * force * 0.05;
         }
 
-        // Damping
-        p.vx *= 0.98;
-        p.vy *= 0.98;
+        // Smoothly return to base velocity
+        p.vx += (p.baseVx - p.vx) * 0.02;
+        p.vy += (p.baseVy - p.vy) * 0.02;
 
         p.x += p.vx;
         p.y += p.vy;

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TryHackMeStats, thmRooms, thmBadges } from "@/lib/data";
+import { TryHackMeStats, thmRooms, thmBadges, siteConfig } from "@/lib/data";
 import { Trophy, Target, Zap, Shield, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 
@@ -18,12 +18,25 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
         animate={{ opacity: 1, y: 0 }}
         className="mb-12"
       >
-        <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4">
-          TryHackMe <span className="text-[var(--cyber-green)]">Profile</span>
-        </h1>
-        <p className="text-[var(--text-secondary)] font-mono text-lg">
-          Detailed overview of my learning paths, completed rooms, and earned badges.
-        </p>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4 md:mb-2">
+              TryHackMe <span className="text-[var(--cyber-green)]">Profile</span>
+            </h1>
+            <p className="text-[var(--text-secondary)] font-mono text-lg">
+              Detailed overview of my learning paths, completed rooms, and earned badges.
+            </p>
+          </div>
+          <a
+            href={siteConfig.tryhackme.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--cyber-green)]/10 text-[var(--cyber-green)] border border-[var(--cyber-green)]/20 hover:bg-[var(--cyber-green)]/20 hover:border-[var(--cyber-green)]/50 transition-all font-mono text-sm whitespace-nowrap group w-full md:w-auto"
+          >
+            <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            View @{siteConfig.tryhackme.username}
+          </a>
+        </div>
       </motion.div>
 
       {/* Stats Overview */}

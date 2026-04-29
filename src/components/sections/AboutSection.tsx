@@ -80,7 +80,7 @@ export default function AboutSection() {
             className="space-y-6"
           >
             <p className="text-[var(--text-secondary)] text-base leading-relaxed">
-              I'm a <span className="text-[var(--text-primary)] font-semibold">3rd-year cadet</span> at{" "}
+              I&apos;m a <span className="text-[var(--text-primary)] font-semibold">3rd-year cadet</span> at{" "}
               <span className="text-[var(--cyber-green)]">{siteConfig.university}</span>,
               specializing in cybersecurity and digital forensics. My academic journey is driven by a
               passion for understanding how systems can be both defended and ethically challenged.
@@ -92,7 +92,7 @@ export default function AboutSection() {
               offensive skills with infrastructure knowledge.
             </p>
             <p className="text-[var(--text-secondary)] text-base leading-relaxed">
-              My goal is to contribute to Ukraine's cybersecurity defense as a skilled professional,
+              My goal is to contribute to Ukraine&apos;s cybersecurity defense as a skilled professional,
               combining law enforcement knowledge from KNUIA with practical technical expertise.
             </p>
 

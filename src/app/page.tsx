@@ -1,5 +1,6 @@
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
+
 import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
@@ -17,6 +18,8 @@ export default function Home() {
       <div className="container-custom">
         <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-default)] to-transparent" />
       </div>
+
+
 
       <ContactSection />
     </>

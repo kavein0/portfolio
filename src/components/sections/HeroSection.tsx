@@ -15,6 +15,7 @@ function useTypingEffect(texts: string[], typingSpeed = 60, deletingSpeed = 40, 
 
   useEffect(() => {
     const currentText = texts[textIndex];
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
     const timeout = setTimeout(
       () => {
@@ -23,7 +24,8 @@ function useTypingEffect(texts: string[], typingSpeed = 60, deletingSpeed = 40, 
           setCharIndex((prev) => prev + 1);
 
           if (charIndex + 1 === currentText.length) {
-            setTimeout(() => setIsDeleting(true), pauseMs);
+            const pauseTimer = setTimeout(() => setIsDeleting(true), pauseMs);
+            timers.push(pauseTimer);
           }
         } else {
           setDisplay(currentText.slice(0, charIndex - 1));
@@ -37,8 +39,9 @@ function useTypingEffect(texts: string[], typingSpeed = 60, deletingSpeed = 40, 
       },
       isDeleting ? deletingSpeed : typingSpeed
     );
+    timers.push(timeout);
 
-    return () => clearTimeout(timeout);
+    return () => timers.forEach(clearTimeout);
   }, [charIndex, isDeleting, textIndex, texts, typingSpeed, deletingSpeed, pauseMs]);
 
   return display;
@@ -101,7 +104,7 @@ export default function HeroSection() {
         >
           <Shield className="w-5 h-5 text-[var(--cyber-green)] hidden sm:block" />
           <span className="font-mono text-xs sm:text-sm text-[var(--text-muted)] tracking-widest uppercase">
-            {siteConfig.universityShort} // {siteConfig.year}
+            {siteConfig.universityShort} {"//"} {siteConfig.year}
           </span>
           <Lock className="w-4 h-4 text-[var(--cyber-blue)] hidden sm:block" />
         </motion.div>
@@ -167,24 +170,6 @@ export default function HeroSection() {
           </a>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.a
-          href="#about"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.6 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-muted)] hover:text-[var(--cyber-green)] transition-colors cursor-pointer"
-        >
-          <span className="font-mono text-[10px] tracking-widest uppercase">
-            Scroll
-          </span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-          >
-            <ChevronDown className="w-4 h-4" />
-          </motion.div>
-        </motion.a>
       </div>
     </section>
   );

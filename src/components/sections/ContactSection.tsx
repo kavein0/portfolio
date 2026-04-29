@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { siteConfig } from "@/lib/data";
-import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/icons/BrandIcons";
+import { GithubIcon, TelegramIcon } from "@/components/icons/BrandIcons";
 import { Mail, MapPin, ArrowUpRight } from "lucide-react";
 
 const contactLinks = [

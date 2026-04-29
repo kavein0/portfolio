@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { TryHackMeStats, HackTheBoxStats, siteConfig } from "@/lib/data";
-import { Trophy, Target, Zap, Shield, Box, Terminal, ExternalLink } from "lucide-react";
+import { Trophy, Target, Shield, Box, Terminal, ExternalLink } from "lucide-react";
 import SkillsSection from "@/components/sections/SkillsSection";
 
 export default function StatsClient({
@@ -13,7 +13,7 @@ export default function StatsClient({
   htbStats: HackTheBoxStats;
 }) {
   return (
-    <div className="min-h-screen pt-32 pb-20">
+    <div className="min-h-screen" style={{ paddingTop: "10rem", paddingBottom: "6rem" }}>
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
