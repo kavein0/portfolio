@@ -230,14 +230,23 @@ export interface HTBAcademyModule {
 }
 
 export const htbAcademyModules: HTBAcademyModule[] = [
-  { name: "Linux Fundamentals", status: "Completed", url: "https://academy.hackthebox.com/module/details/18" },
-  { name: "Introduction To Networking", status: "Completed", url: "https://academy.hackthebox.com/module/details/34" },
-  { name: "Web Requests", status: "Completed", url: "https://academy.hackthebox.com/module/details/35" },
-  { name: "Windows Fundamentals", status: "Completed", url: "https://academy.hackthebox.com/module/details/49" },
-  { name: "Introduction To Active Directory", status: "Completed", url: "https://academy.hackthebox.com/module/details/167" },
-  { name: "Intro To Network Traffic Analysis", status: "Completed", url: "https://academy.hackthebox.com/module/details/119" },
-  { name: "Setting Up", status: "Completed", url: "https://academy.hackthebox.com/module/details/87" },
-  { name: "MacOS Fundamentals", status: "Completed", url: "https://academy.hackthebox.com/module/details/168" },
+  { name: "Linux Fundamentals",                  status: "Completed", url: "https://academy.hackthebox.com/module/details/18" },
+  { name: "File Inclusion",                       status: "Completed", url: "https://academy.hackthebox.com/module/details/23" },
+  { name: "File Transfers",                       status: "Completed", url: "https://academy.hackthebox.com/module/details/24" },
+  { name: "SQL Injection Fundamentals",           status: "Completed", url: "https://academy.hackthebox.com/module/details/33" },
+  { name: "Introduction To Networking",           status: "Completed", url: "https://academy.hackthebox.com/module/details/34" },
+  { name: "Web Requests",                         status: "Completed", url: "https://academy.hackthebox.com/module/details/35" },
+  { name: "Using The Metasploit Framework",       status: "Completed", url: "https://academy.hackthebox.com/module/details/39" },
+  { name: "Windows Fundamentals",                 status: "Completed", url: "https://academy.hackthebox.com/module/details/49" },
+  { name: "Attacking Web Applications With Ffuf", status: "Completed", url: "https://academy.hackthebox.com/module/details/54" },
+  { name: "Introduction To Web Applications",     status: "Completed", url: "https://academy.hackthebox.com/module/details/75" },
+  { name: "Setting Up",                           status: "Completed", url: "https://academy.hackthebox.com/module/details/87" },
+  { name: "Brief Intro To Hardware Attacks",      status: "Completed", url: "https://academy.hackthebox.com/module/details/116" },
+  { name: "Intro To Network Traffic Analysis",    status: "Completed", url: "https://academy.hackthebox.com/module/details/119" },
+  { name: "Vulnerability Assessment",             status: "Completed", url: "https://academy.hackthebox.com/module/details/108" },
+  { name: "Introduction To Active Directory",     status: "Completed", url: "https://academy.hackthebox.com/module/details/167" },
+  { name: "MacOS Fundamentals",                   status: "Completed", url: "https://academy.hackthebox.com/module/details/168" },
+  { name: "Security Incident Reporting",          status: "Completed", url: "https://academy.hackthebox.com/module/details/148" },
 ];
 
 export interface HTBAcademyBadge {
@@ -246,13 +255,22 @@ export interface HTBAcademyBadge {
 }
 
 export const htbAcademyBadges: HTBAcademyBadge[] = [
-  { name: "Our favorite seabird", description: "Linux Fundamentals module completed" },
-  { name: "Everything is connected", description: "Introduction to Networking module completed" },
-  { name: "Your request is my demand", description: "Web Requests module completed" },
-  { name: "Crawl, walk, run", description: "Windows Fundamentals module completed" },
+  { name: "Our favorite seabird",          description: "Linux Fundamentals module completed" },
+  { name: "Every road leads back to root", description: "File Inclusion module completed" },
+  { name: "Airborne delivery",             description: "File Transfers module completed" },
+  { name: "DROP your weapon",              description: "SQL Injection Fundamentals module completed" },
+  { name: "Everything is connected",       description: "Introduction to Networking module completed" },
+  { name: "Your request is my demand",     description: "Web Requests module completed" },
+  { name: "Combine the modules",           description: "Using The Metasploit Framework module completed" },
+  { name: "Crawl, walk, run",              description: "Windows Fundamentals module completed" },
+  { name: "Fuzzing is power",              description: "Attacking Web Applications with Ffuf module completed" },
   { name: "Your white belt training begins", description: "Introduction to Active Directory module completed" },
-  { name: "Lurk in the packets", description: "Intro To Network Traffic Analysis module completed" },
-  { name: "Start building your arsenal", description: "Setting Up module completed" },
-  { name: "An apple a day...", description: "MacOS Fundamentals module completed" },
+  { name: "Developer",                     description: "Introduction to Web Applications module completed" },
+  { name: "Lurk in the packets",           description: "Intro to Network Traffic Analysis module completed" },
+  { name: "Start building your arsenal",   description: "Setting Up module completed" },
+  { name: "Light in the dark",             description: "Vulnerability Assessment module completed" },
+  { name: "An apple a day...",             description: "MacOS Fundamentals module completed" },
+  { name: "Humanoid",                      description: "Brief Intro To Hardware Attacks module completed" },
+  { name: "Chronicle champion",            description: "Security Incident Reporting module completed" },
 ];
 
