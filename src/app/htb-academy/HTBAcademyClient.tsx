@@ -103,17 +103,20 @@ export default function HTBAcademyClient() {
           </h2>
           <div className="space-y-4">
             {htbAcademyBadges.map((badge, i) => (
-              <motion.div
+              <motion.a
                 key={badge.name}
+                href={badge.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="group p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] transition-all flex items-center gap-4"
+                className="group p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] transition-all flex items-center gap-4 cursor-pointer"
               >
                 <div className="w-12 h-12 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border-default)] group-hover:border-[var(--cyber-green)] flex items-center justify-center transition-colors shrink-0">
                   <Award className="w-6 h-6 text-[var(--cyber-green)]" />
                 </div>
-                <div>
+                <div className="flex-1">
                   <h3 className="font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors">
                     {badge.name}
                   </h3>
@@ -121,7 +124,8 @@ export default function HTBAcademyClient() {
                     {badge.description}
                   </p>
                 </div>
-              </motion.div>
+                <ExternalLink className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] transition-colors shrink-0 opacity-0 group-hover:opacity-100" />
+              </motion.a>
             ))}
           </div>
         </div>
