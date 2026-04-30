@@ -66,12 +66,15 @@ export default function CiscoPage() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-6 mt-4 md:mt-0 ml-16 md:ml-0 shrink-0">
+                      <div className="flex items-center gap-3 mt-4 md:mt-0 ml-16 md:ml-0 shrink-0">
                         <div className="flex items-center justify-center gap-2 text-sm font-mono text-[var(--text-muted)] bg-[var(--bg-tertiary)] px-3 py-1.5 rounded-full w-[145px]">
                           <Calendar className="w-4 h-4 shrink-0" />
                           <span>{cert.date}</span>
                         </div>
-                        <div className="w-5 h-5 shrink-0 flex items-center justify-center">
+                        <div className="flex items-center justify-center text-sm font-mono text-[var(--cyber-blue)] bg-[var(--cyber-blue)]/10 border border-[var(--cyber-blue)]/30 px-3 py-1.5 rounded-full w-[110px]">
+                          Semester {cert.date.includes("2026") ? "6" : "5"}
+                        </div>
+                        <div className="w-5 h-5 shrink-0 flex items-center justify-center ml-2">
                           {cert.url && (
                             <ExternalLink className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--cyber-blue)] opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-1" />
                           )}
