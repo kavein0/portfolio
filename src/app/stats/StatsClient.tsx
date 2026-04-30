@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TryHackMeStats, HackTheBoxStats, siteConfig } from "@/lib/data";
-import { Trophy, Target, Shield, Box, Terminal, ExternalLink } from "lucide-react";
+import { TryHackMeStats, HackTheBoxStats, siteConfig, certifications, htbAcademyModules, htbAcademyBadges } from "@/lib/data";
+import { Trophy, Target, Shield, Box, Terminal, ExternalLink, GraduationCap, Award, BookOpen } from "lucide-react";
 import SkillsSection from "@/components/sections/SkillsSection";
 
 export default function StatsClient({
@@ -124,6 +124,80 @@ export default function StatsClient({
                 </div>
                 <div className="text-xl font-bold text-[var(--text-primary)]">
                   {htbStats.systemOwns}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* HTB Academy Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="glass-card p-6 border-l-2 border-l-[var(--cyber-purple)] relative group overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--cyber-purple)]/5 rounded-bl-full -z-10 group-hover:bg-[var(--cyber-purple)]/10 transition-colors" />
+            
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
+                  <GraduationCap className="w-6 h-6 text-[var(--cyber-purple)]" />
+                  HTB Academy
+                </h2>
+                <p className="text-sm text-[var(--text-muted)] mt-1">
+                  Continuous Learning
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
+                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
+                  <BookOpen className="w-3 h-3 text-[var(--cyber-purple)]" /> Modules
+                </div>
+                <div className="text-xl font-bold text-[var(--text-primary)]">
+                  {htbAcademyModules.length}
+                </div>
+              </div>
+              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
+                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
+                  <Award className="w-3 h-3 text-[var(--cyber-blue)]" /> Badges
+                </div>
+                <div className="text-xl font-bold text-[var(--text-primary)]">
+                  {htbAcademyBadges.length}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Cisco Academy Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="glass-card p-6 border-l-2 border-l-[#00bceb] relative group overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#00bceb]/5 rounded-bl-full -z-10 group-hover:bg-[#00bceb]/10 transition-colors" />
+            
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
+                  <Award className="w-6 h-6 text-[#00bceb]" />
+                  Cisco Academy
+                </h2>
+                <p className="text-sm text-[var(--text-muted)] mt-1">
+                  Official Certifications
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4">
+              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
+                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
+                  <Award className="w-3 h-3 text-[#00bceb]" /> Total Certifications
+                </div>
+                <div className="text-xl font-bold text-[var(--text-primary)]">
+                  {certifications.length}
                 </div>
               </div>
             </div>

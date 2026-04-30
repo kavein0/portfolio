@@ -1,7 +1,4 @@
-// TryHackMe unofficial API parser
-// Fetches public profile data from TryHackMe
-
-import { TryHackMeStats } from "@/lib/data";
+import { TryHackMeStats, thmRooms, thmBadges } from "@/lib/data";
 
 const THM_BASE = "https://tryhackme.com/api";
 
@@ -45,9 +42,9 @@ export function getTryHackMeDemoStats(): TryHackMeStats {
   return {
     rank: "Top 15% (Adept)",
     points: 0,
-    roomsCompleted: 20,
+    roomsCompleted: thmRooms.length,
     streak: 0,
-    badges: 2,
+    badges: thmBadges.length,
     level: 44,
   };
 }

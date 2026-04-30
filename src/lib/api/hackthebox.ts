@@ -1,7 +1,4 @@
-// HackTheBox unofficial API parser
-// Fetches public profile data from HackTheBox
-
-import { HackTheBoxStats } from "@/lib/data";
+import { HackTheBoxStats, htbMachines, htbChallenges } from "@/lib/data";
 
 const HTB_BASE = "https://www.hackthebox.com/api/v4";
 
@@ -56,10 +53,10 @@ export function getHackTheBoxDemoStats(): HackTheBoxStats {
   return {
     rank: "Apprentice (Lv. 29)",
     points: 0,
-    ownership: 10,
-    userOwns: 10,
-    systemOwns: 10,
-    challenges: 10,
+    ownership: htbMachines.length,
+    userOwns: htbMachines.length,
+    systemOwns: htbMachines.length,
+    challenges: htbChallenges.length,
     ranking: 0,
   };
 }
