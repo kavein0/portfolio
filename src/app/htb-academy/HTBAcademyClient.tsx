@@ -2,9 +2,16 @@
 
 import { motion } from "framer-motion";
 import { htbAcademyModules, htbAcademyBadges, siteConfig } from "@/lib/data";
-import { BookOpen, Shield, Award, ExternalLink, Terminal } from "lucide-react";
+import { BookOpen, Shield, Award, ExternalLink, Terminal, ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 
 export default function HTBAcademyClient() {
+  const [expandedModules, setExpandedModules] = useState(false);
+  const [expandedBadges, setExpandedBadges] = useState(false);
+
+  const visibleModules = expandedModules ? htbAcademyModules : htbAcademyModules.slice(0, 10);
+  const visibleBadges = expandedBadges ? htbAcademyBadges : htbAcademyBadges.slice(0, 10);
+
   return (
     <div className="container-custom min-h-screen" style={{ paddingTop: "8rem", paddingBottom: "6rem" }}>
       <motion.div
@@ -64,7 +71,7 @@ export default function HTBAcademyClient() {
             <BookOpen className="text-[var(--cyber-green)]" /> Completed Modules
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {htbAcademyModules.map((module, i) => (
+            {visibleModules.map((module, i) => (
               <motion.a
                 key={module.name}
                 href={module.url}
@@ -99,6 +106,20 @@ export default function HTBAcademyClient() {
               </motion.a>
             ))}
           </div>
+          {htbAcademyModules.length > 10 && (
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => setExpandedModules(!expandedModules)}
+                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] text-[var(--text-primary)] hover:text-[var(--cyber-green)] transition-all group"
+              >
+                {expandedModules ? (
+                  <>Show Less <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" /></>
+                ) : (
+                  <>Show All ({htbAcademyModules.length - 10}) <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" /></>
+                )}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Badges */}
@@ -107,7 +128,7 @@ export default function HTBAcademyClient() {
             <Award className="text-[var(--cyber-green)]" /> Completion Badges
           </h2>
           <div className="space-y-4">
-            {htbAcademyBadges.map((badge, i) => (
+            {visibleBadges.map((badge, i) => (
               <motion.a
                 key={badge.name}
                 href={badge.url}
@@ -138,8 +159,23 @@ export default function HTBAcademyClient() {
               </motion.a>
             ))}
           </div>
+          {htbAcademyBadges.length > 10 && (
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => setExpandedBadges(!expandedBadges)}
+                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] text-[var(--text-primary)] hover:text-[var(--cyber-green)] transition-all group"
+              >
+                {expandedBadges ? (
+                  <>Show Less <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" /></>
+                ) : (
+                  <>Show All ({htbAcademyBadges.length - 10}) <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" /></>
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
+
