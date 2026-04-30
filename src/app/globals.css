@@ -45,12 +45,6 @@
   box-sizing: border-box;
 }
 
-@media (pointer: fine) {
-  *, *::before, *::after {
-    cursor: none !important;
-  }
-}
-
 html {
   scroll-behavior: smooth;
   background-color: var(--bg-primary);
