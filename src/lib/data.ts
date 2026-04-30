@@ -91,12 +91,32 @@ export interface Certification {
 
 export const certifications: Certification[] = [
   {
+    name: "Вступ до IoT та цифрової трансформації",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+  },
+  {
+    name: "Exploring IoT with Cisco Packet Tracer",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+  },
+  {
+    name: "Exploring Networking with Cisco Packet Tracer",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+  },
+  {
     name: "Вступ до кібербезпеки",
     issuer: "Cisco Networking Academy",
     date: "Apr 30, 2026",
   },
   {
     name: "Захист мережі",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+  },
+  {
+    name: "Початок роботи з Cisco Packet Tracer",
     issuer: "Cisco Networking Academy",
     date: "Apr 30, 2026",
   },
@@ -113,37 +133,37 @@ export const certifications: Certification[] = [
   {
     name: "Network Support and Security",
     issuer: "Cisco Networking Academy",
-    date: "Nov 13, 2023",
+    date: "Nov 13, 2025",
     url: "https://www.credly.com/badges/e2165746-646b-4360-8370-f26ecdb5f4a2",
   },
   {
     name: "Network Addressing and Basic Troubleshooting",
     issuer: "Cisco Networking Academy",
-    date: "Nov 13, 2023",
+    date: "Nov 13, 2025",
     url: "https://www.credly.com/badges/2bc79cb5-80c7-44d5-b566-fec2208b44cd",
   },
   {
-    name: "Networking Basics",
+    name: "Основи роботи в мережі",
     issuer: "Cisco Networking Academy",
-    date: "Nov 13, 2023",
+    date: "Nov 13, 2025",
     url: "https://www.credly.com/badges/82f3360d-1c52-44e9-8e98-6200e017a82e",
   },
   {
-    name: "Networking Devices and Initial Configuration",
+    name: "Мережні пристрої та початкове налаштування",
     issuer: "Cisco Networking Academy",
-    date: "Oct 28, 2023",
+    date: "Oct 28, 2025",
     url: "https://www.credly.com/badges/af9194b0-2e5f-4ef6-abab-473da4b5eae3",
   },
   {
     name: "Operating Systems Basics",
     issuer: "Cisco Networking Academy",
-    date: "Oct 28, 2023",
+    date: "Oct 28, 2025",
     url: "https://www.credly.com/badges/5f18bc0c-2e84-40cf-bf92-24b072c70414",
   },
   {
     name: "Computer Hardware Basics",
     issuer: "Cisco Networking Academy",
-    date: "Oct 28, 2023",
+    date: "Oct 28, 2025",
     url: "https://www.credly.com/badges/57d32137-a1a7-4444-b89c-7529443d7fab",
   },
   {
