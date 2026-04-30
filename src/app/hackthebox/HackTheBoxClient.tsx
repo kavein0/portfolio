@@ -95,7 +95,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
                       {machine.difficulty}
                     </span>
                   )}
-                  <span className="text-xs font-bold font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 border border-[var(--cyber-green)]/30 px-2 py-1 rounded">
+                  <span className="inline-flex items-center justify-center text-sm font-bold font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 border border-[var(--cyber-green)]/30 rounded w-8 h-7">
                     {(machine.date === "2026" || machine.name === "MonitorsFour") ? "6" : "5"}
                   </span>
                 </div>
@@ -151,6 +151,9 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
                           {challenge.difficulty}
                         </span>
                       )}
+                      <span className="inline-flex items-center justify-center text-sm font-bold font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 border border-[var(--cyber-green)]/30 rounded w-8 h-7">
+                        {["CubeMadness2", "Broken Shell", "Not Posixtive", "Lucky Dice", "Micro Storage", "r0bob1rd"].includes(challenge.name) ? "6" : "5"}
+                      </span>
                     </div>
                   </div>
                   <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all" />
