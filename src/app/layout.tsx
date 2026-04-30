@@ -35,6 +35,7 @@ export const metadata: Metadata = {
 import Navbar from "@/components/Navbar";
 import CyberBackgroundWrapper from "@/components/CyberBackgroundWrapper";
 import Footer from "@/components/Footer";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 export default function RootLayout({
   children,
@@ -44,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="noise">
+        <CustomCursor />
         <CyberBackgroundWrapper />
         <Navbar />
         <main className="relative z-10 pt-[72px]">
