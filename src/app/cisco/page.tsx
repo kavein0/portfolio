@@ -71,8 +71,8 @@ export default function CiscoPage() {
                           <Calendar className="w-4 h-4 shrink-0" />
                           <span>{cert.date}</span>
                         </div>
-                        <div className="flex items-center justify-center text-sm font-mono text-[var(--cyber-blue)] bg-[var(--cyber-blue)]/10 border border-[var(--cyber-blue)]/30 px-3 py-1.5 rounded-full w-[110px]">
-                          Semester {cert.date.includes("2026") ? "6" : "5"}
+                        <div className="flex items-center justify-center text-sm font-bold font-mono text-[var(--cyber-blue)] bg-[var(--cyber-blue)]/10 border border-[var(--cyber-blue)]/30 rounded-md w-8 h-8">
+                          {cert.date.includes("2026") ? "6" : "5"}
                         </div>
                         <div className="w-5 h-5 shrink-0 flex items-center justify-center ml-2">
                           {cert.url && (

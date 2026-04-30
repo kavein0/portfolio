@@ -76,9 +76,14 @@ export default function HTBAcademyClient() {
                 className="group relative z-0 block p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] transition-all overflow-hidden"
               >
                 <div className="flex justify-between items-center mb-2">
-                  <div className="flex items-center gap-2">
-                    <Terminal className="w-4 h-4 text-[var(--cyber-green)]" />
-                    <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider">Module</span>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <Terminal className="w-4 h-4 text-[var(--cyber-green)]" />
+                      <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider">Module</span>
+                    </div>
+                    <div className="flex items-center justify-center text-[10px] font-bold font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 border border-[var(--cyber-green)]/30 rounded w-5 h-5">
+                      {["Linux Fundamentals", "Windows Fundamentals", "MacOS Fundamentals", "Setting Up"].includes(module.name) ? "5" : "6"}
+                    </div>
                   </div>
                   <ExternalLink className="w-4 h-4 text-[var(--text-muted)] opacity-0 group-hover:opacity-100 group-hover:text-[var(--cyber-green)] transition-all" />
                 </div>
@@ -117,9 +122,14 @@ export default function HTBAcademyClient() {
                   <Award className="w-6 h-6 text-[var(--cyber-green)]" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors">
-                    {badge.name}
-                  </h3>
+                  <div className="flex items-center gap-3">
+                    <h3 className="font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors">
+                      {badge.name}
+                    </h3>
+                    <div className="flex items-center justify-center text-[10px] font-bold font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 border border-[var(--cyber-green)]/30 rounded w-5 h-5">
+                      {["Linux Fundamentals", "Windows Fundamentals", "MacOS Fundamentals", "Setting Up"].some(m => badge.description.includes(m)) ? "5" : "6"}
+                    </div>
+                  </div>
                   <p className="text-sm text-[var(--text-muted)] mt-1">
                     {badge.description}
                   </p>
