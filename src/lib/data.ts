@@ -91,6 +91,26 @@ export interface Certification {
 
 export const certifications: Certification[] = [
   {
+    name: "Вступ до кібербезпеки",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+  },
+  {
+    name: "Захист мережі",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+  },
+  {
+    name: "Безпека кінцевих вузлів",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 29, 2026",
+  },
+  {
+    name: "Управління загрозами у кібербезпеці",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 29, 2026",
+  },
+  {
     name: "Network Support and Security",
     issuer: "Cisco Networking Academy",
     date: "Nov 13, 2023",
