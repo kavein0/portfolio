@@ -165,6 +165,21 @@ export const certifications: Certification[] = [
     date: "Jun 17, 2024",
     url: "https://www.credly.com/badges/565b66b4-a45c-4dde-be6c-19d737d9b2a4",
   },
+  {
+    name: "Початок роботи з Cisco Packet Tracer",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+  },
+  {
+    name: "Exploring Networking with Cisco Packet Tracer",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+  },
+  {
+    name: "Exploring IoT with Cisco Packet Tracer",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+  },
 ];
 
 // ============================================================
