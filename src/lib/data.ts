@@ -31,6 +31,9 @@ export const siteConfig = {
     userId: 1945093,
     profileUrl: "https://app.hackthebox.com/public/users/1945093",
   },
+  cisco: {
+    profileUrl: "https://www.netacad.com",
+  },
 } as const;
 
 // ============================================================
