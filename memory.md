@@ -15,7 +15,8 @@ The user strongly prefers a highly polished, premium **Cyberpunk / Hacker** aest
 - **Colors:** Deep dark backgrounds (`--bg-primary`, `--bg-secondary`, `--bg-tertiary`), highlighted by neon accents, primarily **Cyber Green** (`--cyber-green`) and neon blue.
 - **Typography:** Heavy use of monospace (`font-mono`) for data/tech elements, and a distinct display font (`font-display`) for headings.
 - **Buttons:** Use the `.magnetic-btn` custom class. Recent updates allow dynamic hover colors via the `--btn-color` CSS variable (e.g., transitioning to blue on hover).
-- **Effects:** CSS glitch effects on main titles. Elements should feel responsive and "alive" (staggered fade-ins, border highlights on hover).
+- **Effects:** CSS glitch effects on main titles. Elements should feel responsive and "alive" (border highlights on hover).
+  - **Card Entrance:** Use a staggered CRT "flicker/blink" animation for list items using framer-motion: `opacity: [0, 1, 0.3, 1, 0.7, 1]` with `delay: i * 0.1, duration: 0.6, ease: "easeOut"`.
 
 ## 3. Data Architecture (`src/lib/data.ts`)
 The portfolio aggregates achievements across several platforms:
@@ -28,7 +29,11 @@ The portfolio aggregates achievements across several platforms:
   - **Rule:** Also use personal achievement links (e.g., `https://labs.hackthebox.com/achievement/machine/...`).
 - **TryHackMe:**
   - Cloudflare actively blocks scraping. Currently relies on static data/badges. Do not attempt direct scraping without a workaround.
-- **Cisco Academy:** Static data entries.
+- **Cisco Academy:**
+  - 15 Certifications.
+  - **Rule:** Uses Credly badge URLs where available, ordered precisely according to the user's provided list.
+  - **Rule:** The header links directly to the user's Google Docs transcript rather than a NetAcad profile.
+  - **Design:** The stats overview card spans full width, avoiding legacy side-by-side elements for a cleaner look.
 
 ## 4. API & Backend State
 - **HTB API:** Code is prepared in `src/app/api/htb/route.ts` (or similar) to fetch real-time stats.
