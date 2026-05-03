@@ -28,10 +28,9 @@ export default function CiscoPage() {
         {visibleCerts.map((cert, i) => (
           <motion.div
             key={cert.name}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05 }}
             className="relative"
           >
 
