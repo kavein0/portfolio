@@ -64,11 +64,11 @@ export default function CiscoPage() {
               key={cert.name}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 0.3, 1, 0.7, 1] }}
-              transition={{ delay: i * 0.05, duration: 0.4, ease: "easeOut" }}
+              transition={{ delay: i * 0.1, duration: 0.6, ease: "easeOut" }}
             >
               <Wrapper {...wrapperProps}>
                 <div
-                  className={`p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] ${
+                  className={`p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] ${
                     cert.url ? "group-hover:border-[var(--cyber-blue)] group-hover:bg-[var(--cyber-blue)]/5" : ""
                   } transition-all relative overflow-hidden`}
                 >
@@ -80,21 +80,21 @@ export default function CiscoPage() {
                   <div className="relative z-10 flex justify-between items-center gap-4">
                     <div className="flex items-center gap-4 flex-1 min-w-0">
                       <div
-                        className={`w-10 h-10 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center flex-shrink-0 ${
+                        className={`w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center flex-shrink-0 ${
                           cert.url ? "group-hover:scale-110" : ""
                         } transition-transform`}
                       >
-                        <Award className="w-5 h-5 text-[var(--cyber-blue)]" />
+                        <Award className="w-6 h-6 text-[var(--cyber-blue)]" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3
-                          className={`text-base font-bold text-[var(--text-primary)] ${
+                          className={`text-xl font-bold text-[var(--text-primary)] ${
                             cert.url ? "group-hover:text-[var(--cyber-blue)]" : ""
                           } transition-colors whitespace-normal break-words line-clamp-2`}
                         >
                           {cert.name}
                         </h3>
-                        <p className="text-sm font-mono text-[var(--text-muted)] mt-0.5 truncate">{cert.issuer}</p>
+                        <p className="text-sm font-mono text-[var(--text-muted)] mt-1 truncate">{cert.issuer}</p>
                       </div>
                     </div>
 
