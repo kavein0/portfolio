@@ -64,7 +64,7 @@ export default function CiscoPage() {
               key={cert.name}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 0.3, 1, 0.7, 1] }}
-              transition={{ delay: i * 0.07, duration: 0.5, ease: "easeOut" }}
+              transition={{ delay: i * 0.05, duration: 0.4, ease: "easeOut" }}
             >
               <Wrapper {...wrapperProps}>
                 <div
