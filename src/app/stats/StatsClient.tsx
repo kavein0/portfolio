@@ -13,7 +13,7 @@ export default function StatsClient({
   htbStats: HackTheBoxStats;
 }) {
   return (
-    <div className="min-h-screen" style={{ paddingTop: "10rem", paddingBottom: "6rem" }}>
+    <div className="min-h-screen pt-40 pb-24">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

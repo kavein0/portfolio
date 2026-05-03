@@ -107,8 +107,8 @@ body {
 /* Glassmorphism card */
 .glass-card {
   background: rgba(17, 17, 24, 0.6);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--border-default);
   border-radius: 16px;
   transition: all 0.3s ease;

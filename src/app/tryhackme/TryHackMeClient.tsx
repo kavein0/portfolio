@@ -12,7 +12,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
   const visibleRooms = expandedRooms ? thmRooms : thmRooms.slice(0, 10);
   const visibleBadges = expandedBadges ? thmBadges : thmBadges.slice(0, 10);
   return (
-    <div className="container-custom min-h-screen" style={{ paddingTop: "8rem", paddingBottom: "6rem" }}>
+    <div className="container-custom min-h-screen pt-32 pb-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
