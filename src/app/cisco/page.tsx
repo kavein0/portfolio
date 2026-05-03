@@ -62,9 +62,9 @@ export default function CiscoPage() {
           return (
             <motion.div
               key={cert.name}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.05 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0.3, 1, 0.7, 1] }}
+              transition={{ delay: i * 0.07, duration: 0.5, ease: "easeOut" }}
             >
               <Wrapper {...wrapperProps}>
                 <div
