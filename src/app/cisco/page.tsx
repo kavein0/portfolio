@@ -24,7 +24,7 @@ export default function CiscoPage() {
         </p>
       </motion.div>
 
-      <div className="relative border-l border-[var(--border-default)] ml-4 md:ml-8 pl-8 md:pl-12 py-4 space-y-12">
+      <div className="relative py-4 space-y-6">
         {visibleCerts.map((cert, i) => (
           <motion.div
             key={cert.name}
@@ -34,8 +34,6 @@ export default function CiscoPage() {
             transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
             className="relative"
           >
-            {/* Timeline Dot */}
-            <div className="absolute -left-[41px] md:-left-[57px] top-6 w-4 h-4 rounded-full bg-[var(--cyber-blue)] shadow-[0_0_10px_var(--cyber-blue)] border-4 border-[var(--bg-primary)]" />
 
             {(() => {
               const Wrapper = cert.url ? 'a' : 'div';
