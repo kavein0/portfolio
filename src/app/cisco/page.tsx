@@ -28,40 +28,28 @@ export default function CiscoPage() {
             </p>
           </div>
           <a
-            href={siteConfig.cisco?.profileUrl ?? "https://www.netacad.com"}
+            href="https://docs.google.com/document/d/1rDxT5uOPnRjDArVh8_8i-XTaQ_8xMxK-iMHaLFArj34/edit?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--cyber-blue)]/10 text-[var(--cyber-blue)] border border-[var(--cyber-blue)]/20 hover:bg-[var(--cyber-blue)]/20 hover:border-[var(--cyber-blue)]/50 transition-all font-mono text-sm whitespace-nowrap group w-full md:w-auto"
           >
             <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            View NetAcad Profile
+            View Transcript
           </a>
         </div>
       </motion.div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mb-16 max-w-md">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-blue)] transition-all group flex flex-col items-center text-center"
-        >
-          <Award className="w-8 h-8 mb-4 text-[var(--cyber-blue)] group-hover:scale-110 transition-transform" />
-          <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{certifications.length}</div>
-          <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">Certifications</div>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-blue)] transition-all group flex flex-col items-center text-center"
-        >
-          <GraduationCap className="w-8 h-8 mb-4 text-[var(--cyber-blue)] group-hover:scale-110 transition-transform" />
-          <div className="text-3xl font-display font-bold text-[var(--text-primary)]">NetAcad</div>
-          <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">Platform</div>
-        </motion.div>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-blue)] transition-all group flex flex-col items-center text-center mb-16"
+      >
+        <Award className="w-8 h-8 mb-4 text-[var(--cyber-blue)] group-hover:scale-110 transition-transform" />
+        <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{certifications.length}</div>
+        <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">Certifications Completed</div>
+      </motion.div>
 
       {/* Certificates List */}
       <div className="space-y-4">
