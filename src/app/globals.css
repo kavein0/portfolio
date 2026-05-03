@@ -404,3 +404,14 @@ body {
     padding-inline: 16px;
   }
 }
+
+/* Layout Spacing */
+.page-pad {
+  padding-top: 8rem;
+  padding-bottom: 6rem;
+}
+
+.page-pad-lg {
+  padding-top: 10rem;
+  padding-bottom: 6rem;
+}

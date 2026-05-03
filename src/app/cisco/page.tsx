@@ -10,7 +10,7 @@ export default function CiscoPage() {
   const visibleCerts = expanded ? certifications : certifications.slice(0, 10);
 
   return (
-    <div className="container-custom min-h-screen pt-32 pb-24">
+    <div className="container-custom min-h-screen page-pad">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
