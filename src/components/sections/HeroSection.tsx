@@ -68,13 +68,7 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Radial gradient overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 50% at 50% 40%, rgba(0,255,136,0.06) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 70% 60%, rgba(0,212,255,0.04) 0%, transparent 70%)",
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none bg-hero-radial" />
 
       {/* Hexagonal grid overlay */}
       <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
@@ -158,10 +152,7 @@ export default function HeroSection() {
           </Link>
           <a
             href="#contact"
-            className="magnetic-btn"
-            style={{
-              "--btn-color": "var(--cyber-blue)",
-            } as React.CSSProperties}
+            className="magnetic-btn [--btn-color:var(--cyber-blue)]"
           >
             Get in Touch
           </a>

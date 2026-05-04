@@ -254,6 +254,12 @@ body {
   background-size: 30px 30px;
 }
 
+/* Hero section backgrounds */
+.bg-hero-radial {
+  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(0,255,136,0.06) 0%, transparent 70%), 
+              radial-gradient(ellipse 40% 40% at 70% 60%, rgba(0,212,255,0.04) 0%, transparent 70%);
+}
+
 /* Noise texture overlay */
 .noise::before {
   content: '';
