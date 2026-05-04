@@ -66,6 +66,13 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
       case "exit":
         onClose();
         return;
+      case "cscking":
+        output = (
+          <span className="text-[var(--cyber-red)] font-bold tracking-widest glitch-text" data-text="CURSE YOU NOSOV VV">
+            CURSE YOU NOSOV VV
+          </span>
+        );
+        break;
       default:
         output = <span className="text-red-400">Command not found: {cmd}</span>;
     }
