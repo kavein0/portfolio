@@ -96,28 +96,6 @@ export default function AboutSection() {
               combining law enforcement knowledge from KNUIA with practical technical expertise.
             </p>
 
-            {/* Quick stats */}
-            <div className="grid grid-cols-2 gap-3 pt-4">
-              {highlights.map((item, i) => (
-                <m.div
-                  key={item.label}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
-                  className="glass-card p-4 flex items-center gap-3"
-                >
-                  <div className="text-[var(--cyber-green)]">{item.icon}</div>
-                  <div>
-                    <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
-                      {item.label}
-                    </p>
-                    <p className="text-sm font-semibold text-[var(--text-primary)]">
-                      {item.value}
-                    </p>
-                  </div>
-                </m.div>
-              ))}
-            </div>
           </m.div>
 
           {/* Visual block — terminal card */}
@@ -184,6 +162,31 @@ export default function AboutSection() {
               </p>
             </div>
           </m.div>
+        </div>
+
+        {/* Quick stats - Full width horizontal layout */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-16">
+          {highlights.map((item, i) => (
+            <m.div
+              key={item.label}
+              initial={{ opacity: 0, y: 15 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
+              className="glass-card p-5 flex items-start sm:items-center gap-4"
+            >
+              <div className="text-[var(--cyber-green)] mt-1 sm:mt-0">
+                {item.icon}
+              </div>
+              <div>
+                <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
+                  {item.label}
+                </p>
+                <p className="text-sm font-semibold text-[var(--text-primary)] leading-tight">
+                  {item.value}
+                </p>
+              </div>
+            </m.div>
+          ))}
         </div>
       </div>
     </section>

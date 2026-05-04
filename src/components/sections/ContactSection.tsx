@@ -93,10 +93,10 @@ export default function ContactSection() {
                 {link.icon}
               </div>
               <div className="flex-1">
-                <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
+                <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
                   {link.label}
                 </p>
-                <p className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors">
+                <p className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors leading-tight">
                   {link.value}
                 </p>
               </div>
