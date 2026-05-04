@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { certifications, siteConfig } from "@/lib/data";
-import { Award, Calendar, ExternalLink, ChevronDown, ChevronUp, GraduationCap } from "lucide-react";
+import { m } from "framer-motion";
+import { certifications } from "@/lib/data";
+import { Award, Calendar, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 
 export default function CiscoPage() {
@@ -12,7 +12,7 @@ export default function CiscoPage() {
   return (
     <div className="container-custom min-h-screen page-pad">
       {/* Header */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-12"
@@ -37,10 +37,10 @@ export default function CiscoPage() {
             View Transcript
           </a>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Stats Overview */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
@@ -49,7 +49,7 @@ export default function CiscoPage() {
         <Award className="w-8 h-8 mb-4 text-[var(--cyber-blue)] group-hover:scale-110 transition-transform" />
         <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{certifications.length}</div>
         <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">Certifications Completed</div>
-      </motion.div>
+      </m.div>
 
       {/* Certificates List */}
       <div className="space-y-4">
@@ -60,7 +60,7 @@ export default function CiscoPage() {
             : { className: "block" };
 
           return (
-            <motion.div
+            <m.div
               key={cert.name}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 0.3, 1, 0.7, 1] }}
@@ -77,10 +77,10 @@ export default function CiscoPage() {
                     <div className="absolute inset-0 bg-gradient-to-r from-[var(--cyber-blue)]/0 via-[var(--cyber-blue)]/5 to-[var(--cyber-blue)]/0 opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-1000 ease-in-out" />
                   )}
 
-                  <div className="relative z-10 flex justify-between items-center gap-4">
-                    <div className="flex items-center gap-4 flex-1 min-w-0">
+                  <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex items-start md:items-center gap-4 flex-1 min-w-0">
                       <div
-                        className={`w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center flex-shrink-0 ${
+                        className={`w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center flex-shrink-0 mt-1 md:mt-0 ${
                           cert.url ? "group-hover:scale-110" : ""
                         } transition-transform`}
                       >
@@ -88,9 +88,9 @@ export default function CiscoPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3
-                          className={`text-xl font-bold text-[var(--text-primary)] ${
+                          className={`text-lg md:text-xl font-bold text-[var(--text-primary)] ${
                             cert.url ? "group-hover:text-[var(--cyber-blue)]" : ""
-                          } transition-colors whitespace-normal break-words line-clamp-2`}
+                          } transition-colors whitespace-normal break-words`}
                         >
                           {cert.name}
                         </h3>
@@ -98,24 +98,26 @@ export default function CiscoPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3 shrink-0">
+                    <div className="flex items-center gap-3 shrink-0 pt-3 md:pt-0 border-t border-[var(--border-default)] md:border-t-0 mt-2 md:mt-0 w-full md:w-auto justify-between md:justify-end">
                       <div className="flex items-center gap-2 text-sm font-mono text-[var(--text-muted)] bg-[var(--bg-tertiary)] px-3 py-1.5 rounded-full">
                         <Calendar className="w-4 h-4 shrink-0" />
                         <span>{cert.date}</span>
                       </div>
-                      <div className="flex items-center justify-center text-sm font-bold font-mono text-[var(--cyber-blue)] bg-[var(--cyber-blue)]/10 border border-[var(--cyber-blue)]/30 rounded-md w-8 h-8">
-                        {cert.date.includes("2026") ? "6" : "5"}
-                      </div>
-                      <div className="w-5 h-5 shrink-0 flex items-center justify-center">
-                        {cert.url && (
-                          <ExternalLink className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--cyber-blue)] opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0.5" />
-                        )}
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-center text-sm font-bold font-mono text-[var(--cyber-blue)] bg-[var(--cyber-blue)]/10 border border-[var(--cyber-blue)]/30 rounded-md w-8 h-8">
+                          {cert.date.includes("2026") ? "6" : "5"}
+                        </div>
+                        <div className="w-5 h-5 shrink-0 flex items-center justify-center">
+                          {cert.url && (
+                            <ExternalLink className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--cyber-blue)] opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0.5" />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </Wrapper>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

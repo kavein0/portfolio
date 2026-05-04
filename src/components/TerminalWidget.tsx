@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { X, Terminal as TerminalIcon, Maximize2, Minimize2 } from "lucide-react";
 import { siteConfig } from "@/lib/data";
 
@@ -76,7 +76,7 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -131,7 +131,7 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
               <div ref={endRef} />
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

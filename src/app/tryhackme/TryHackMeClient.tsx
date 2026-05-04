@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { TryHackMeStats, thmRooms, thmBadges, siteConfig } from "@/lib/data";
 import { Trophy, Target, Zap, Shield, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
@@ -13,7 +13,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
   const visibleBadges = expandedBadges ? thmBadges : thmBadges.slice(0, 10);
   return (
     <div className="container-custom min-h-screen page-pad">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-12"
@@ -37,7 +37,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
             View @{siteConfig.tryhackme.username}
           </a>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
@@ -47,7 +47,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
           { label: "Rooms", value: stats.roomsCompleted || "...", icon: Target, color: "text-red-400" },
           { label: "Badges", value: stats.badges || "...", icon: Shield, color: "text-blue-400" },
         ].map((stat, i) => (
-          <motion.div
+          <m.div
             key={stat.label}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
             <stat.icon className={`w-8 h-8 mb-4 ${stat.color} group-hover:scale-110 transition-transform`} />
             <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{stat.value}</div>
             <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
@@ -69,7 +69,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
           </h2>
           <div className="space-y-4">
             {visibleRooms.map((room, i) => (
-              <motion.a
+              <m.a
                 key={room.name}
                 href={room.url}
                 target="_blank"
@@ -102,7 +102,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
                   </div>
                   <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all" />
                 </div>
-              </motion.a>
+              </m.a>
             ))}
           </div>
           {thmRooms.length > 10 && (
@@ -128,7 +128,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {visibleBadges.map((badge, i) => (
-              <motion.a
+              <m.a
                 key={badge.name}
                 href={badge.url}
                 target="_blank"
@@ -145,7 +145,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
                   {badge.name}
                 </h3>
                 <p className="text-sm text-[var(--text-muted)] mt-1">{badge.description}</p>
-              </motion.a>
+              </m.a>
             ))}
           </div>
           {thmBadges.length > 10 && (

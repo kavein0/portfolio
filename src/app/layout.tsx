@@ -35,6 +35,7 @@ export const metadata: Metadata = {
 import Navbar from "@/components/Navbar";
 import CyberBackgroundWrapper from "@/components/CyberBackgroundWrapper";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 
 export default function RootLayout({
   children,
@@ -44,12 +45,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="noise">
-        <CyberBackgroundWrapper />
-        <Navbar />
-        <main className="relative z-10 pt-[72px]">
-          {children}
-        </main>
-        <Footer />
+        <MotionProvider>
+          <CyberBackgroundWrapper />
+          <Navbar />
+          <main className="relative z-10 pt-[72px]">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

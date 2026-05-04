@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { HackTheBoxStats, htbMachines, htbChallenges, siteConfig } from "@/lib/data";
 import { Terminal, Server, ExternalLink, Box, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
@@ -13,7 +13,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
   const visibleChallenges = expandedChallenges ? htbChallenges : htbChallenges.slice(0, 10);
   return (
     <div className="container-custom min-h-screen page-pad">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-12"
@@ -37,7 +37,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
             View @{siteConfig.hackthebox.username}
           </a>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
@@ -46,7 +46,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
           { label: "Machine Owns", value: stats.systemOwns || "...", icon: Server },
           { label: "Challenges", value: stats.challenges || "...", icon: Box },
         ].map((stat, i) => (
-          <motion.div
+          <m.div
             key={stat.label}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
             <stat.icon className="w-8 h-8 mb-4 text-[var(--cyber-green)] group-hover:scale-110 transition-transform" />
             <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{stat.value}</div>
             <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
@@ -68,7 +68,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {visibleMachines.map((machine, i) => (
-              <motion.a
+              <m.a
                 key={machine.name}
                 href={machine.url}
                 target="_blank"
@@ -99,7 +99,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
                     {(machine.date === "2026" || machine.name === "MonitorsFour") ? "6" : "5"}
                   </span>
                 </div>
-              </motion.a>
+              </m.a>
             ))}
           </div>
           {htbMachines.length > 10 && (
@@ -125,7 +125,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
           </h2>
           <div className="space-y-4">
             {visibleChallenges.map((challenge, i) => (
-              <motion.a
+              <m.a
                 key={challenge.name}
                 href={challenge.url}
                 target="_blank"
@@ -158,7 +158,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
                   </div>
                   <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all" />
                 </div>
-              </motion.a>
+              </m.a>
             ))}
           </div>
           {htbChallenges.length > 10 && (

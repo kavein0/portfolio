@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { skills, skillCategories, type Skill } from "@/lib/data";
 
 function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
@@ -12,7 +12,7 @@ function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
     skillCategories.find((c) => c.id === skill.category)?.color ?? "#00ff88";
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, x: -20 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -31,7 +31,7 @@ function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
         </span>
       </div>
       <div className="h-[6px] rounded-full bg-[var(--bg-elevated)] overflow-hidden">
-        <motion.div
+        <m.div
           initial={{ width: 0 }}
           animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
           transition={{ duration: 1, delay: delay + 0.2, ease: "easeOut" }}
@@ -49,9 +49,9 @@ function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
               animation: "shimmer 2s infinite",
             }}
           />
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -71,7 +71,7 @@ export default function SkillsSection() {
 
       <div className="container-custom relative z-10" ref={ref}>
         {/* Section label */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -20 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5 }}
@@ -81,18 +81,18 @@ export default function SkillsSection() {
           <span className="font-mono text-xs text-[var(--cyber-green)] tracking-widest uppercase">
             Skills
           </span>
-        </motion.div>
+        </m.div>
 
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="section-title mb-6"
         >
           Technical <span className="text-[var(--cyber-green)]">Arsenal</span>
-        </motion.h2>
+        </m.h2>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -100,10 +100,10 @@ export default function SkillsSection() {
         >
           A breakdown of my technical competencies across offensive security,
           infrastructure, and programming domains.
-        </motion.p>
+        </m.p>
 
         {/* Category filters */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -141,7 +141,7 @@ export default function SkillsSection() {
               {cat.label}
             </button>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Skill bars grid */}
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-5">

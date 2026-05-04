@@ -93,65 +93,12 @@ export interface Certification {
 }
 
 export const certifications: Certification[] = [
+  // === Semester 5 (2024 & 2025) ===
   {
-    name: "Introduction to IoT",
+    name: "Ethical Hacker",
     issuer: "Cisco Networking Academy",
-    date: "Apr 30, 2026",
-    url: "https://www.credly.com/badges/c793438c-64e2-43a4-8a35-3ccda0ca77aa",
-  },
-  {
-    name: "Introduction to Cybersecurity",
-    issuer: "Cisco Networking Academy",
-    date: "Apr 30, 2026",
-    url: "https://www.credly.com/badges/b93d6913-faf0-4006-9e30-30d019c6155c",
-  },
-  {
-    name: "Network Defense",
-    issuer: "Cisco Networking Academy",
-    date: "Apr 30, 2026",
-    url: "https://www.credly.com/badges/8c1a67dd-6ee1-42a3-87c1-168b8658cd1c",
-  },
-  {
-    name: "Endpoint Security",
-    issuer: "Cisco Networking Academy",
-    date: "Apr 29, 2026",
-    url: "https://www.credly.com/badges/18432b2d-2b3a-4512-b0f7-32fd97431f16",
-  },
-  {
-    name: "Cyber Threat Management",
-    issuer: "Cisco Networking Academy",
-    date: "Apr 29, 2026",
-    url: "https://www.credly.com/badges/df2b34bf-5699-4077-8c2d-344020e4b89b",
-  },
-  {
-    name: "Network Support and Security",
-    issuer: "Cisco Networking Academy",
-    date: "Nov 13, 2025",
-    url: "https://www.credly.com/badges/e2165746-646b-4360-8370-f26ecdb5f4a2",
-  },
-  {
-    name: "Network Addressing and Basic Troubleshooting",
-    issuer: "Cisco Networking Academy",
-    date: "Nov 13, 2025",
-    url: "https://www.credly.com/badges/2bc79cb5-80c7-44d5-b566-fec2208b44cd",
-  },
-  {
-    name: "Networking Basics",
-    issuer: "Cisco Networking Academy",
-    date: "Nov 13, 2025",
-    url: "https://www.credly.com/badges/82f3360d-1c52-44e9-8e98-6200e017a82e",
-  },
-  {
-    name: "Networking Devices and Initial Configuration",
-    issuer: "Cisco Networking Academy",
-    date: "Oct 28, 2025",
-    url: "https://www.credly.com/badges/af9194b0-2e5f-4ef6-abab-473da4b5eae3",
-  },
-  {
-    name: "Operating Systems Basics",
-    issuer: "Cisco Networking Academy",
-    date: "Oct 28, 2025",
-    url: "https://www.credly.com/badges/5f18bc0c-2e84-40cf-bf92-24b072c70414",
+    date: "Jun 17, 2024",
+    url: "https://www.credly.com/badges/565b66b4-a45c-4dde-be6c-19d737d9b2a4",
   },
   {
     name: "Computer Hardware Basics",
@@ -160,10 +107,66 @@ export const certifications: Certification[] = [
     url: "https://www.credly.com/badges/57d32137-a1a7-4444-b89c-7529443d7fab",
   },
   {
-    name: "Ethical Hacker",
+    name: "Operating Systems Basics",
     issuer: "Cisco Networking Academy",
-    date: "Jun 17, 2024",
-    url: "https://www.credly.com/badges/565b66b4-a45c-4dde-be6c-19d737d9b2a4",
+    date: "Oct 28, 2025",
+    url: "https://www.credly.com/badges/5f18bc0c-2e84-40cf-bf92-24b072c70414",
+  },
+  {
+    name: "Networking Devices and Initial Configuration",
+    issuer: "Cisco Networking Academy",
+    date: "Oct 28, 2025",
+    url: "https://www.credly.com/badges/af9194b0-2e5f-4ef6-abab-473da4b5eae3",
+  },
+  {
+    name: "Networking Basics",
+    issuer: "Cisco Networking Academy",
+    date: "Nov 13, 2025",
+    url: "https://www.credly.com/badges/82f3360d-1c52-44e9-8e98-6200e017a82e",
+  },
+  {
+    name: "Network Addressing and Basic Troubleshooting",
+    issuer: "Cisco Networking Academy",
+    date: "Nov 13, 2025",
+    url: "https://www.credly.com/badges/2bc79cb5-80c7-44d5-b566-fec2208b44cd",
+  },
+  {
+    name: "Network Support and Security",
+    issuer: "Cisco Networking Academy",
+    date: "Nov 13, 2025",
+    url: "https://www.credly.com/badges/e2165746-646b-4360-8370-f26ecdb5f4a2",
+  },
+
+  // === Semester 6 (2026) ===
+  {
+    name: "Cyber Threat Management",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 29, 2026",
+    url: "https://www.credly.com/badges/df2b34bf-5699-4077-8c2d-344020e4b89b",
+  },
+  {
+    name: "Endpoint Security",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 29, 2026",
+    url: "https://www.credly.com/badges/18432b2d-2b3a-4512-b0f7-32fd97431f16",
+  },
+  {
+    name: "Network Defense",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+    url: "https://www.credly.com/badges/8c1a67dd-6ee1-42a3-87c1-168b8658cd1c",
+  },
+  {
+    name: "Introduction to Cybersecurity",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+    url: "https://www.credly.com/badges/b93d6913-faf0-4006-9e30-30d019c6155c",
+  },
+  {
+    name: "Introduction to IoT",
+    issuer: "Cisco Networking Academy",
+    date: "Apr 30, 2026",
+    url: "https://www.credly.com/badges/c793438c-64e2-43a4-8a35-3ccda0ca77aa",
   },
   {
     name: "Початок роботи з Cisco Packet Tracer",

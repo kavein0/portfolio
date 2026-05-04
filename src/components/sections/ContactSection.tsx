@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { siteConfig } from "@/lib/data";
 import { GithubIcon, TelegramIcon } from "@/components/icons/BrandIcons";
 import { Mail, MapPin, ArrowUpRight } from "lucide-react";
@@ -40,7 +40,7 @@ export default function ContactSection() {
 
       <div className="container-custom relative z-10" ref={ref}>
         {/* Section label */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -20 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5 }}
@@ -50,18 +50,18 @@ export default function ContactSection() {
           <span className="font-mono text-xs text-[var(--cyber-green)] tracking-widest uppercase">
             Contact
           </span>
-        </motion.div>
+        </m.div>
 
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="section-title mb-6"
         >
           Get in <span className="text-[var(--cyber-green)]">Touch</span>
-        </motion.h2>
+        </m.h2>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -69,11 +69,11 @@ export default function ContactSection() {
         >
           Interested in cybersecurity collaboration, CTF teaming, or internship
           opportunities? Feel free to reach out.
-        </motion.p>
+        </m.p>
 
         <div className="flex flex-col md:flex-row gap-4 w-full">
           {contactLinks.map((link, i) => (
-            <motion.a
+            <m.a
               key={link.label}
               href={link.href}
               target={link.href.startsWith("mailto") ? undefined : "_blank"}
@@ -101,12 +101,12 @@ export default function ContactSection() {
                 </p>
               </div>
               <ArrowUpRight className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </motion.a>
+            </m.a>
           ))}
         </div>
 
         {/* Location note */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.8 }}
@@ -116,7 +116,7 @@ export default function ContactSection() {
           <span className="font-mono text-xs">
             Based in Kamianets-Podilsk, Ukraine 🇺🇦
           </span>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

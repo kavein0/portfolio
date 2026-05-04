@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { TryHackMeStats, HackTheBoxStats, siteConfig, certifications, htbAcademyModules, htbAcademyBadges } from "@/lib/data";
 import { Trophy, Target, Shield, Box, Terminal, ExternalLink, GraduationCap, Award, BookOpen } from "lucide-react";
 import SkillsSection from "@/components/sections/SkillsSection";
@@ -15,7 +15,7 @@ export default function StatsClient({
   return (
     <div className="min-h-screen page-pad-lg">
       <div className="container-custom">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -31,14 +31,14 @@ export default function StatsClient({
             Cyber <span className="text-[var(--cyber-blue)]">Stats</span>
           </h1>
           <p className="text-[var(--text-secondary)] text-lg max-w-2xl">
-            Live overview of my performance on major cybersecurity platforms and technical skill distribution.
+            Overview of my performance on major cybersecurity platforms and technical skill distribution.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Platform Summaries */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           {/* TryHackMe Card */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -81,10 +81,10 @@ export default function StatsClient({
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* HackTheBox Card */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -127,10 +127,10 @@ export default function StatsClient({
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* HTB Academy Card */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -168,10 +168,10 @@ export default function StatsClient({
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Cisco Academy Card */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -201,7 +201,7 @@ export default function StatsClient({
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
 

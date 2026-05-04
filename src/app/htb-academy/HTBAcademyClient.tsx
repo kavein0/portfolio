@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { htbAcademyModules, htbAcademyBadges, siteConfig } from "@/lib/data";
 import { BookOpen, Shield, Award, ExternalLink, Terminal, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
@@ -14,7 +14,7 @@ export default function HTBAcademyClient() {
 
   return (
     <div className="container-custom min-h-screen page-pad">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-12"
@@ -38,11 +38,11 @@ export default function HTBAcademyClient() {
             View HTB Profile
           </a>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -51,8 +51,8 @@ export default function HTBAcademyClient() {
           <BookOpen className="w-8 h-8 mb-4 text-[var(--cyber-green)] group-hover:scale-110 transition-transform" />
           <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{htbAcademyModules.length}</div>
           <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">Modules Completed</div>
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -61,7 +61,7 @@ export default function HTBAcademyClient() {
           <Award className="w-8 h-8 mb-4 text-[var(--cyber-green)] group-hover:scale-110 transition-transform" />
           <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{htbAcademyBadges.length}</div>
           <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">Badges Earned</div>
-        </motion.div>
+        </m.div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -72,7 +72,7 @@ export default function HTBAcademyClient() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {visibleModules.map((module, i) => (
-              <motion.a
+              <m.a
                 key={module.name}
                 href={module.url}
                 target="_blank"
@@ -103,7 +103,7 @@ export default function HTBAcademyClient() {
                   <Shield className="w-3 h-3" />
                   {module.status}
                 </div>
-              </motion.a>
+              </m.a>
             ))}
           </div>
           {htbAcademyModules.length > 10 && (
@@ -129,7 +129,7 @@ export default function HTBAcademyClient() {
           </h2>
           <div className="space-y-4">
             {visibleBadges.map((badge, i) => (
-              <motion.a
+              <m.a
                 key={badge.name}
                 href={badge.url}
                 target="_blank"
@@ -156,7 +156,7 @@ export default function HTBAcademyClient() {
                   </p>
                 </div>
                 <ExternalLink className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] transition-colors shrink-0 opacity-0 group-hover:opacity-100" />
-              </motion.a>
+              </m.a>
             ))}
           </div>
           {htbAcademyBadges.length > 10 && (

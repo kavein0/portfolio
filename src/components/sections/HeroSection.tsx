@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { siteConfig } from "@/lib/data";
-import { ChevronDown, Terminal, Shield, Lock } from "lucide-react";
+import { Terminal, Shield, Lock } from "lucide-react";
 import Link from "next/link";
 
 // Typing effect hook
@@ -32,8 +32,10 @@ function useTypingEffect(texts: string[], typingSpeed = 60, deletingSpeed = 40, 
           setDisplay(currentText.slice(0, display.length - 1));
         }, deletingSpeed);
       } else {
-        setIsDeleting(false);
-        setTextIndex((prev) => (prev + 1) % texts.length);
+        timeout = setTimeout(() => {
+          setIsDeleting(false);
+          setTextIndex((prev) => (prev + 1) % texts.length);
+        }, deletingSpeed);
       }
     }
 
@@ -79,7 +81,7 @@ export default function HeroSection() {
 
       <div className="container-custom relative z-10 flex flex-col items-center text-center px-4">
         {/* Status badge */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -89,10 +91,10 @@ export default function HeroSection() {
           <span className="text-[var(--cyber-green)] text-xs">
             AVAILABLE FOR INTERNSHIPS
           </span>
-        </motion.div>
+        </m.div>
 
         {/* Title line */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
@@ -103,10 +105,10 @@ export default function HeroSection() {
             {siteConfig.universityShort} {"//"} {siteConfig.year}
           </span>
           <Lock className="w-4 h-4 text-[var(--cyber-blue)] hidden sm:block" />
-        </motion.div>
+        </m.div>
 
         {/* Name */}
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -117,20 +119,20 @@ export default function HeroSection() {
           <span className="text-[var(--text-primary)] glitch-text" data-text={siteConfig.nameEn.split(" ").slice(1).join(" ")}>
             {siteConfig.nameEn.split(" ").slice(1).join(" ")}
           </span>
-        </motion.h1>
+        </m.h1>
 
         {/* Ukrainian name */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           className="font-mono text-xs text-[var(--text-muted)] tracking-[0.3em] uppercase mb-8"
         >
           {siteConfig.name}
-        </motion.p>
+        </m.p>
 
         {/* Typing effect */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
@@ -141,10 +143,10 @@ export default function HeroSection() {
             {typed}
           </span>
           <span className="w-[2px] h-5 bg-[var(--cyber-green)] animate-blink" />
-        </motion.div>
+        </m.div>
 
         {/* CTA Buttons */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.9 }}
@@ -163,7 +165,7 @@ export default function HeroSection() {
           >
             Get in Touch
           </a>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

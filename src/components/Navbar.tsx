@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/lib/data";
 import { GithubIcon, TelegramIcon } from "@/components/icons/BrandIcons";
 import { Menu, X, Shield, Terminal as TerminalIcon } from "lucide-react";
@@ -42,7 +42,7 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
+      <m.header
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -135,19 +135,19 @@ export default function Navbar() {
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
-      </motion.header>
+      </m.header>
 
       {/* Mobile menu overlay */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6 md:hidden"
           >
             {navLinks.map((link, i) => (
-              <motion.div
+              <m.div
                 key={link.href}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -162,7 +162,7 @@ export default function Navbar() {
                 >
                   {link.label}
                 </Link>
-              </motion.div>
+              </m.div>
             ))}
             <div className="flex items-center gap-6 mt-8">
               <button
@@ -193,7 +193,7 @@ export default function Navbar() {
                 <TelegramIcon className="w-6 h-6" />
               </a>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 

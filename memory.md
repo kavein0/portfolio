@@ -31,16 +31,19 @@ The portfolio aggregates achievements across several platforms:
   - Cloudflare actively blocks scraping. Currently relies on static data/badges. Do not attempt direct scraping without a workaround.
 - **Cisco Academy:**
   - 15 Certifications.
-  - **Rule:** Uses Credly badge URLs where available, ordered precisely according to the user's provided list.
+  - **Rule:** Uses Credly badge URLs where available.
+  - **Rule:** Certificates are ordered chronologically, starting with the 5th semester (2024 & 2025) at the top, followed by the 6th semester (2026).
   - **Rule:** The header links directly to the user's Google Docs transcript rather than a NetAcad profile.
   - **Design:** The stats overview card spans full width, avoiding legacy side-by-side elements for a cleaner look.
 
 ## 4. API & Backend State
-- **HTB API:** Code is prepared in `src/app/api/htb/route.ts` (or similar) to fetch real-time stats.
-- **Current Blocker:** Automated fetching throws a timeout/error because the user has not yet added their `HTB_API_TOKEN` to `.env.local`. Until this is provided, stats fail gracefully or show static placeholders. Do not break the build over this.
+- **Static Export:** The project is built using `output: 'export'` in Next.js config. Therefore, API route handlers (like `/api/stats`) are snapshotted at build time. The site does not have real-time live data unless rebuilt. Wording on the frontend reflects this (removed "Live").
+- **HTB API:** Code is prepared in `src/app/api/htb/route.ts` to fetch stats at build time. Requires `HTB_API_TOKEN` to function correctly.
 
 ## 5. Known Quirks & Fixed Bugs
-- **`useTypingEffect` (HeroSection):** Previously had issues with infinite re-renders/React state updates. Fixed by using a more robust state transition pattern. Do not revert to synchronous setState loops.
+- **`useTypingEffect` (HeroSection):** Synchronous setState loops caused linting/runtime errors. Fixed by using robust state transitions wrapped in `setTimeout`. Do not revert to synchronous setState loops.
+- **Framer Motion Performance:** The app uses `<LazyMotion features={domAnimation}>` globally via `MotionProvider.tsx`. Always import `m` instead of `motion` from `framer-motion` (e.g., `<m.div>`) to prevent the heavy animation bundle from loading synchronously.
+- **Skeleton Loaders:** Removed `loading.tsx` skeletons since pages are statically generated and display instantly.
 - **Terminal Widget:** Ensure static terminal commands (`whoami`, `skills`) use the correct properties from `data.ts` (e.g., use `title` instead of the old `role` property to avoid TypeScript undefined errors).
 - **Hydration:** Be careful with server/client rendering mismatches. Ensure random or date-based values match between SSR and hydration, or render them only on the client.
 

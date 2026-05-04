@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { siteConfig } from "@/lib/data";
@@ -50,7 +50,7 @@ export default function AboutSection() {
 
       <div className="container-custom relative z-10" ref={ref}>
         {/* Section label */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -20 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5 }}
@@ -60,20 +60,20 @@ export default function AboutSection() {
           <span className="font-mono text-xs text-[var(--cyber-green)] tracking-widest uppercase">
             About
           </span>
-        </motion.div>
+        </m.div>
 
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="section-title mb-12"
         >
           Who I <span className="text-[var(--cyber-green)]">Am</span>
-        </motion.h2>
+        </m.h2>
 
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Text block */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -99,7 +99,7 @@ export default function AboutSection() {
             {/* Quick stats */}
             <div className="grid grid-cols-2 gap-3 pt-4">
               {highlights.map((item, i) => (
-                <motion.div
+                <m.div
                   key={item.label}
                   initial={{ opacity: 0, y: 15 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -115,13 +115,13 @@ export default function AboutSection() {
                       {item.value}
                     </p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Visual block — terminal card */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -183,7 +183,7 @@ export default function AboutSection() {
                 Active & Learning ▮
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
