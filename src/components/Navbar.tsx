@@ -16,6 +16,7 @@ const navLinks = [
   { label: "HTBAcademy", href: "/htb-academy" },
   { label: "PicoCTF", href: "/picoctf" },
   { label: "CryptoHack", href: "/cryptohack" },
+  { label: "Matrix", href: "/learning-matrix" },
   { label: "Cisco", href: "/cisco" },
 ];
 
