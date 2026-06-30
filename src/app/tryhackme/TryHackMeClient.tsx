@@ -1,9 +1,68 @@
 "use client";
 
 import { m } from "framer-motion";
-import { TryHackMeStats, thmRooms, thmBadges, siteConfig } from "@/lib/data";
+import { TryHackMeStats, thmRooms, thmBadges, siteConfig, type TryHackMeRoom } from "@/lib/data";
 import { Trophy, Target, Zap, Shield, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
+
+function RoomCard({ room, index }: { room: TryHackMeRoom; index: number }) {
+  const content = (
+    <div className="flex justify-between items-center gap-4">
+      <div className="flex-1 min-w-0">
+        <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors truncate whitespace-normal break-words line-clamp-2">
+          {room.name}
+        </h3>
+        <div className="flex flex-wrap gap-2 mt-2">
+          <span className="text-xs font-mono text-[var(--text-muted)] uppercase bg-[var(--bg-tertiary)] px-2 py-1 rounded">
+            {room.type}
+          </span>
+          <span className={`text-xs font-mono px-2 py-1 rounded ${
+            room.difficulty === "Easy" ? "bg-green-500/10 text-green-400" :
+            room.difficulty === "Medium" ? "bg-yellow-500/10 text-yellow-400" :
+            room.difficulty === "Hard" ? "bg-red-500/10 text-red-400" :
+            "bg-blue-500/10 text-blue-400"
+          }`}>
+            {room.difficulty}
+          </span>
+          {!room.url && (
+            <span className="text-xs font-mono text-[var(--text-muted)] border border-[var(--border-default)] px-2 py-1 rounded">
+              Link pending
+            </span>
+          )}
+        </div>
+      </div>
+      {room.url && (
+        <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all" />
+      )}
+    </div>
+  );
+
+  const className =
+    "block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] hover:bg-[var(--cyber-green)]/5 transition-all group";
+
+  return room.url ? (
+    <m.a
+      href={room.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.05 }}
+      className={className}
+    >
+      {content}
+    </m.a>
+  ) : (
+    <m.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.05 }}
+      className={className}
+    >
+      {content}
+    </m.div>
+  );
+}
 
 export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
   const [expandedRooms, setExpandedRooms] = useState(false);
@@ -69,40 +128,11 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
           </h2>
           <div className="space-y-4">
             {visibleRooms.map((room, i) => (
-              <m.a
+              <RoomCard
                 key={room.name}
-                href={room.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] hover:bg-[var(--cyber-green)]/5 transition-all group"
-              >
-                <div className="flex justify-between items-center gap-4">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors truncate whitespace-normal break-words line-clamp-2">
-                      {room.name}
-                    </h3>
-                    <div className="flex gap-2 mt-2">
-                      <span className="text-xs font-mono text-[var(--text-muted)] uppercase bg-[var(--bg-tertiary)] px-2 py-1 rounded">
-                        {room.type}
-                      </span>
-                      {'difficulty' in room && room.difficulty && (
-                        <span className={`text-xs font-mono px-2 py-1 rounded ${
-                          room.difficulty === 'Easy' ? 'bg-green-500/10 text-green-400' :
-                          room.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-400' :
-                          room.difficulty === 'Hard' ? 'bg-red-500/10 text-red-400' :
-                          'bg-blue-500/10 text-blue-400'
-                        }`}>
-                          {room.difficulty}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all" />
-                </div>
-              </m.a>
+                room={room}
+                index={i}
+              />
             ))}
           </div>
           {thmRooms.length > 10 && (

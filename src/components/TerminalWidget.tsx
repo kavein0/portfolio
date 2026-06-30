@@ -98,10 +98,18 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
               <span className="font-mono text-xs tracking-wider">voron@system: ~</span>
             </div>
             <div className="flex items-center gap-3">
-              <button onClick={() => setIsMaximized(!isMaximized)} className="text-[var(--text-muted)] hover:text-white transition-colors">
+              <button
+                onClick={() => setIsMaximized(!isMaximized)}
+                className="text-[var(--text-muted)] hover:text-white transition-colors"
+                aria-label={isMaximized ? "Restore terminal" : "Maximize terminal"}
+              >
                 {isMaximized ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
               </button>
-              <button onClick={onClose} className="text-[var(--text-muted)] hover:text-[var(--cyber-red)] transition-colors">
+              <button
+                onClick={onClose}
+                className="text-[var(--text-muted)] hover:text-[var(--cyber-red)] transition-colors"
+                aria-label="Close terminal"
+              >
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -133,6 +141,7 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
                   spellCheck={false}
                   autoComplete="off"
                   autoFocus
+                  aria-label="Terminal command"
                 />
               </form>
               <div ref={endRef} />

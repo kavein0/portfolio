@@ -1,4 +1,4 @@
-import { TryHackMeStats, thmRooms, thmBadges } from "@/lib/data";
+import { TryHackMeStats, thmRooms } from "@/lib/data";
 
 const THM_BASE = "https://tryhackme.com/api";
 
@@ -44,7 +44,7 @@ export function getTryHackMeDemoStats(): TryHackMeStats {
     points: 0,
     roomsCompleted: thmRooms.length,
     streak: 0,
-    badges: thmBadges.length,
+    badges: 3,
     level: 44,
   };
 }

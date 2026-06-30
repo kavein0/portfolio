@@ -14,6 +14,8 @@ const navLinks = [
   { label: "TryHackMe", href: "/tryhackme" },
   { label: "HackTheBox", href: "/hackthebox" },
   { label: "HTBAcademy", href: "/htb-academy" },
+  { label: "PicoCTF", href: "/picoctf" },
+  { label: "CryptoHack", href: "/cryptohack" },
   { label: "Cisco", href: "/cisco" },
 ];
 
@@ -75,14 +77,14 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-0 lg:gap-1">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-4 py-2 text-sm font-mono transition-colors duration-200 relative group ${
+                  className={`px-2 lg:px-4 py-2 text-xs lg:text-sm font-mono transition-colors duration-200 relative group ${
                     isActive ? "text-[var(--cyber-green)]" : "text-[var(--text-secondary)] hover:text-[var(--cyber-green)]"
                   }`}
                 >
@@ -131,6 +133,8 @@ export default function Navbar() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden text-[var(--text-primary)] p-2"
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -141,6 +145,7 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <m.div
+            id="mobile-navigation"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -171,6 +176,7 @@ export default function Navbar() {
                   setTerminalOpen(true);
                 }}
                 className="text-[var(--text-muted)] hover:text-[var(--cyber-green)] transition-colors"
+                aria-label="Open terminal"
               >
                 <TerminalIcon className="w-6 h-6" />
               </button>
@@ -180,6 +186,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--text-muted)] hover:text-[var(--cyber-green)] transition-colors"
+                aria-label="GitHub"
               >
                 <GithubIcon className="w-6 h-6" />
               </a>
@@ -189,6 +196,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--text-muted)] hover:text-[var(--cyber-blue)] transition-colors"
+                aria-label="Telegram"
               >
                 <TelegramIcon className="w-6 h-6" />
               </a>

@@ -214,7 +214,15 @@ export interface HackTheBoxStats {
 // Detailed TryHackMe Data
 // ============================================================
 
-export const thmRooms = [
+export interface TryHackMeRoom {
+  name: string;
+  type: "Room";
+  difficulty: "Info" | "Easy" | "Medium" | "Hard";
+  date?: string;
+  url?: string;
+}
+
+export const thmRooms: TryHackMeRoom[] = [
   { name: "Investigating Windows", type: "Room", difficulty: "Easy", date: "2024", url: "https://tryhackme.com/room/investigatingwindows" },
   { name: "Blue", type: "Room", difficulty: "Easy", date: "2024", url: "https://tryhackme.com/room/blue" },
   { name: "OhSINT", type: "Room", difficulty: "Easy", date: "2024", url: "https://tryhackme.com/room/ohsint" },
@@ -235,11 +243,27 @@ export const thmRooms = [
   { name: "NahamStore", type: "Room", difficulty: "Medium", date: "2024", url: "https://tryhackme.com/room/nahamstore" },
   { name: "Neighbour", type: "Room", difficulty: "Easy", date: "2024", url: "https://tryhackme.com/room/neighbour" },
   { name: "SSRF", type: "Room", difficulty: "Medium", date: "2024", url: "https://tryhackme.com/room/ssrf" },
+  { name: "Cicada-3301 Vol:1", type: "Room", difficulty: "Medium", url: "https://tryhackme.com/room/cicada3301vol1?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
+  { name: "Cryptography for Dummies", type: "Room", difficulty: "Easy", url: "https://tryhackme.com/room/cryptographyfordummies?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
+  { name: "Linux Fundamentals Part 1", type: "Room", difficulty: "Info", url: "https://tryhackme.com/room/linuxfundamentalspart1?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
+  { name: "Windows Fundamentals 1", type: "Room", difficulty: "Info", url: "https://tryhackme.com/room/windowsfundamentals1xbx?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
+  { name: "Offensive Security Intro", type: "Room", difficulty: "Easy", url: "https://tryhackme.com/room/offensivesecurityintro?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
+  { name: "Defensive Security Intro", type: "Room", difficulty: "Easy", url: "https://tryhackme.com/room/defensivesecurityintro?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
+  { name: "Breaking RSA", type: "Room", difficulty: "Medium", url: "https://tryhackme.com/room/breakrsa?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
+  { name: "Search Skills", type: "Room", difficulty: "Easy" },
+  { name: "Breaking Crypto the Simple Way", type: "Room", difficulty: "Easy", url: "https://tryhackme.com/room/breakingcryptothesimpleway?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
+  { name: "Passwords - A Cracking Christmas", type: "Room", difficulty: "Easy", url: "https://tryhackme.com/room/attacks-on-ecrypted-files-aoc2025-asdfghj123?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
+  { name: "Cryptography Concepts", type: "Room", difficulty: "Easy", url: "https://tryhackme.com/room/cryptographyconcepts?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=652fd262c115c7a51feb9368" },
 ];
 
 export const thmBadges = [
   { name: "OhSINT", description: "Completing the OhSINT room", url: "https://tryhackme.com/p/Larein" },
   { name: "Blue", description: "Hacking into Windows via EternalBlue", url: "https://tryhackme.com/p/Larein" },
+  {
+    name: "cat linux.txt",
+    description: "Being competent in Linux",
+    url: "https://tryhackme.com/Larein/badges/terminaled?utm_campaign=social_share&utm_medium=social&utm_content=badge&utm_source=copy&sharerId=652fd262c115c7a51feb9368",
+  },
 ];
 
 // ============================================================
@@ -337,4 +361,3 @@ export const htbAcademyBadges: HTBAcademyBadge[] = [
   { name: "Unwavering User",                 description: "Awarded when you achieve your first weekly streak",  url: "https://academy.hackthebox.com/achievement/badge/901ab868-199b-11ef-b18d-bea50ffe6cb4" },
   { name: "Cyber Rookie 365",                description: "Awarded after one year of learning at HTB Academy",  url: "https://academy.hackthebox.com/achievement/badge/a8f9e1b1-3946-11f0-bcfd-bea50ffe6cb4" },
 ];
-
