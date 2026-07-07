@@ -139,6 +139,18 @@ body {
   --glitch-shadow-2: var(--cyber-magenta);
 }
 
+.glitch-wrapper.glitch-orange {
+  --glitch-main: var(--cyber-orange);
+  --glitch-shadow-1: var(--cyber-yellow);
+  --glitch-shadow-2: var(--cyber-red);
+}
+
+.glitch-wrapper.glitch-cylab {
+  --glitch-main: #ff7426;
+  --glitch-shadow-1: #5aa9d6;
+  --glitch-shadow-2: #12374f;
+}
+
 .glitch-text {
   position: relative;
   display: inline-block;

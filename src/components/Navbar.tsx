@@ -20,6 +20,42 @@ const navLinks = [
   { label: "Cisco", href: "/cisco" },
 ];
 
+function getNavTheme(href: string) {
+  const themes: Record<
+    string,
+    { active: string; hover: string; prefix: string }
+  > = {
+    "/tryhackme": {
+      active: "text-[var(--cyber-red)]",
+      hover: "hover:text-[var(--cyber-red)]",
+      prefix: "text-[var(--cyber-orange)]",
+    },
+    "/picoctf": {
+      active: "text-[#ff7426]",
+      hover: "hover:text-[#ff7426]",
+      prefix: "text-[#5aa9d6]",
+    },
+    "/cryptohack": {
+      active: "text-[var(--cyber-orange)]",
+      hover: "hover:text-[var(--cyber-orange)]",
+      prefix: "text-[var(--cyber-yellow)]",
+    },
+    "/cisco": {
+      active: "text-[var(--cyber-blue)]",
+      hover: "hover:text-[var(--cyber-blue)]",
+      prefix: "text-[var(--cyber-blue)]",
+    },
+  };
+
+  return (
+    themes[href] ?? {
+      active: "text-[var(--cyber-green)]",
+      hover: "hover:text-[var(--cyber-green)]",
+      prefix: "text-[var(--cyber-green)]",
+    }
+  );
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -81,15 +117,24 @@ export default function Navbar() {
           <nav className="hidden md:flex items-center gap-0 lg:gap-1">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
+              const theme = getNavTheme(link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={`px-2 lg:px-4 py-2 text-xs lg:text-sm font-mono transition-colors duration-200 relative group ${
-                    isActive ? "text-[var(--cyber-green)]" : "text-[var(--text-secondary)] hover:text-[var(--cyber-green)]"
+                    isActive
+                      ? theme.active
+                      : `text-[var(--text-secondary)] ${theme.hover}`
                   }`}
                 >
-                  <span className={`transition-opacity mr-1 ${isActive ? "opacity-100 text-[var(--cyber-green)]" : "opacity-0 group-hover:opacity-100 text-[var(--cyber-green)]"}`}>
+                  <span
+                    className={`transition-opacity mr-1 ${
+                      isActive
+                        ? `opacity-100 ${theme.prefix}`
+                        : `opacity-0 group-hover:opacity-100 ${theme.prefix}`
+                    }`}
+                  >
                     {"//"}
                   </span>
                   {link.label}
@@ -152,24 +197,31 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6 md:hidden"
           >
-            {navLinks.map((link, i) => (
-              <m.div
-                key={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
-              >
-                <Link
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`text-2xl font-display font-bold tracking-wider transition-colors ${
-                    pathname === link.href ? "text-[var(--cyber-green)]" : "text-[var(--text-primary)] hover:text-[var(--cyber-green)]"
-                  }`}
+            {navLinks.map((link, i) => {
+              const isActive = pathname === link.href;
+              const theme = getNavTheme(link.href);
+
+              return (
+                <m.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 }}
                 >
-                  {link.label}
-                </Link>
-              </m.div>
-            ))}
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`text-2xl font-display font-bold tracking-wider transition-colors ${
+                      isActive
+                        ? theme.active
+                        : `text-[var(--text-primary)] ${theme.hover}`
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </m.div>
+              );
+            })}
             <div className="flex items-center gap-6 mt-8">
               <button
                 onClick={() => {

@@ -1,23 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  Award,
-  BookOpenCheck,
-  Brain,
-  ChevronDown,
-  ChevronUp,
-  Eye,
-  ExternalLink,
-  KeyRound,
-  LockKeyhole,
-  Medal,
-  ShieldCheck,
-  Sparkles,
-  Star,
-  Trophy,
-  Zap,
-} from "lucide-react";
+import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
 import { useState } from "react";
 
 const cryptohackStats = {
@@ -27,7 +11,6 @@ const cryptohackStats = {
   pointsToNextLevel: 380,
   rank: "#4262",
   joined: "12 Jun 2026",
-  trophiesEarned: 7,
   profileUrl: "https://cryptohack.org/user/Larein/",
 } as const;
 
@@ -36,31 +19,26 @@ const cryptohackCourses = [
     title: "Introduction to CryptoHack",
     lessons: 10,
     tags: ["#beginner"],
-    icon: Brain,
   },
   {
     title: "Modular Arithmetic",
     lessons: 11,
     tags: ["#beginner", "#Mathematics"],
-    icon: Sparkles,
   },
   {
     title: "Symmetric Cryptography",
     lessons: 14,
     tags: ["#intermediate", "#AES"],
-    icon: LockKeyhole,
   },
   {
     title: "Public-Key Cryptography",
     lessons: 18,
     tags: ["#intermediate", "#RSA", "#Diffie-Hellman"],
-    icon: KeyRound,
   },
   {
     title: "Elliptic Curves",
     lessons: 11,
     tags: ["#hard"],
-    icon: ShieldCheck,
   },
 ] as const;
 
@@ -100,19 +78,14 @@ function EvidencePanel({
         onClick={() => setIsOpen((open) => !open)}
         aria-expanded={isOpen}
         aria-controls={id}
-        className="w-full p-5 md:p-6 flex items-center justify-between gap-4 text-left hover:bg-[var(--cyber-orange)]/5 transition-colors group"
+        className="w-full p-4 flex items-center justify-between gap-4 text-left hover:bg-[var(--cyber-orange)]/5 transition-colors group"
       >
-        <span className="flex items-center gap-4">
-          <span className="w-11 h-11 rounded-lg bg-[var(--cyber-orange)]/10 border border-[var(--cyber-orange)]/25 flex items-center justify-center shrink-0">
-            <Eye className="w-5 h-5 text-[var(--cyber-orange)]" />
+        <span>
+          <span className="block font-display font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-orange)] transition-colors">
+            {isOpen ? "Hide Screenshot" : "Show Screenshot"}
           </span>
-          <span>
-            <span className="block font-display font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-orange)] transition-colors">
-              {title}
-            </span>
-            <span className="block mt-1 text-sm text-[var(--text-muted)]">
-              {description}
-            </span>
+          <span className="block mt-1 text-sm text-[var(--text-muted)]">
+            {title} - {description}
           </span>
         </span>
         {isOpen ? (
@@ -124,7 +97,7 @@ function EvidencePanel({
 
       {isOpen ? (
         <div id={id}>
-          <div className="px-4 pb-4 md:px-6 md:pb-6">
+          <div className="px-4 pb-4">
             <div className="rounded-lg overflow-hidden border border-[var(--border-default)] bg-[#080d19]">
               <Image
                 src={image}
@@ -145,25 +118,17 @@ function EvidencePanel({
 export default function CryptoHackClient() {
   return (
     <div className="container-custom min-h-screen page-pad">
-      <div className="mb-16 md:mb-20">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-12">
+      <div className="mb-12">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
           <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="h-px w-8 bg-[var(--cyber-orange)]" />
-              <span className="font-mono text-xs text-[var(--cyber-orange)] uppercase tracking-[0.2em]">
-                Cryptography Practice
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4 glitch-wrapper">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4 md:mb-2 glitch-wrapper glitch-orange">
               <span className="glitch-text" data-text="CryptoHack">
                 CryptoHack
               </span>{" "}
               <span className="text-[var(--cyber-orange)]">Progress</span>
             </h1>
-            <p className="text-[var(--text-secondary)] font-mono text-base md:text-lg max-w-3xl">
-              Completed CryptoHack learning courses focused on modular
-              arithmetic, symmetric cryptography, public-key cryptography, and
-              elliptic curves.
+            <p className="text-[var(--text-secondary)] font-mono text-lg">
+              Completed CryptoHack courses and profile progress.
             </p>
           </div>
 
@@ -171,88 +136,25 @@ export default function CryptoHackClient() {
             href={cryptohackStats.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full lg:w-auto min-w-0 lg:min-w-[360px] p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-orange)] hover:bg-[var(--cyber-orange)]/5 transition-all group"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--cyber-orange)]/10 text-[var(--cyber-orange)] border border-[var(--cyber-orange)]/20 hover:bg-[var(--cyber-orange)]/20 hover:border-[var(--cyber-orange)]/50 transition-all font-mono text-sm whitespace-nowrap group w-full md:w-auto"
           >
-            <div className="flex items-center justify-between gap-4 mb-5">
-              <div>
-                <div className="font-display font-bold text-2xl text-[var(--text-primary)]">
-                  {cryptohackStats.username}
-                </div>
-                <div className="mt-1 font-mono text-xs text-[var(--text-muted)]">
-                  Joined {cryptohackStats.joined} · Rank{" "}
-                  {cryptohackStats.rank}
-                </div>
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-[var(--cyber-orange)]/10 border border-[var(--cyber-orange)]/25 flex items-center justify-center">
-                <ExternalLink className="w-5 h-5 text-[var(--cyber-orange)] group-hover:scale-110 transition-transform" />
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4 font-mono text-sm">
-              <span className="inline-flex items-center gap-2 text-[var(--text-primary)]">
-                <Zap className="w-4 h-4 text-[var(--cyber-orange)] fill-[var(--cyber-orange)]" />
-                Level{" "}
-                <span className="text-[var(--cyber-orange)] font-bold">
-                  {cryptohackStats.level}
-                </span>
-              </span>
-              <span className="inline-flex items-center gap-2 text-[var(--text-primary)]">
-                <Star className="w-4 h-4 text-[var(--cyber-orange)] fill-[var(--cyber-orange)]" />
-                {cryptohackStats.experience} XP
-              </span>
-            </div>
-
-            <div className="mt-5">
-              <div className="flex items-center justify-between gap-4 mb-2 font-mono text-xs text-[var(--text-muted)]">
-                <span>{cryptohackStats.experience} points</span>
-                <span>{cryptohackStats.pointsToNextLevel} to next level</span>
-              </div>
-              <div className="h-2 rounded-full bg-[var(--bg-tertiary)] overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-[var(--cyber-orange)] to-[var(--cyber-yellow)]"
-                  style={{ width: `${levelProgress}%` }}
-                />
-              </div>
-            </div>
+            <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            View Profile
           </a>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 mb-20 md:mb-24">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
         {[
-          {
-            label: "Level",
-            value: cryptohackStats.level,
-            icon: Zap,
-            color: "var(--cyber-orange)",
-          },
-          {
-            label: "Experience",
-            value: cryptohackStats.experience,
-            icon: Star,
-            color: "var(--cyber-yellow)",
-          },
-          {
-            label: "Courses",
-            value: cryptohackCourses.length,
-            icon: BookOpenCheck,
-            color: "var(--cyber-blue)",
-          },
-          {
-            label: "Lessons",
-            value: totalLessons,
-            icon: Trophy,
-            color: "var(--cyber-green)",
-          },
+          { label: "Level", value: cryptohackStats.level },
+          { label: "Experience", value: cryptohackStats.experience },
+          { label: "Courses", value: cryptohackCourses.length },
+          { label: "Lessons", value: totalLessons },
         ].map((stat) => (
           <div
             key={stat.label}
-            className="p-7 md:p-8 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-orange)] transition-all group flex flex-col items-center text-center"
+            className="p-5 md:p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-orange)] transition-all"
           >
-            <stat.icon
-              className="w-8 h-8 mb-4 group-hover:scale-110 transition-transform"
-              style={{ color: stat.color }}
-            />
             <div className="text-3xl font-display font-bold text-[var(--text-primary)]">
               {stat.value}
             </div>
@@ -263,48 +165,52 @@ export default function CryptoHackClient() {
         ))}
       </div>
 
-      <section className="mb-20 md:mb-24">
-        <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-8 flex items-center gap-3">
-          <BookOpenCheck className="text-[var(--cyber-orange)]" />
+      <div className="mb-10 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] p-4 md:p-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-3 font-mono text-xs text-[var(--text-muted)]">
+          <span>
+            Joined {cryptohackStats.joined} - Rank {cryptohackStats.rank}
+          </span>
+          <span>{cryptohackStats.pointsToNextLevel} points to next level</span>
+        </div>
+        <div className="h-2 rounded-full bg-[var(--bg-tertiary)] overflow-hidden">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-[var(--cyber-orange)] to-[var(--cyber-yellow)]"
+            style={{ width: `${levelProgress}%` }}
+          />
+        </div>
+      </div>
+
+      <section className="mb-16">
+        <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-6">
           Completed Courses
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {cryptohackCourses.map((course) => (
             <article
               key={course.title}
-              className="relative p-6 min-h-64 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-orange)] hover:bg-[var(--cyber-orange)]/5 transition-all group overflow-hidden"
+              className="p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-orange)] hover:bg-[var(--cyber-orange)]/5 transition-all group"
             >
-              <div className="absolute -right-10 top-6 rotate-45 bg-[var(--cyber-orange)] text-black font-mono text-xs font-bold px-10 py-1 shadow-lg">
-                Complete
-              </div>
-
-              <div className="w-12 h-12 rounded-xl bg-[var(--cyber-orange)]/10 border border-[var(--cyber-orange)]/25 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <course.icon className="w-6 h-6 text-[var(--cyber-orange)]" />
-              </div>
-
-              <h3 className="font-display text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-orange)] transition-colors uppercase tracking-wide pr-10">
+              <h3 className="font-mono text-base font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-orange)] transition-colors">
                 {course.title}
               </h3>
 
-              <div className="flex flex-wrap gap-2 mt-5">
+              <div className="flex flex-wrap gap-2 mt-3">
                 {course.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2.5 py-1 rounded bg-[var(--cyber-orange)]/15 border border-[var(--cyber-orange)]/25 text-[var(--cyber-orange)] font-mono text-xs"
+                    className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-[var(--text-muted)] font-mono text-xs"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
 
-              <div className="mt-8 pt-5 border-t border-[var(--border-default)] flex items-center justify-between gap-4">
-                <span className="inline-flex items-center gap-2 font-mono text-sm text-[var(--text-primary)]">
-                  <Brain className="w-4 h-4 text-[var(--cyber-orange)]" />
-                  {course.lessons} Lessons
+              <div className="mt-4 pt-4 border-t border-[var(--border-default)] flex items-center justify-between gap-4">
+                <span className="font-mono text-sm text-[var(--text-secondary)]">
+                  {course.lessons} lessons
                 </span>
-                <span className="inline-flex items-center gap-2 font-mono text-xs text-[var(--cyber-green)]">
-                  <Medal className="w-4 h-4" />
+                <span className="font-mono text-xs text-[var(--cyber-orange)]">
                   Done
                 </span>
               </div>
@@ -313,50 +219,16 @@ export default function CryptoHackClient() {
         </div>
       </section>
 
-      <section className="mb-20 md:mb-24">
-        <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-8 flex items-center gap-3">
-          <Award className="text-[var(--cyber-orange)]" />
-          Trophy Case
+      <section>
+        <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-6">
+          Progress Evidence
         </h2>
 
-        <div className="rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] p-6 md:p-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-5">
-            {Array.from({ length: cryptohackStats.trophiesEarned }).map(
-              (_, index) => (
-                <div
-                  key={index}
-                  className="rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border-default)] p-5 flex flex-col items-center justify-center text-center"
-                >
-                  <Trophy
-                    className={`w-9 h-9 mb-3 ${
-                      index % 3 === 0
-                        ? "text-slate-300"
-                        : "text-[var(--cyber-orange)]"
-                    }`}
-                  />
-                  <span className="font-mono text-xs text-[var(--text-muted)]">
-                    Trophy #{index + 1}
-                  </span>
-                </div>
-              ),
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="flex items-center gap-3 mb-8">
-          <Eye className="text-[var(--cyber-orange)]" />
-          <h2 className="text-2xl font-display font-bold text-[var(--text-primary)]">
-            Progress Evidence
-          </h2>
-        </div>
-
-        <div className="space-y-6">
+        <div className="space-y-4">
           <EvidencePanel
             id="cryptohack-profile-evidence"
             title="Profile, Level & Trophy Case"
-            description="Show or hide the CryptoHack profile screenshot with level, XP, rank, and trophies."
+            description="CryptoHack profile screenshot with level, XP, rank, and trophies."
             image="/cryptohack/profile.png"
             alt="CryptoHack profile showing Larein at level 10 with 2180 points"
             width={1478}
@@ -365,7 +237,7 @@ export default function CryptoHackClient() {
           <EvidencePanel
             id="cryptohack-courses-evidence"
             title="Completed Course List"
-            description="Show or hide the CryptoHack course cards marked as complete."
+            description="CryptoHack course cards marked as complete."
             image="/cryptohack/courses.png"
             alt="CryptoHack completed courses list showing five completed courses"
             width={1467}

@@ -34,7 +34,7 @@ export default function CiscoPage() {
             className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--cyber-blue)]/10 text-[var(--cyber-blue)] border border-[var(--cyber-blue)]/20 hover:bg-[var(--cyber-blue)]/20 hover:border-[var(--cyber-blue)]/50 transition-all font-mono text-sm whitespace-nowrap group w-full md:w-auto"
           >
             <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            View Transcript
+            View Certificate List
           </a>
         </div>
       </m.div>
@@ -107,11 +107,12 @@ export default function CiscoPage() {
                         <div className="flex items-center justify-center text-sm font-bold font-mono text-[var(--cyber-blue)] bg-[var(--cyber-blue)]/10 border border-[var(--cyber-blue)]/30 rounded-md w-8 h-8">
                           {cert.date.includes("2026") ? "6" : "5"}
                         </div>
-                        <div className="w-5 h-5 shrink-0 flex items-center justify-center">
-                          {cert.url && (
-                            <ExternalLink className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--cyber-blue)] opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0.5" />
-                          )}
-                        </div>
+                        {cert.url && (
+                          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--cyber-blue)]/20 bg-[var(--cyber-blue)]/10 px-3 py-1.5 text-xs font-mono text-[var(--cyber-blue)] transition-all group-hover:border-[var(--cyber-blue)]/50 group-hover:bg-[var(--cyber-blue)]/15">
+                            View Certificate
+                            <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -35,7 +35,7 @@ export default function HTBAcademyClient() {
             className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--cyber-green)]/10 text-[var(--cyber-green)] border border-[var(--cyber-green)]/20 hover:bg-[var(--cyber-green)]/20 hover:border-[var(--cyber-green)]/50 transition-all font-mono text-sm whitespace-nowrap group w-full md:w-auto"
           >
             <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            View HTB Profile
+            View Profile
           </a>
         </div>
       </m.div>
@@ -178,4 +178,3 @@ export default function HTBAcademyClient() {
     </div>
   );
 }
-

@@ -9,7 +9,7 @@ function RoomCard({ room, index }: { room: TryHackMeRoom; index: number }) {
   const content = (
     <div className="flex justify-between items-center gap-4">
       <div className="flex-1 min-w-0">
-        <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors truncate whitespace-normal break-words line-clamp-2">
+        <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-red)] transition-colors truncate whitespace-normal break-words line-clamp-2">
           {room.name}
         </h3>
         <div className="flex flex-wrap gap-2 mt-2">
@@ -32,13 +32,13 @@ function RoomCard({ room, index }: { room: TryHackMeRoom; index: number }) {
         </div>
       </div>
       {room.url && (
-        <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all" />
+        <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-red)] opacity-0 group-hover:opacity-100 transition-all" />
       )}
     </div>
   );
 
   const className =
-    "block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] hover:bg-[var(--cyber-green)]/5 transition-all group";
+    "block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] hover:bg-[var(--cyber-red)]/5 transition-all group";
 
   return room.url ? (
     <m.a
@@ -90,10 +90,10 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
             href={siteConfig.tryhackme.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--cyber-green)]/10 text-[var(--cyber-green)] border border-[var(--cyber-green)]/20 hover:bg-[var(--cyber-green)]/20 hover:border-[var(--cyber-green)]/50 transition-all font-mono text-sm whitespace-nowrap group w-full md:w-auto"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--cyber-red)]/10 text-[var(--cyber-red)] border border-[var(--cyber-red)]/20 hover:bg-[var(--cyber-red)]/20 hover:border-[var(--cyber-red)]/50 transition-all font-mono text-sm whitespace-nowrap group w-full md:w-auto"
           >
             <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            View @{siteConfig.tryhackme.username}
+            View Profile
           </a>
         </div>
       </m.div>
@@ -111,7 +111,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] transition-all group"
+            className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] transition-all group"
           >
             <stat.icon className={`w-8 h-8 mb-4 ${stat.color} group-hover:scale-110 transition-transform`} />
             <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{stat.value}</div>
@@ -124,7 +124,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
         {/* Completed Rooms/Paths */}
         <div>
           <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-6 flex items-center gap-3">
-            <Target className="text-[var(--cyber-green)]" /> Completed Paths & Rooms
+            <Target className="text-[var(--cyber-red)]" /> Completed Paths & Rooms
           </h2>
           <div className="space-y-4">
             {visibleRooms.map((room, i) => (
@@ -139,7 +139,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
             <div className="mt-6 flex justify-center">
               <button
                 onClick={() => setExpandedRooms(!expandedRooms)}
-                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-green)] text-[var(--text-primary)] hover:text-[var(--cyber-green)] transition-all group"
+                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] text-[var(--text-primary)] hover:text-[var(--cyber-red)] transition-all group"
               >
                 {expandedRooms ? (
                   <>Show Less <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" /></>
@@ -154,7 +154,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
         {/* Badges */}
         <div>
           <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-6 flex items-center gap-3">
-            <Shield className="text-[var(--cyber-blue)]" /> Earned Badges
+            <Shield className="text-[var(--cyber-red)]" /> Earned Badges
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {visibleBadges.map((badge, i) => (
@@ -166,12 +166,12 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-blue)] hover:bg-[var(--cyber-blue)]/5 transition-all group text-center"
+                className="block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] hover:bg-[var(--cyber-red)]/5 transition-all group text-center"
               >
                 <div className="w-12 h-12 mx-auto bg-[var(--bg-tertiary)] rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                   <Trophy className="w-6 h-6 text-yellow-400" />
                 </div>
-                <h3 className="text-md font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-blue)] transition-colors">
+                <h3 className="text-md font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-red)] transition-colors">
                   {badge.name}
                 </h3>
                 <p className="text-sm text-[var(--text-muted)] mt-1">{badge.description}</p>
@@ -182,7 +182,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
             <div className="mt-6 flex justify-center">
               <button
                 onClick={() => setExpandedBadges(!expandedBadges)}
-                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-blue)] text-[var(--text-primary)] hover:text-[var(--cyber-blue)] transition-all group"
+                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] text-[var(--text-primary)] hover:text-[var(--cyber-red)] transition-all group"
               >
                 {expandedBadges ? (
                   <>Show Less <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" /></>
