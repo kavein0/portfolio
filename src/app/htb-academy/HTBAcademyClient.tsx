@@ -13,15 +13,15 @@ export default function HTBAcademyClient() {
   const visibleBadges = expandedBadges ? htbAcademyBadges : htbAcademyBadges.slice(0, 10);
 
   return (
-    <div className="container-custom min-h-screen page-pad">
+    <div className="container-custom min-h-screen page-pad hud-page">
       <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-12"
+        className="hud-page-intro mb-12"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
           <div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4 md:mb-2 glitch-wrapper">
+            <h1 className="hud-page-title font-display font-bold text-[var(--text-primary)] mb-4 md:mb-2 glitch-wrapper">
               <span className="glitch-text" data-text="HTB">HTB</span> <span className="text-[var(--cyber-green)]">Academy</span>
             </h1>
             <p className="text-[var(--text-secondary)] font-mono text-lg">
@@ -41,7 +41,7 @@ export default function HTBAcademyClient() {
       </m.div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+      <div className="hud-stat-grid grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
         <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

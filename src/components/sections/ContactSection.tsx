@@ -2,117 +2,54 @@
 
 import { useRef } from "react";
 import { m, useInView } from "framer-motion";
-import { siteConfig } from "@/lib/data";
+import { ArrowUpRight, Mail, MapPin, Radio } from "lucide-react";
 import { GithubIcon, TelegramIcon } from "@/components/icons/BrandIcons";
-import { Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { siteConfig } from "@/lib/data";
 
 const contactLinks = [
-  {
-    icon: <Mail className="w-5 h-5" />,
-    label: "Email",
-    value: siteConfig.socials.email,
-    href: `mailto:${siteConfig.socials.email}`,
-    color: "var(--cyber-green)",
-  },
-  {
-    icon: <TelegramIcon className="w-5 h-5" />,
-    label: "Telegram",
-    value: "@Ranelin",
-    href: siteConfig.socials.telegram,
-    color: "var(--cyber-blue)",
-  },
-  {
-    icon: <GithubIcon className="w-5 h-5" />,
-    label: "GitHub",
-    value: "kavein0",
-    href: siteConfig.socials.github,
-    color: "var(--text-primary)",
-  },
+  { icon: Mail, label: "Email channel", value: siteConfig.socials.email, href: `mailto:${siteConfig.socials.email}` },
+  { icon: TelegramIcon, label: "Telegram relay", value: "@Ranelin", href: siteConfig.socials.telegram },
+  { icon: GithubIcon, label: "Code archive", value: "github.com/kavein0", href: siteConfig.socials.github },
 ];
 
 export default function ContactSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { once: true, margin: "-70px" });
 
   return (
-    <section id="contact" className="relative overflow-hidden py-20 md:py-28">
-      <div className="absolute inset-0 dot-grid pointer-events-none opacity-20" />
-
-      <div className="container-custom relative z-10" ref={ref}>
-        {/* Section label */}
+    <section id="contact" ref={sectionRef} className="command-section contact-section">
+      <div className="container-custom">
         <m.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="platform-eyebrow mb-4"
-        >
-          Contact
-        </m.div>
-
-        <m.h2
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="section-title mb-6"
+          transition={{ duration: 0.55 }}
+          className="contact-deck hud-panel"
         >
-          Get in <span className="text-[var(--cyber-green)]">Touch</span>
-        </m.h2>
+          <div className="contact-copy">
+            <div className="panel-caption"><Radio /> Communication relay <span>OPEN</span></div>
+            <span className="section-index">03 / CONTACT</span>
+            <h2>Establish a secure channel.</h2>
+            <p>Open to internships, cybersecurity collaboration and CTF teams.</p>
+            <div className="contact-location"><MapPin /> Kamianets-Podilskyi, Ukraine</div>
+          </div>
 
-        <m.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-[var(--text-secondary)] text-base max-w-xl mb-12"
-        >
-          Interested in cybersecurity collaboration, CTF teaming, or internship
-          opportunities? Feel free to reach out.
-        </m.p>
-
-        <div className="flex flex-col md:flex-row gap-4 w-full">
-          {contactLinks.map((link, i) => (
-            <m.a
-              key={link.label}
-              href={link.href}
-              target={link.href.startsWith("mailto") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-              className="glass-card p-5 flex-1 flex items-center gap-4 group hover:border-[var(--border-active)] transition-all min-w-[250px]"
-            >
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors"
-                style={{
-                  background: "var(--bg-elevated)",
-                  color: link.color,
-                }}
+          <div className="contact-routes">
+            {contactLinks.map((link, index) => (
+              <m.a
+                key={link.label}
+                href={link.href}
+                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, x: 14 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.15 + index * 0.08 }}
               >
-                {link.icon}
-              </div>
-              <div className="flex-1">
-                <p className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
-                  {link.label}
-                </p>
-                <p className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors leading-tight">
-                  {link.value}
-                </p>
-              </div>
-              <ArrowUpRight className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </m.a>
-          ))}
-        </div>
-
-        {/* Location note */}
-        <m.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.8 }}
-          className="flex items-center gap-2 mt-10 text-[var(--text-muted)]"
-        >
-          <MapPin className="w-4 h-4" />
-          <span className="font-mono text-xs">
-            Based in Kamianets-Podilsk, Ukraine 🇺🇦
-          </span>
+                <span className="contact-route-icon"><link.icon /></span>
+                <span><small>{link.label}</small><strong>{link.value}</strong></span>
+                <ArrowUpRight />
+              </m.a>
+            ))}
+          </div>
         </m.div>
       </div>
     </section>

@@ -500,8 +500,8 @@ export default function LearningMatrixPage() {
   const pendingCount = totalCount - completedCount;
 
   return (
-    <div className="container-custom min-h-screen page-pad">
-      <div className="mb-14 md:mb-16">
+    <div className="container-custom min-h-screen page-pad hud-page">
+      <div className="hud-page-intro mb-14 md:mb-16">
         <div className="flex items-center gap-3 mb-4">
           <span className="h-px w-8 bg-[var(--cyber-green)]" />
           <span className="font-mono text-xs text-[var(--cyber-green)] uppercase tracking-[0.2em]">
@@ -509,7 +509,7 @@ export default function LearningMatrixPage() {
           </span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4 glitch-wrapper">
+        <h1 className="hud-page-title font-display font-bold text-[var(--text-primary)] mb-4 glitch-wrapper">
           <span className="glitch-text" data-text="Learning">
             Learning
           </span>{" "}

@@ -14,12 +14,12 @@ export default function StatsClient({
 }) {
   return (
     <div className="min-h-screen page-pad-lg">
-      <div className="container-custom">
+      <div className="container-custom hud-page">
         <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-16"
+          className="hud-page-intro mb-16"
         >
           <div className="flex items-center gap-3 mb-4">
             <span className="h-[1px] w-8 bg-[var(--cyber-blue)]" />
@@ -27,7 +27,7 @@ export default function StatsClient({
               Metrics
             </span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-[var(--text-primary)] tracking-tight mb-4 uppercase">
+          <h1 className="hud-page-title font-black text-[var(--text-primary)] tracking-tight mb-4 uppercase">
             Cyber <span className="text-[var(--cyber-blue)]">Stats</span>
           </h1>
           <p className="text-[var(--text-secondary)] text-lg max-w-2xl">

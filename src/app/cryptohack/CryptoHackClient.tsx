@@ -27,8 +27,8 @@ const levelProgress = (cryptohackStats.experience / nextLevelTotal) * 100;
 
 export default function CryptoHackClient() {
   return (
-    <div className="container-custom min-h-screen page-pad">
-      <header className="mb-10 md:mb-12">
+    <div className="container-custom min-h-screen page-pad hud-page">
+      <header className="hud-page-intro mb-10 md:mb-12">
         <div className="platform-eyebrow mb-5">Applied cryptography</div>
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-3xl">

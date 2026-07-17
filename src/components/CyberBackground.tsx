@@ -2,10 +2,25 @@
 
 import { useEffect, useRef } from "react";
 
-/**
- * Animated matrix-style particle grid background
- * Uses canvas for performance — no DOM thrashing
- */
+type Star = {
+  x: number;
+  y: number;
+  radius: number;
+  depth: number;
+  alpha: number;
+  phase: number;
+  speed: number;
+};
+
+type Meteor = {
+  x: number;
+  y: number;
+  length: number;
+  speed: number;
+  life: number;
+  active: boolean;
+};
+
 export default function CyberBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -13,135 +28,170 @@ export default function CyberBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    if (!ctx) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
 
-    let animId: number;
-    const particles: Particle[] = [];
-    const mouse = { x: -1000, y: -1000 };
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    const stars: Star[] = [];
+    const meteors: Meteor[] = [];
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let frameId = 0;
+    let lastFrame = 0;
+    let elapsed = 0;
 
-    interface Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      baseVx: number;
-      baseVy: number;
-      size: number;
-      opacity: number;
-      color: string;
-    }
+    const buildScene = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    function resize() {
-      canvas!.width = window.innerWidth;
-      canvas!.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener("resize", resize);
+      stars.length = 0;
+      const count = Math.min(210, Math.max(90, Math.floor((width * height) / 8500)));
+      for (let index = 0; index < count; index += 1) {
+        const depth = 0.25 + Math.random() * 0.75;
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: 0.3 + Math.random() * 1.45 * depth,
+          depth,
+          alpha: 0.16 + Math.random() * 0.58,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.2 + Math.random() * 0.6,
+        });
+      }
 
-    // Mouse tracking (instant update for smooth repulsion)
-    function onMouseMove(e: MouseEvent) {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    }
-    window.addEventListener("mousemove", onMouseMove);
+      meteors.length = 0;
+      for (let index = 0; index < 2; index += 1) {
+        meteors.push({ x: 0, y: 0, length: 0, speed: 0, life: 0, active: false });
+      }
+    };
 
-    // Create particles
-    const count = Math.min(42, Math.floor((window.innerWidth * window.innerHeight) / 26000));
-    const colors = ["#8ca9ba", "#5d7889", "#c0d0d9"];
+    const launchMeteor = (meteor: Meteor) => {
+      meteor.x = width * (0.25 + Math.random() * 0.7);
+      meteor.y = -40 - Math.random() * 120;
+      meteor.length = 80 + Math.random() * 130;
+      meteor.speed = 7 + Math.random() * 5;
+      meteor.life = 0;
+      meteor.active = true;
+    };
 
-    for (let i = 0; i < count; i++) {
-      const baseVx = reducedMotion ? 0 : (Math.random() - 0.5) * 0.18;
-      const baseVy = reducedMotion ? 0 : (Math.random() - 0.5) * 0.18;
-      
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: baseVx,
-        vy: baseVy,
-        baseVx,
-        baseVy,
-        size: Math.random() * 1.3 + 0.35,
-        opacity: Math.random() * 0.22 + 0.05,
-        color: colors[Math.floor(Math.random() * colors.length)],
-      });
-    }
+    const drawScene = (timestamp: number) => {
+      if (!reducedMotion && timestamp - lastFrame < 32) {
+        frameId = requestAnimationFrame(drawScene);
+        return;
+      }
 
-    function draw() {
-      ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
+      const delta = lastFrame ? Math.min(48, timestamp - lastFrame) : 16;
+      lastFrame = timestamp;
+      elapsed += delta / 1000;
+      pointer.x += (pointer.targetX - pointer.x) * 0.035;
+      pointer.y += (pointer.targetY - pointer.y) * 0.035;
 
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+      context.clearRect(0, 0, width, height);
 
-          if (dist < 175) {
-            const opacity = (1 - dist / 175) * 0.07;
-            ctx!.strokeStyle = `rgba(126, 159, 179, ${opacity})`;
-            ctx!.lineWidth = 0.55;
-            ctx!.beginPath();
-            ctx!.moveTo(particles[i].x, particles[i].y);
-            ctx!.lineTo(particles[j].x, particles[j].y);
-            ctx!.stroke();
-          }
+      const brightStars = stars.filter((star) => star.depth > 0.72).slice(0, 34);
+      for (let index = 0; index < brightStars.length; index += 1) {
+        const first = brightStars[index];
+        for (let otherIndex = index + 1; otherIndex < brightStars.length; otherIndex += 1) {
+          const second = brightStars[otherIndex];
+          const dx = first.x - second.x;
+          const dy = first.y - second.y;
+          const distance = Math.hypot(dx, dy);
+          if (distance > 155) continue;
+
+          context.beginPath();
+          context.moveTo(first.x + pointer.x * first.depth * 8, first.y + pointer.y * first.depth * 5);
+          context.lineTo(second.x + pointer.x * second.depth * 8, second.y + pointer.y * second.depth * 5);
+          context.strokeStyle = `rgba(105, 159, 190, ${(1 - distance / 155) * 0.12})`;
+          context.lineWidth = 0.5;
+          context.stroke();
         }
       }
 
-      // Update and draw particles
-      for (const p of particles) {
-        // Mouse repulsion
-        const mdx = p.x - mouse.x;
-        const mdy = p.y - mouse.y;
-        const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (!reducedMotion && mDist > 0 && mDist < 130) {
-          const force = (150 - mDist) / 150;
-          p.vx += (mdx / mDist) * force * 0.018;
-          p.vy += (mdy / mDist) * force * 0.018;
+      for (const star of stars) {
+        const twinkle = reducedMotion ? 1 : 0.72 + Math.sin(elapsed * star.speed + star.phase) * 0.28;
+        const x = star.x + pointer.x * star.depth * 11;
+        const y = star.y + pointer.y * star.depth * 7;
+        const alpha = star.alpha * twinkle;
+
+        if (star.radius > 1.15) {
+          const glow = context.createRadialGradient(x, y, 0, x, y, star.radius * 5);
+          glow.addColorStop(0, `rgba(205, 235, 250, ${alpha * 0.72})`);
+          glow.addColorStop(1, "rgba(80, 142, 178, 0)");
+          context.fillStyle = glow;
+          context.beginPath();
+          context.arc(x, y, star.radius * 5, 0, Math.PI * 2);
+          context.fill();
         }
 
-        // Smoothly return to base velocity
-        p.vx += (p.baseVx - p.vx) * 0.02;
-        p.vy += (p.baseVy - p.vy) * 0.02;
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Wrap around edges
-        if (p.x < 0) p.x = canvas!.width;
-        if (p.x > canvas!.width) p.x = 0;
-        if (p.y < 0) p.y = canvas!.height;
-        if (p.y > canvas!.height) p.y = 0;
-
-        // Draw particle
-        ctx!.beginPath();
-        ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx!.fillStyle = p.color;
-        ctx!.globalAlpha = p.opacity;
-        ctx!.fill();
-        ctx!.globalAlpha = 1;
+        context.beginPath();
+        context.arc(x, y, star.radius, 0, Math.PI * 2);
+        context.fillStyle = `rgba(219, 240, 250, ${alpha})`;
+        context.fill();
       }
 
-      if (!reducedMotion) animId = requestAnimationFrame(draw);
-    }
+      if (!reducedMotion) {
+        if (Math.random() < 0.0018) {
+          const dormantMeteor = meteors.find((meteor) => !meteor.active);
+          if (dormantMeteor) launchMeteor(dormantMeteor);
+        }
 
-    draw();
+        for (const meteor of meteors) {
+          if (!meteor.active) continue;
+          meteor.life += delta / 1000;
+          meteor.x -= meteor.speed * 1.7;
+          meteor.y += meteor.speed;
+
+          const gradient = context.createLinearGradient(
+            meteor.x,
+            meteor.y,
+            meteor.x + meteor.length,
+            meteor.y - meteor.length * 0.58,
+          );
+          gradient.addColorStop(0, "rgba(220, 242, 252, 0.72)");
+          gradient.addColorStop(1, "rgba(88, 151, 188, 0)");
+          context.beginPath();
+          context.moveTo(meteor.x, meteor.y);
+          context.lineTo(meteor.x + meteor.length, meteor.y - meteor.length * 0.58);
+          context.strokeStyle = gradient;
+          context.lineWidth = 1;
+          context.stroke();
+
+          if (meteor.y > height * 0.7 || meteor.life > 3) meteor.active = false;
+        }
+
+        frameId = requestAnimationFrame(drawScene);
+      }
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      pointer.targetX = (event.clientX / width - 0.5) * -1;
+      pointer.targetY = (event.clientY / height - 0.5) * -1;
+    };
+
+    buildScene();
+    window.addEventListener("resize", buildScene);
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    drawScene(0);
 
     return () => {
-      if (animId) cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", buildScene);
+      window.removeEventListener("pointermove", handlePointerMove);
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0, opacity: 0.48 }}
-      aria-hidden="true"
-    />
+    <div className="stellar-backdrop" aria-hidden="true">
+      <canvas ref={canvasRef} className="stellar-canvas" />
+      <div className="stellar-nebula" />
+      <div className="stellar-vignette" />
+    </div>
   );
 }

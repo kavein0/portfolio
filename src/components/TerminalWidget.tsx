@@ -294,11 +294,11 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className={`fixed z-50 flex flex-col bg-[#0a0a0f]/95 backdrop-blur-xl border border-[var(--border-active)] shadow-[0_0_40px_rgba(0,255,136,0.15)] rounded-xl overflow-hidden transition-all duration-300 ${
+          className={`terminal-deck fixed z-[70] flex flex-col overflow-hidden transition-all duration-300 ${
             isMaximized ? "inset-4" : "bottom-4 right-4 w-[90vw] sm:w-[500px] h-[400px]"
           }`}
         >
-          <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-default)] bg-black/40">
+          <div className="terminal-deck-header flex items-center justify-between px-4 py-3 border-b border-[var(--border-default)]">
             <div className="flex items-center gap-2 text-[var(--text-muted)]">
               <TerminalIcon className="w-4 h-4 text-[var(--cyber-green)]" />
               <span className="font-mono text-xs tracking-wider">voron@system: ~</span>

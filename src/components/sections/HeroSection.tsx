@@ -1,163 +1,170 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { m } from "framer-motion";
-import { siteConfig } from "@/lib/data";
-import { Terminal, Shield } from "lucide-react";
 import Link from "next/link";
+import { Activity, ArrowRight, Radio, Shield, Terminal } from "lucide-react";
+import ConstellationDisplay from "@/components/ConstellationDisplay";
+import { certifications, htbAcademyModules, siteConfig, thmRooms } from "@/lib/data";
 
-// Typing effect hook
-function useTypingEffect(texts: string[], typingSpeed = 60, deletingSpeed = 40, pauseMs = 2000) {
+const roles = [
+  "Penetration Tester",
+  "DevOps Engineer",
+  "CTF Player",
+  "Security Researcher",
+];
+
+const activity = [
+  "Cryptography track updated",
+  "31 TryHackMe rooms",
+  "5 CryptoHack courses",
+];
+
+function useTypingEffect(texts: string[], typingSpeed = 58, deletingSpeed = 34, pauseMs = 1800) {
   const [display, setDisplay] = useState("");
   const [textIndex, setTextIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
     const currentText = texts[textIndex];
-
-    if (!isDeleting) {
-      if (display.length < currentText.length) {
-        timeout = setTimeout(() => {
-          setDisplay(currentText.slice(0, display.length + 1));
-        }, typingSpeed);
-      } else {
-        timeout = setTimeout(() => {
-          setIsDeleting(true);
-        }, pauseMs);
+    const atEnd = !deleting && display.length === currentText.length;
+    const delay = atEnd ? pauseMs : deleting ? deletingSpeed : typingSpeed;
+    const timeout = window.setTimeout(() => {
+      if (!deleting && display.length < currentText.length) {
+        setDisplay(currentText.slice(0, display.length + 1));
+        return;
       }
-    } else {
+      if (!deleting) {
+        setDeleting(true);
+        return;
+      }
       if (display.length > 0) {
-        timeout = setTimeout(() => {
-          setDisplay(currentText.slice(0, display.length - 1));
-        }, deletingSpeed);
-      } else {
-        timeout = setTimeout(() => {
-          setIsDeleting(false);
-          setTextIndex((prev) => (prev + 1) % texts.length);
-        }, deletingSpeed);
+        setDisplay(currentText.slice(0, -1));
+        return;
       }
-    }
+      setDeleting(false);
+      setTextIndex((current) => (current + 1) % texts.length);
+    }, delay);
 
-    return () => clearTimeout(timeout);
-  }, [display, isDeleting, textIndex, texts, typingSpeed, deletingSpeed, pauseMs]);
+    return () => window.clearTimeout(timeout);
+  }, [deleting, deletingSpeed, display, pauseMs, textIndex, texts, typingSpeed]);
 
   return display;
 }
 
 export default function HeroSection() {
-  const typed = useTypingEffect(
-    [
-      "Penetration Tester",
-      "DevOps Engineer",
-      "CTF Player",
-      "Linux Enthusiast",
-      "Security Researcher",
-    ],
-    70,
-    40,
-    2200
-  );
-
-  const containerRef = useRef<HTMLDivElement>(null);
+  const typed = useTypingEffect(roles);
 
   return (
-    <section
-      ref={containerRef}
-      id="hero"
-      className="relative min-h-[calc(100svh-72px)] flex items-center justify-center overflow-hidden py-20"
-    >
-      {/* Radial gradient overlay */}
-      <div className="absolute inset-0 pointer-events-none bg-hero-radial" />
-
-      {/* Hexagonal grid overlay */}
-      <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
-
-      <div className="container-custom relative z-10 px-4">
-        <div className="relative mx-auto flex min-h-[580px] max-w-5xl flex-col items-center justify-center overflow-hidden rounded-[26px] border border-[var(--border-default)] bg-black/10 px-5 py-16 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.035)] sm:px-10">
-          <div className="pointer-events-none absolute inset-x-[7%] top-[18%] h-px bg-gradient-to-r from-transparent via-[var(--border-strong)] to-transparent" />
-          <div className="pointer-events-none absolute inset-x-[3%] bottom-[18%] h-px bg-gradient-to-r from-transparent via-[var(--border-default)] to-transparent" />
-        {/* Status badge */}
-        <m.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex items-center gap-2 mb-8 cyber-tag"
-        >
-          <span className="status-online" />
-          <span className="text-[var(--text-secondary)] text-xs">
-            AVAILABLE FOR INTERNSHIPS
-          </span>
-        </m.div>
-
-        {/* Title line */}
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mb-4"
-        >
-          <span className="font-mono text-xs sm:text-sm text-[var(--text-muted)] tracking-widest uppercase">
-            {siteConfig.universityShort} {"//"} {siteConfig.year}
-          </span>
-        </m.div>
-
-        {/* Name */}
-        <m.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.065em] leading-[0.92] mb-3 glitch-wrapper"
-        >
-          <span className="gradient-text glitch-text" data-text={siteConfig.nameEn.split(" ")[0]}>{siteConfig.nameEn.split(" ")[0]}</span>
-          <br />
-          <span className="text-[var(--text-primary)] glitch-text" data-text={siteConfig.nameEn.split(" ").slice(1).join(" ")}>
-            {siteConfig.nameEn.split(" ").slice(1).join(" ")}
-          </span>
-        </m.h1>
-
-        {/* Ukrainian name */}
-        <m.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="font-mono text-xs text-[var(--text-muted)] tracking-[0.24em] uppercase mb-8"
-        >
-          {siteConfig.name}
-        </m.p>
-
-        {/* Typing effect */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="flex items-center gap-2 mb-10"
-        >
-          <Terminal className="w-4 h-4 text-[var(--cyber-blue)]" />
-          <span className="font-mono text-base sm:text-lg text-[var(--text-secondary)]">
-            {typed}
-          </span>
-          <span className="w-px h-5 bg-[var(--cyber-blue)] animate-blink" />
-        </m.div>
-
-        {/* CTA Buttons */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          className="flex flex-wrap gap-4 justify-center"
-        >
-          <Link href="/stats" className="magnetic-btn">
-            <Shield className="w-4 h-4" />
-            View Cyber Stats
-          </Link>
-          <a
-            href="#contact"
-            className="magnetic-btn [--btn-color:var(--cyber-blue)]"
+    <section id="hero" className="command-hero">
+      <div className="container-custom">
+        <div className="hero-telemetry-row">
+          <m.aside
+            initial={{ opacity: 0, y: -14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.12 }}
+            className="telemetry-panel telemetry-status"
           >
-            Get in Touch
-          </a>
-        </m.div>
+            <div className="panel-caption"><Radio /> System status <span>01</span></div>
+            <div className="telemetry-radar" aria-hidden="true">
+              <span /><span /><span /><span />
+              <i />
+            </div>
+            <div className="telemetry-meta"><span>GLOBAL NODES</span><strong>ONLINE</strong></div>
+          </m.aside>
+
+          <m.div
+            initial={{ opacity: 0, scaleX: 0.94 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.7, delay: 0.18 }}
+            className="telemetry-panel telemetry-signal"
+          >
+            <div className="signal-bracket signal-bracket-left" />
+            <ConstellationDisplay compact />
+            <div className="signal-bracket signal-bracket-right" />
+          </m.div>
+
+          <m.aside
+            initial={{ opacity: 0, y: -14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.24 }}
+            className="telemetry-panel telemetry-activity"
+          >
+            <div className="panel-caption"><Activity /> Activity feed <span>LIVE</span></div>
+            <div className="activity-feed">
+              {activity.map((item, index) => (
+                <div key={item}><span>{item}</span><time>{index + 1}h</time></div>
+              ))}
+            </div>
+            <div className="telemetry-meta"><span>LOG STREAM</span><strong>ACTIVE</strong></div>
+          </m.aside>
+        </div>
+
+        <div className="hero-stage">
+          <div className="hero-frame hero-frame-back" aria-hidden="true" />
+          <div className="hero-frame hero-frame-mid" aria-hidden="true" />
+          <m.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, delay: 0.28 }}
+            className="hero-viewport"
+          >
+            <div className="hero-reflection" aria-hidden="true" />
+            <div className="hero-copy">
+              <div className="hero-status"><span /> Available for internships</div>
+              <p className="hero-kicker">{siteConfig.universityShort} &nbsp;//&nbsp; {siteConfig.year}</p>
+              <h1>
+                <span>{siteConfig.nameEn.split(" ")[0]}</span>
+                <strong>{siteConfig.nameEn.split(" ").slice(1).join(" ")}</strong>
+              </h1>
+              <p className="hero-native-name">{siteConfig.name}</p>
+              <div className="hero-role"><Terminal /> <span>{typed}</span><i /></div>
+              <div className="hero-actions">
+                <Link href="/stats" className="command-button primary"><Shield /> View progress <ArrowRight /></Link>
+                <a href="#contact" className="command-button">Get in touch</a>
+              </div>
+            </div>
+
+            <div className="hero-visual">
+              <ConstellationDisplay />
+              <div className="coordinate-readout">
+                <span>LAT 48.6839° N</span>
+                <span>LON 26.5852° E</span>
+              </div>
+              <div className="hero-axis" aria-hidden="true"><span /><span /><span /><span /><span /></div>
+            </div>
+          </m.div>
+        </div>
+
+        <div className="hero-lower-deck">
+          <m.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.55 }}
+            className="lower-panel overview-panel"
+          >
+            <div className="panel-caption"><Shield /> Platform overview <span>SYNCED</span></div>
+            <div className="overview-stats">
+              <div><strong>{thmRooms.length}</strong><span>THM rooms</span></div>
+              <div><strong>{htbAcademyModules.length}</strong><span>Academy</span></div>
+              <div><strong>{certifications.length}</strong><span>Certificates</span></div>
+              <div><strong>08</strong><span>PicoCTF</span></div>
+            </div>
+          </m.div>
+
+          <m.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.64 }}
+            className="lower-panel focus-panel"
+          >
+            <div className="panel-caption"><Activity /> Current focus <span>2026</span></div>
+            <div className="focus-track">
+              <span>Offensive security</span>
+              <span>Digital forensics</span>
+              <span>Infrastructure</span>
+            </div>
+          </m.div>
         </div>
       </div>
     </section>
