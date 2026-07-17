@@ -34,7 +34,6 @@ export const metadata: Metadata = {
 
 import Navbar from "@/components/Navbar";
 import CyberBackgroundWrapper from "@/components/CyberBackgroundWrapper";
-import CosmicFramework from "@/components/CosmicFramework";
 import Footer from "@/components/Footer";
 import MotionProvider from "@/components/MotionProvider";
 
@@ -48,7 +47,6 @@ export default function RootLayout({
       <body className="noise">
         <MotionProvider>
           <CyberBackgroundWrapper />
-          <CosmicFramework />
           <Navbar />
           <main className="site-main relative z-10">
             {children}

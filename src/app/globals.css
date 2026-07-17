@@ -147,49 +147,6 @@ a {
   to { transform: translate3d(1.5%, 1%, 0) scale(1.04); }
 }
 
-/* Background architectural outlines from the reference */
-.cosmic-framework {
-  position: fixed;
-  z-index: 1;
-  inset: 90px 0 0;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 0.72;
-}
-
-.cosmic-rail {
-  position: absolute;
-  top: 3%;
-  bottom: 3%;
-  width: 1px;
-  background: linear-gradient(transparent, rgba(117, 173, 205, 0.2) 16%, rgba(117, 173, 205, 0.08) 82%, transparent);
-  box-shadow: 0 0 22px rgba(72, 139, 177, 0.1);
-}
-.cosmic-rail-left { left: clamp(28px, 6vw, 110px); }
-.cosmic-rail-right { right: clamp(28px, 6vw, 110px); }
-
-.cosmic-frame {
-  position: absolute;
-  left: 7.5%;
-  right: 7.5%;
-  border: 1px solid rgba(117, 171, 202, 0.07);
-  background: linear-gradient(115deg, transparent 15%, rgba(93, 151, 183, 0.025) 50%, transparent 80%);
-}
-.cosmic-frame-top { top: 6%; height: 18%; }
-.cosmic-frame-middle { top: 28%; height: 38%; left: 3%; right: 3%; }
-.cosmic-frame-bottom { bottom: 5%; height: 19%; }
-
-.cosmic-light {
-  position: absolute;
-  width: 420px;
-  height: 1px;
-  opacity: 0.24;
-  background: linear-gradient(90deg, transparent, #a7d8f0, transparent);
-  filter: blur(0.4px);
-}
-.cosmic-light-a { top: 30%; left: 14%; transform: rotate(-14deg); }
-.cosmic-light-b { top: 62%; right: 8%; transform: rotate(18deg); }
-
 /* Floating navigation deck */
 .nav-orbit {
   position: fixed;
@@ -928,7 +885,6 @@ a {
 
 @media (max-width: 768px) {
   .container-custom { padding-inline: 18px; }
-  .cosmic-framework { top: 74px; opacity: 0.45; }
   .command-hero { padding-top: 0; padding-bottom: 40px; }
   .hero-telemetry-row { display: none; }
   .hero-stage { padding: 8px 0 18px; }

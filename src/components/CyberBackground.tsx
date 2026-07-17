@@ -5,11 +5,15 @@ import { useEffect, useRef } from "react";
 type Star = {
   x: number;
   y: number;
+  vx: number;
+  vy: number;
+  baseVx: number;
+  baseVy: number;
   radius: number;
   depth: number;
   alpha: number;
   phase: number;
-  speed: number;
+  twinkleSpeed: number;
 };
 
 type Meteor = {
@@ -19,6 +23,14 @@ type Meteor = {
   speed: number;
   life: number;
   active: boolean;
+};
+
+type Ripple = {
+  x: number;
+  y: number;
+  radius: number;
+  alpha: number;
+  speed: number;
 };
 
 export default function CyberBackground() {
@@ -32,9 +44,10 @@ export default function CyberBackground() {
     if (!context) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    const pointer = { x: 0, y: 0, active: false };
     const stars: Star[] = [];
     const meteors: Meteor[] = [];
+    const ripples: Ripple[] = [];
     let width = window.innerWidth;
     let height = window.innerHeight;
     let frameId = 0;
@@ -55,14 +68,22 @@ export default function CyberBackground() {
       const count = Math.min(210, Math.max(90, Math.floor((width * height) / 8500)));
       for (let index = 0; index < count; index += 1) {
         const depth = 0.25 + Math.random() * 0.75;
+        const angle = Math.random() * Math.PI * 2;
+        const drift = (0.045 + Math.random() * 0.13) * depth;
+        const baseVx = Math.cos(angle) * drift;
+        const baseVy = Math.sin(angle) * drift;
         stars.push({
           x: Math.random() * width,
           y: Math.random() * height,
+          vx: baseVx,
+          vy: baseVy,
+          baseVx,
+          baseVy,
           radius: 0.3 + Math.random() * 1.45 * depth,
           depth,
           alpha: 0.16 + Math.random() * 0.58,
           phase: Math.random() * Math.PI * 2,
-          speed: 0.2 + Math.random() * 0.6,
+          twinkleSpeed: 0.9 + Math.random() * 1.8,
         });
       }
 
@@ -70,6 +91,8 @@ export default function CyberBackground() {
       for (let index = 0; index < 2; index += 1) {
         meteors.push({ x: 0, y: 0, length: 0, speed: 0, life: 0, active: false });
       }
+
+      ripples.length = 0;
     };
 
     const launchMeteor = (meteor: Meteor) => {
@@ -88,36 +111,68 @@ export default function CyberBackground() {
       }
 
       const delta = lastFrame ? Math.min(48, timestamp - lastFrame) : 16;
+      const frameScale = Math.min(2.5, delta / 16.67);
       lastFrame = timestamp;
       elapsed += delta / 1000;
-      pointer.x += (pointer.targetX - pointer.x) * 0.035;
-      pointer.y += (pointer.targetY - pointer.y) * 0.035;
 
       context.clearRect(0, 0, width, height);
 
-      const brightStars = stars.filter((star) => star.depth > 0.72).slice(0, 34);
-      for (let index = 0; index < brightStars.length; index += 1) {
-        const first = brightStars[index];
-        for (let otherIndex = index + 1; otherIndex < brightStars.length; otherIndex += 1) {
-          const second = brightStars[otherIndex];
-          const dx = first.x - second.x;
-          const dy = first.y - second.y;
-          const distance = Math.hypot(dx, dy);
-          if (distance > 155) continue;
-
-          context.beginPath();
-          context.moveTo(first.x + pointer.x * first.depth * 8, first.y + pointer.y * first.depth * 5);
-          context.lineTo(second.x + pointer.x * second.depth * 8, second.y + pointer.y * second.depth * 5);
-          context.strokeStyle = `rgba(105, 159, 190, ${(1 - distance / 155) * 0.12})`;
-          context.lineWidth = 0.5;
-          context.stroke();
-        }
+      if (pointer.active && !reducedMotion) {
+        const glow = context.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 180);
+        glow.addColorStop(0, "rgba(157, 216, 245, 0.075)");
+        glow.addColorStop(0.42, "rgba(72, 151, 194, 0.035)");
+        glow.addColorStop(1, "rgba(28, 83, 116, 0)");
+        context.fillStyle = glow;
+        context.fillRect(pointer.x - 180, pointer.y - 180, 360, 360);
       }
 
       for (const star of stars) {
-        const twinkle = reducedMotion ? 1 : 0.72 + Math.sin(elapsed * star.speed + star.phase) * 0.28;
-        const x = star.x + pointer.x * star.depth * 11;
-        const y = star.y + pointer.y * star.depth * 7;
+        if (!reducedMotion) {
+          star.vx += (star.baseVx - star.vx) * 0.018 * frameScale;
+          star.vy += (star.baseVy - star.vy) * 0.018 * frameScale;
+
+          if (pointer.active) {
+            const dx = star.x - pointer.x;
+            const dy = star.y - pointer.y;
+            const distance = Math.hypot(dx, dy);
+            const interactionRadius = 230;
+
+            if (distance > 0 && distance < interactionRadius) {
+              const influence = 1 - distance / interactionRadius;
+              const impulse = influence * influence * 0.23 * star.depth * frameScale;
+              star.vx += (dx / distance) * impulse;
+              star.vy += (dy / distance) * impulse;
+
+              if (distance < 175 && star.depth > 0.42) {
+                context.beginPath();
+                context.moveTo(pointer.x, pointer.y);
+                context.lineTo(star.x, star.y);
+                context.strokeStyle = `rgba(132, 196, 227, ${influence * 0.2})`;
+                context.lineWidth = 0.55;
+                context.stroke();
+              }
+            }
+          }
+
+          const velocity = Math.hypot(star.vx, star.vy);
+          if (velocity > 1.45) {
+            star.vx = (star.vx / velocity) * 1.45;
+            star.vy = (star.vy / velocity) * 1.45;
+          }
+
+          star.x += star.vx * frameScale;
+          star.y += star.vy * frameScale;
+
+          const edge = 12;
+          if (star.x < -edge) star.x = width + edge;
+          if (star.x > width + edge) star.x = -edge;
+          if (star.y < -edge) star.y = height + edge;
+          if (star.y > height + edge) star.y = -edge;
+        }
+
+        const twinkle = reducedMotion ? 1 : 0.68 + Math.sin(elapsed * star.twinkleSpeed + star.phase) * 0.32;
+        const x = star.x;
+        const y = star.y;
         const alpha = star.alpha * twinkle;
 
         if (star.radius > 1.15) {
@@ -137,7 +192,24 @@ export default function CyberBackground() {
       }
 
       if (!reducedMotion) {
-        if (Math.random() < 0.0018) {
+        for (let index = ripples.length - 1; index >= 0; index -= 1) {
+          const ripple = ripples[index];
+          ripple.radius += ripple.speed * frameScale;
+          ripple.alpha -= 0.016 * frameScale;
+
+          if (ripple.alpha <= 0) {
+            ripples.splice(index, 1);
+            continue;
+          }
+
+          context.beginPath();
+          context.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+          context.strokeStyle = `rgba(151, 213, 242, ${ripple.alpha})`;
+          context.lineWidth = 1;
+          context.stroke();
+        }
+
+        if (Math.random() < 0.0035) {
           const dormantMeteor = meteors.find((meteor) => !meteor.active);
           if (dormantMeteor) launchMeteor(dormantMeteor);
         }
@@ -171,19 +243,66 @@ export default function CyberBackground() {
     };
 
     const handlePointerMove = (event: PointerEvent) => {
-      pointer.targetX = (event.clientX / width - 0.5) * -1;
-      pointer.targetY = (event.clientY / height - 0.5) * -1;
+      if (event.pointerType === "touch") return;
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      pointer.active = true;
+    };
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (event.button !== 0 || reducedMotion) return;
+
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      pointer.active = event.pointerType !== "touch";
+      ripples.push({ x: event.clientX, y: event.clientY, radius: 8, alpha: 0.68, speed: 5.2 });
+
+      for (const star of stars) {
+        const dx = star.x - event.clientX;
+        const dy = star.y - event.clientY;
+        const distance = Math.hypot(dx, dy);
+        const waveRadius = 310;
+        if (distance <= 0 || distance >= waveRadius) continue;
+
+        const impulse = (1 - distance / waveRadius) * 1.15 * star.depth;
+        star.vx += (dx / distance) * impulse;
+        star.vy += (dy / distance) * impulse;
+      }
+    };
+
+    const handlePointerLeave = (event: PointerEvent) => {
+      if (event.relatedTarget === null) pointer.active = false;
+    };
+
+    const handleResize = () => {
+      buildScene();
+      if (reducedMotion) drawScene(performance.now());
+    };
+
+    const handleBlur = () => {
+      pointer.active = false;
     };
 
     buildScene();
-    window.addEventListener("resize", buildScene);
+    window.addEventListener("resize", handleResize);
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    drawScene(0);
+    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
+    window.addEventListener("pointerout", handlePointerLeave, { passive: true });
+    window.addEventListener("blur", handleBlur);
+
+    if (reducedMotion) {
+      drawScene(performance.now());
+    } else {
+      frameId = requestAnimationFrame(drawScene);
+    }
 
     return () => {
       cancelAnimationFrame(frameId);
-      window.removeEventListener("resize", buildScene);
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("pointerout", handlePointerLeave);
+      window.removeEventListener("blur", handleBlur);
     };
   }, []);
 
