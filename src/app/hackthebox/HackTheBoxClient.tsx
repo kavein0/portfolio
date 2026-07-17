@@ -82,7 +82,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
                   <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors truncate whitespace-normal break-words line-clamp-2">
                     {machine.name}
                   </h3>
-                  <ExternalLink className="w-4 h-4 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all mt-1" />
+                  <ExternalLink className="w-4 h-4 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-60 group-hover:opacity-100 transition-all mt-1" />
                 </div>
                 <div className="flex flex-wrap gap-2 mt-3">
                   {machine.os && (
@@ -156,7 +156,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
                       </span>
                     </div>
                   </div>
-                  <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-0 group-hover:opacity-100 transition-all" />
+                  <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] opacity-60 group-hover:opacity-100 transition-all" />
                 </div>
               </m.a>
             ))}

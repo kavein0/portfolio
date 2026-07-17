@@ -35,7 +35,7 @@ export default function ContactSection() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="relative py-28 md:py-36 overflow-hidden">
+    <section id="contact" className="relative overflow-hidden py-20 md:py-28">
       <div className="absolute inset-0 dot-grid pointer-events-none opacity-20" />
 
       <div className="container-custom relative z-10" ref={ref}>
@@ -44,12 +44,9 @@ export default function ContactSection() {
           initial={{ opacity: 0, x: -20 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-3 mb-4"
+          className="platform-eyebrow mb-4"
         >
-          <span className="h-[1px] w-8 bg-[var(--cyber-green)]" />
-          <span className="font-mono text-xs text-[var(--cyber-green)] tracking-widest uppercase">
-            Contact
-          </span>
+          Contact
         </m.div>
 
         <m.h2
@@ -93,7 +90,7 @@ export default function ContactSection() {
                 {link.icon}
               </div>
               <div className="flex-1">
-                <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
+                <p className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
                   {link.label}
                 </p>
                 <p className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors leading-tight">

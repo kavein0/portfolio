@@ -19,6 +19,7 @@ export default function CyberBackground() {
     let animId: number;
     const particles: Particle[] = [];
     const mouse = { x: -1000, y: -1000 };
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     interface Particle {
       x: number;
@@ -47,12 +48,12 @@ export default function CyberBackground() {
     window.addEventListener("mousemove", onMouseMove);
 
     // Create particles
-    const count = Math.min(60, Math.floor((window.innerWidth * window.innerHeight) / 15000));
-    const colors = ["#00ff88", "#00d4ff", "#7c3aed"];
+    const count = Math.min(42, Math.floor((window.innerWidth * window.innerHeight) / 26000));
+    const colors = ["#8ca9ba", "#5d7889", "#c0d0d9"];
 
     for (let i = 0; i < count; i++) {
-      const baseVx = (Math.random() - 0.5) * 0.8; // Calmer speed
-      const baseVy = (Math.random() - 0.5) * 0.8; // Calmer speed
+      const baseVx = reducedMotion ? 0 : (Math.random() - 0.5) * 0.18;
+      const baseVy = reducedMotion ? 0 : (Math.random() - 0.5) * 0.18;
       
       particles.push({
         x: Math.random() * canvas.width,
@@ -61,8 +62,8 @@ export default function CyberBackground() {
         vy: baseVy,
         baseVx,
         baseVy,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.4 + 0.1,
+        size: Math.random() * 1.3 + 0.35,
+        opacity: Math.random() * 0.22 + 0.05,
         color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
@@ -77,10 +78,10 @@ export default function CyberBackground() {
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 150) {
-            const opacity = (1 - dist / 150) * 0.25; // More pronounced lines (25% max opacity)
-            ctx!.strokeStyle = `rgba(0, 255, 136, ${opacity})`;
-            ctx!.lineWidth = 0.8;
+          if (dist < 175) {
+            const opacity = (1 - dist / 175) * 0.07;
+            ctx!.strokeStyle = `rgba(126, 159, 179, ${opacity})`;
+            ctx!.lineWidth = 0.55;
             ctx!.beginPath();
             ctx!.moveTo(particles[i].x, particles[i].y);
             ctx!.lineTo(particles[j].x, particles[j].y);
@@ -95,10 +96,10 @@ export default function CyberBackground() {
         const mdx = p.x - mouse.x;
         const mdy = p.y - mouse.y;
         const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (mDist < 150) {
+        if (!reducedMotion && mDist > 0 && mDist < 130) {
           const force = (150 - mDist) / 150;
-          p.vx += (mdx / mDist) * force * 0.05;
-          p.vy += (mdy / mDist) * force * 0.05;
+          p.vx += (mdx / mDist) * force * 0.018;
+          p.vy += (mdy / mDist) * force * 0.018;
         }
 
         // Smoothly return to base velocity
@@ -123,13 +124,13 @@ export default function CyberBackground() {
         ctx!.globalAlpha = 1;
       }
 
-      animId = requestAnimationFrame(draw);
+      if (!reducedMotion) animId = requestAnimationFrame(draw);
     }
 
     draw();
 
     return () => {
-      cancelAnimationFrame(animId);
+      if (animId) cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
     };
@@ -139,7 +140,7 @@ export default function CyberBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0, opacity: 0.6 }}
+      style={{ zIndex: 0, opacity: 0.48 }}
       aria-hidden="true"
     />
   );

@@ -62,9 +62,9 @@ export default function CiscoPage() {
           return (
             <m.div
               key={cert.name}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 0.3, 1, 0.7, 1] }}
-              transition={{ delay: i * 0.1, duration: 0.6, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(i * 0.04, 0.24), duration: 0.3, ease: "easeOut" }}
             >
               <Wrapper {...wrapperProps}>
                 <div
@@ -72,11 +72,6 @@ export default function CiscoPage() {
                     cert.url ? "group-hover:border-[var(--cyber-blue)] group-hover:bg-[var(--cyber-blue)]/5" : ""
                   } transition-all relative overflow-hidden`}
                 >
-                  {/* Hover shimmer */}
-                  {cert.url && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-[var(--cyber-blue)]/0 via-[var(--cyber-blue)]/5 to-[var(--cyber-blue)]/0 opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-1000 ease-in-out" />
-                  )}
-
                   <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex items-start md:items-center gap-4 flex-1 min-w-0">
                       <div

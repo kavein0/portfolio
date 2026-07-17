@@ -20,7 +20,7 @@ export default function Footer() {
           <span>& Next.js</span>
         </div>
 
-        <div className="font-mono text-[10px] text-[var(--text-muted)] tracking-wider">
+        <div className="font-mono text-xs text-[var(--text-muted)] tracking-wider">
           {siteConfig.universityUa}
         </div>
       </div>

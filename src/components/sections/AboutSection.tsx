@@ -43,7 +43,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative py-28 md:py-36 overflow-hidden"
+      className="relative overflow-hidden py-20 md:py-28"
     >
       {/* Subtle grid */}
       <div className="absolute inset-0 grid-bg pointer-events-none" />
@@ -54,12 +54,9 @@ export default function AboutSection() {
           initial={{ opacity: 0, x: -20 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-3 mb-4"
+          className="platform-eyebrow mb-4"
         >
-          <span className="h-[1px] w-8 bg-[var(--cyber-green)]" />
-          <span className="font-mono text-xs text-[var(--cyber-green)] tracking-widest uppercase">
-            About
-          </span>
+          About
         </m.div>
 
         <m.h2
@@ -71,7 +68,7 @@ export default function AboutSection() {
           Who I <span className="text-[var(--cyber-green)]">Am</span>
         </m.h2>
 
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid items-start gap-10 md:grid-cols-2 lg:gap-16">
           {/* Text block */}
           <m.div
             initial={{ opacity: 0, y: 30 }}
@@ -107,9 +104,9 @@ export default function AboutSection() {
           >
             {/* Terminal header */}
             <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border-default)]">
-              <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-              <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-              <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#61727e]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#465660]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#34414a]" />
               <span className="ml-3 font-mono text-xs text-[var(--text-muted)]">
                 ~/Larein — zsh
               </span>
@@ -165,7 +162,7 @@ export default function AboutSection() {
         </div>
 
         {/* Quick stats - Full width horizontal layout */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-16">
+        <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map((item, i) => (
             <m.div
               key={item.label}
@@ -178,7 +175,7 @@ export default function AboutSection() {
                 {item.icon}
               </div>
               <div>
-                <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
+                <p className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
                   {item.label}
                 </p>
                 <p className="text-sm font-semibold text-[var(--text-primary)] leading-tight">

@@ -32,7 +32,7 @@ function RoomCard({ room, index }: { room: TryHackMeRoom; index: number }) {
         </div>
       </div>
       {room.url && (
-        <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-red)] opacity-0 group-hover:opacity-100 transition-all" />
+        <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-red)] opacity-60 group-hover:opacity-100 transition-all" />
       )}
     </div>
   );

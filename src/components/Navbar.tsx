@@ -21,39 +21,12 @@ const navLinks = [
 ];
 
 function getNavTheme(href: string) {
-  const themes: Record<
-    string,
-    { active: string; hover: string; prefix: string }
-  > = {
-    "/tryhackme": {
-      active: "text-[var(--cyber-red)]",
-      hover: "hover:text-[var(--cyber-red)]",
-      prefix: "text-[var(--cyber-orange)]",
-    },
-    "/picoctf": {
-      active: "text-[#ff7426]",
-      hover: "hover:text-[#ff7426]",
-      prefix: "text-[#5aa9d6]",
-    },
-    "/cryptohack": {
-      active: "text-[var(--cyber-orange)]",
-      hover: "hover:text-[var(--cyber-orange)]",
-      prefix: "text-[var(--cyber-yellow)]",
-    },
-    "/cisco": {
-      active: "text-[var(--cyber-blue)]",
-      hover: "hover:text-[var(--cyber-blue)]",
-      prefix: "text-[var(--cyber-blue)]",
-    },
+  void href;
+  return {
+    active: "text-[var(--text-primary)]",
+    hover: "hover:text-[var(--text-primary)]",
+    prefix: "text-[var(--cyber-blue)]",
   };
-
-  return (
-    themes[href] ?? {
-      active: "text-[var(--cyber-green)]",
-      hover: "hover:text-[var(--cyber-green)]",
-      prefix: "text-[var(--cyber-green)]",
-    }
-  );
 }
 
 export default function Navbar() {
@@ -85,14 +58,10 @@ export default function Navbar() {
         initial={false}
         className="fixed top-0 left-0 right-0 z-50"
         style={{
-          background: scrolled
-            ? "rgba(10, 10, 15, 0.85)"
-            : "transparent",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.05)"
-            : "1px solid transparent",
-          transition: "all 0.3s ease",
+          background: scrolled ? "rgba(4, 7, 10, 0.9)" : "rgba(4, 7, 10, 0.68)",
+          backdropFilter: "blur(24px) saturate(120%)",
+          borderBottom: "1px solid var(--border-default)",
+          transition: "background 0.3s ease",
         }}
       >
         <div className="container-custom flex items-center justify-between h-16 md:h-[72px]">
@@ -103,16 +72,16 @@ export default function Navbar() {
             aria-label="Home"
           >
             <Shield
-              className="w-6 h-6 text-[var(--cyber-green)] group-hover:rotate-12 transition-transform duration-300"
+              className="w-6 h-6 text-[var(--cyber-blue)] transition-colors duration-300 group-hover:text-[var(--text-primary)]"
               strokeWidth={2}
             />
             <span className="font-display text-sm font-bold tracking-widest uppercase text-[var(--text-primary)] hidden sm:inline">
-              V<span className="text-[var(--cyber-green)]">.</span>E
+              V<span className="text-[var(--cyber-blue)]">.</span>E
             </span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-0 lg:gap-1">
+          <nav className="hidden lg:flex items-center gap-0">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const theme = getNavTheme(link.href);
@@ -120,7 +89,8 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-2 lg:px-4 py-2 text-xs lg:text-sm font-mono transition-colors duration-200 relative group ${
+                  aria-current={isActive ? "page" : undefined}
+                  className={`px-3 py-2 text-xs font-mono transition-colors duration-200 relative group ${
                     isActive
                       ? theme.active
                       : `text-[var(--text-secondary)] ${theme.hover}`
@@ -130,7 +100,7 @@ export default function Navbar() {
                     className={`transition-opacity mr-1 ${
                       isActive
                         ? `opacity-100 ${theme.prefix}`
-                        : `opacity-0 group-hover:opacity-100 ${theme.prefix}`
+                        : `opacity-60 group-hover:opacity-100 ${theme.prefix}`
                     }`}
                   >
                     {"//"}
@@ -142,10 +112,10 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop socials & terminal */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             <button
               onClick={() => setTerminalOpen(!terminalOpen)}
-              className="text-[var(--text-muted)] hover:text-[var(--cyber-green)] transition-colors p-1"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors p-1"
               aria-label="Toggle Terminal (~)"
             >
               <TerminalIcon className="w-5 h-5" />
@@ -155,7 +125,7 @@ export default function Navbar() {
               href={siteConfig.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[var(--text-muted)] hover:text-[var(--cyber-green)] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
               aria-label="GitHub"
             >
               <GithubIcon className="w-[18px] h-[18px]" />
@@ -165,7 +135,7 @@ export default function Navbar() {
               href={siteConfig.socials.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[var(--text-muted)] hover:text-[var(--cyber-blue)] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
               aria-label="Telegram"
             >
               <TelegramIcon className="w-[18px] h-[18px]" />
@@ -175,7 +145,7 @@ export default function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-[var(--text-primary)] p-2"
+            className="lg:hidden text-[var(--text-primary)] p-2"
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation"
@@ -193,7 +163,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6 md:hidden"
+            className="fixed inset-0 z-40 bg-[#04070a]/96 backdrop-blur-2xl flex flex-col items-center justify-center gap-5 lg:hidden"
           >
             {navLinks.map((link, i) => {
               const isActive = pathname === link.href;
@@ -209,7 +179,8 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`text-2xl font-display font-bold tracking-wider transition-colors ${
+                    aria-current={isActive ? "page" : undefined}
+                    className={`text-xl font-display font-semibold transition-colors ${
                       isActive
                         ? theme.active
                         : `text-[var(--text-primary)] ${theme.hover}`

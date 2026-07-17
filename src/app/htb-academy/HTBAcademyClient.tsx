@@ -88,11 +88,11 @@ export default function HTBAcademyClient() {
                       <Terminal className="w-4 h-4 text-[var(--cyber-green)]" />
                       <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider">Module</span>
                     </div>
-                    <div className="flex items-center justify-center text-[10px] font-bold font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 border border-[var(--cyber-green)]/30 rounded w-5 h-5">
+                    <div className="flex items-center justify-center text-xs font-bold font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 border border-[var(--cyber-green)]/30 rounded w-5 h-5">
                       {["Linux Fundamentals", "Windows Fundamentals", "MacOS Fundamentals", "Setting Up"].includes(module.name) ? "5" : "6"}
                     </div>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-[var(--text-muted)] opacity-0 group-hover:opacity-100 group-hover:text-[var(--cyber-green)] transition-all" />
+                  <ExternalLink className="w-4 h-4 text-[var(--text-muted)] opacity-60 group-hover:opacity-100 group-hover:text-[var(--cyber-green)] transition-all" />
                 </div>
                 
                 <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--cyber-green)] transition-colors pr-6">
@@ -147,7 +147,7 @@ export default function HTBAcademyClient() {
                     <h3 className="font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-green)] transition-colors">
                       {badge.name}
                     </h3>
-                    <div className="flex items-center justify-center text-[10px] font-bold font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 border border-[var(--cyber-green)]/30 rounded w-5 h-5">
+                    <div className="flex items-center justify-center text-xs font-bold font-mono text-[var(--cyber-green)] bg-[var(--cyber-green)]/10 border border-[var(--cyber-green)]/30 rounded w-5 h-5">
                       {["Linux Fundamentals", "Windows Fundamentals", "MacOS Fundamentals", "Setting Up"].some(m => badge.description.includes(m)) ? "5" : "6"}
                     </div>
                   </div>
@@ -155,7 +155,7 @@ export default function HTBAcademyClient() {
                     {badge.description}
                   </p>
                 </div>
-                <ExternalLink className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] transition-colors shrink-0 opacity-0 group-hover:opacity-100" />
+                <ExternalLink className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--cyber-green)] transition-colors shrink-0 opacity-60 group-hover:opacity-100" />
               </m.a>
             ))}
           </div>

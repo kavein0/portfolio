@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { m } from "framer-motion";
 import { siteConfig } from "@/lib/data";
-import { Terminal, Shield, Lock } from "lucide-react";
+import { Terminal, Shield } from "lucide-react";
 import Link from "next/link";
 
 // Typing effect hook
@@ -65,7 +65,7 @@ export default function HeroSection() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[calc(100svh-72px)] flex items-center justify-center overflow-hidden py-20"
     >
       {/* Radial gradient overlay */}
       <div className="absolute inset-0 pointer-events-none bg-hero-radial" />
@@ -73,7 +73,10 @@ export default function HeroSection() {
       {/* Hexagonal grid overlay */}
       <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
 
-      <div className="container-custom relative z-10 flex flex-col items-center text-center px-4">
+      <div className="container-custom relative z-10 px-4">
+        <div className="relative mx-auto flex min-h-[580px] max-w-5xl flex-col items-center justify-center overflow-hidden rounded-[26px] border border-[var(--border-default)] bg-black/10 px-5 py-16 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.035)] sm:px-10">
+          <div className="pointer-events-none absolute inset-x-[7%] top-[18%] h-px bg-gradient-to-r from-transparent via-[var(--border-strong)] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-[3%] bottom-[18%] h-px bg-gradient-to-r from-transparent via-[var(--border-default)] to-transparent" />
         {/* Status badge */}
         <m.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -82,7 +85,7 @@ export default function HeroSection() {
           className="flex items-center gap-2 mb-8 cyber-tag"
         >
           <span className="status-online" />
-          <span className="text-[var(--cyber-green)] text-xs">
+          <span className="text-[var(--text-secondary)] text-xs">
             AVAILABLE FOR INTERNSHIPS
           </span>
         </m.div>
@@ -92,13 +95,11 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex items-center gap-3 mb-4"
+          className="mb-4"
         >
-          <Shield className="w-5 h-5 text-[var(--cyber-green)] hidden sm:block" />
           <span className="font-mono text-xs sm:text-sm text-[var(--text-muted)] tracking-widest uppercase">
             {siteConfig.universityShort} {"//"} {siteConfig.year}
           </span>
-          <Lock className="w-4 h-4 text-[var(--cyber-blue)] hidden sm:block" />
         </m.div>
 
         {/* Name */}
@@ -106,7 +107,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-2 glitch-wrapper"
+          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.065em] leading-[0.92] mb-3 glitch-wrapper"
         >
           <span className="gradient-text glitch-text" data-text={siteConfig.nameEn.split(" ")[0]}>{siteConfig.nameEn.split(" ")[0]}</span>
           <br />
@@ -120,7 +121,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="font-mono text-xs text-[var(--text-muted)] tracking-[0.3em] uppercase mb-8"
+          className="font-mono text-xs text-[var(--text-muted)] tracking-[0.24em] uppercase mb-8"
         >
           {siteConfig.name}
         </m.p>
@@ -132,11 +133,11 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.7 }}
           className="flex items-center gap-2 mb-10"
         >
-          <Terminal className="w-4 h-4 text-[var(--cyber-green)]" />
+          <Terminal className="w-4 h-4 text-[var(--cyber-blue)]" />
           <span className="font-mono text-base sm:text-lg text-[var(--text-secondary)]">
             {typed}
           </span>
-          <span className="w-[2px] h-5 bg-[var(--cyber-green)] animate-blink" />
+          <span className="w-px h-5 bg-[var(--cyber-blue)] animate-blink" />
         </m.div>
 
         {/* CTA Buttons */}
@@ -157,7 +158,7 @@ export default function HeroSection() {
             Get in Touch
           </a>
         </m.div>
-
+        </div>
       </div>
     </section>
   );

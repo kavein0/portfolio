@@ -386,7 +386,7 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
         </p>
       </div>
 
-      <div className="rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] overflow-hidden">
+      <div className="hidden overflow-hidden rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] md:block">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] text-left">
             <thead className="bg-[var(--bg-tertiary)]">
@@ -455,6 +455,38 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
           </table>
         </div>
       </div>
+
+      <div className="space-y-3 md:hidden">
+        {rows.map(({ provider, index, item, evidence }) => {
+          const isCompleted = Boolean(evidence);
+
+          return (
+            <article key={`${provider}-${item.title}`} className="liquid-row p-4">
+              <div className="mb-3 flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
+                    {provider} · {String(index).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-2 break-words text-sm font-semibold leading-relaxed text-[var(--text-primary)]">
+                    {item.title}
+                  </h3>
+                </div>
+                {isCompleted ? (
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-[var(--cyber-blue)]" aria-label="Completed" />
+                ) : (
+                  <Circle className="h-5 w-5 shrink-0 text-[var(--text-muted)]" aria-label="Pending" />
+                )}
+              </div>
+              <div className="flex items-center justify-between border-t border-[var(--border-default)] pt-3 font-mono text-xs">
+                <span className={isCompleted ? "text-[var(--text-secondary)]" : "text-[var(--text-muted)]"}>
+                  {isCompleted ? "Completed" : "Pending"}
+                </span>
+                {evidence ? <EvidenceLink evidence={evidence} /> : null}
+              </div>
+            </article>
+          );
+        })}
+      </div>
     </section>
   );
 }
@@ -491,7 +523,7 @@ export default function LearningMatrixPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6 mb-14 md:mb-16">
+      <div className="liquid-surface mb-12 grid grid-cols-3 overflow-hidden md:mb-16">
         {[
           { label: "Total items", value: totalCount },
           { label: "Completed", value: completedCount },
@@ -499,12 +531,12 @@ export default function LearningMatrixPage() {
         ].map((stat) => (
           <div
             key={stat.label}
-            className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)]"
+            className="border-l border-[var(--border-default)] p-3 first:border-l-0 sm:p-5 md:p-6"
           >
-            <div className="text-3xl font-display font-bold text-[var(--text-primary)]">
+            <div className="text-2xl font-display font-bold text-[var(--text-primary)] md:text-3xl">
               {stat.value}
             </div>
-            <div className="mt-1 text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">
+            <div className="mt-1 font-mono text-xs uppercase tracking-wide text-[var(--text-muted)] sm:tracking-wider">
               {stat.label}
             </div>
           </div>

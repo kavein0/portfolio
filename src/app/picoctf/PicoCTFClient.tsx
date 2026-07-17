@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
-import { useState, type CSSProperties } from "react";
+import EvidencePanel from "@/components/EvidencePanel";
+import { ExternalLink } from "lucide-react";
+import type { CSSProperties } from "react";
 
 const picoChallenges = [
   { name: "interencdec", difficulty: "Easy" },
@@ -15,181 +15,92 @@ const picoChallenges = [
   { name: "Vigenere", difficulty: "Medium" },
 ] as const;
 
-const picoPalette = {
-  "--pico-blue": "#5aa9d6",
-  "--pico-orange": "#ff7426",
-  "--pico-orange-soft": "rgba(255, 116, 38, 0.1)",
-  "--pico-orange-border": "rgba(255, 116, 38, 0.28)",
-  "--pico-green": "#22c55e",
-  "--pico-yellow": "#f5b942",
-} as CSSProperties;
-
-function EvidencePanel({
-  id,
-  title,
-  description,
-  image,
-  alt,
-}: {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  alt: string;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] overflow-hidden">
-      <button
-        type="button"
-        onClick={() => setIsOpen((open) => !open)}
-        aria-expanded={isOpen}
-        aria-controls={id}
-        className="w-full p-4 flex items-center justify-between gap-4 text-left hover:bg-[var(--pico-orange-soft)] transition-colors group"
-      >
-        <span>
-          <span className="block font-display font-bold text-[var(--text-primary)] group-hover:text-[var(--pico-orange)] transition-colors">
-            {isOpen ? "Hide Screenshot" : "Show Screenshot"}
-          </span>
-          <span className="block mt-1 text-sm text-[var(--text-muted)]">
-            {title} · {description}
-          </span>
-        </span>
-        {isOpen ? (
-          <ChevronUp className="w-5 h-5 text-[var(--pico-orange)] shrink-0" />
-        ) : (
-          <ChevronDown className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--pico-orange)] shrink-0 transition-colors" />
-        )}
-      </button>
-
-      {isOpen ? (
-        <div id={id}>
-          <div className="px-4 pb-4">
-            <div className="rounded-lg overflow-hidden border border-[var(--border-default)] bg-black">
-              <Image
-                src={image}
-                alt={alt}
-                width={1720}
-                height={914}
-                className="w-full h-auto"
-                sizes="(max-width: 768px) 100vw, 1200px"
-              />
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
 export default function PicoCTFClient() {
-  const easyCount = picoChallenges.filter(
-    (challenge) => challenge.difficulty === "Easy",
-  ).length;
+  const easyCount = picoChallenges.filter(({ difficulty }) => difficulty === "Easy").length;
   const mediumCount = picoChallenges.length - easyCount;
 
   return (
-    <div className="container-custom min-h-screen page-pad" style={picoPalette}>
-      <div className="mb-12">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+    <div className="container-custom min-h-screen page-pad">
+      <header className="mb-10 md:mb-12">
+        <div className="platform-eyebrow mb-5">CyLab Academy</div>
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] mb-4 md:mb-2 glitch-wrapper glitch-cylab">
-              <span className="glitch-text" data-text="PicoCTF">
-                PicoCTF
-              </span>{" "}
-              <span className="text-[var(--pico-orange)]">Challenges</span>
-            </h1>
-            <p className="text-[var(--text-secondary)] font-mono text-lg">
-              Completed CyLab/PicoCTF cryptography challenges and profile proof.
+            <h1 className="platform-heading">PicoCTF <span>Challenges</span></h1>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--text-secondary)]">
+              Completed cryptography challenges with profile evidence from CyLab Academy.
             </p>
           </div>
-
           <a
             href="https://learn.cylabacademy.org/users/Lareine"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--pico-orange-soft)] text-[var(--pico-orange)] border border-[var(--pico-orange-border)] hover:bg-[var(--pico-orange)] hover:text-black hover:border-[var(--pico-orange)] transition-all font-mono text-sm font-bold whitespace-nowrap group w-full md:w-auto"
+            className="platform-action w-full md:w-auto"
           >
-            <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            View Profile
+            <ExternalLink className="h-4 w-4" />
+            View profile
           </a>
         </div>
-      </div>
+      </header>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
+      <div
+        className="liquid-surface stat-rail mb-14 md:mb-16"
+        style={{ "--stat-count": 3, "--mobile-stat-count": 3 } as CSSProperties}
+      >
         {[
           { label: "Completed", value: picoChallenges.length },
           { label: "Easy", value: easyCount },
           { label: "Medium", value: mediumCount },
         ].map((stat) => (
-          <div
-            key={stat.label}
-            className="p-5 md:p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--pico-orange)] transition-all"
-          >
-            <div className="text-3xl font-display font-bold text-[var(--text-primary)]">
-              {stat.value}
-            </div>
-            <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">
-              {stat.label}
-            </div>
+          <div key={stat.label}>
+            <div className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">{stat.value}</div>
+            <div className="mt-1 font-mono text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">{stat.label}</div>
           </div>
         ))}
       </div>
 
-      <section className="mb-16">
-        <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-6">
-          Solved Cryptography Challenges
-        </h2>
+      <section className="mb-14 md:mb-16">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <div className="platform-eyebrow mb-3">Cryptography</div>
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">Solved challenges</h2>
+          </div>
+          <span className="font-mono text-xs text-[var(--text-muted)]">08 entries</span>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {picoChallenges.map((challenge) => {
-            const isEasy = challenge.difficulty === "Easy";
-            const difficultyColor = isEasy
-              ? "var(--pico-green)"
-              : "var(--pico-yellow)";
-
-            return (
-              <article
-                key={challenge.name}
-                className="p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--pico-orange)] hover:bg-[var(--pico-orange-soft)] transition-all group"
-              >
-                <h3 className="font-mono text-base font-bold text-[var(--text-primary)] group-hover:text-[var(--pico-blue)] transition-colors break-words">
-                  {challenge.name}
-                </h3>
-                <div className="mt-3">
-                  <span
-                    className="text-xs font-mono px-2 py-1 rounded bg-[var(--bg-tertiary)]"
-                    style={{ color: difficultyColor }}
-                  >
-                    {challenge.difficulty}
-                  </span>
-                </div>
-              </article>
-            );
-          })}
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          {picoChallenges.map((challenge, index) => (
+            <article key={challenge.name} className="liquid-row flex items-center justify-between gap-4 px-4 py-4 sm:px-5">
+              <div className="flex min-w-0 items-center gap-4">
+                <span className="font-mono text-xs text-[var(--text-muted)]">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="break-words font-mono text-sm font-semibold text-[var(--text-primary)] sm:text-base">{challenge.name}</h3>
+              </div>
+              <span className="shrink-0 rounded-md border border-[var(--border-default)] bg-[var(--bg-tertiary)] px-2.5 py-1 font-mono text-xs text-[var(--text-secondary)]">
+                {challenge.difficulty}
+              </span>
+            </article>
+          ))}
         </div>
       </section>
 
       <section>
-        <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-6">
-          Progress Evidence
-        </h2>
-
-        <div className="space-y-4">
+        <div className="platform-eyebrow mb-3">Verification</div>
+        <h2 className="mb-6 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">Progress evidence</h2>
+        <div className="space-y-3">
           <EvidencePanel
-            id="picoctf-challenges-evidence"
-            title="Challenge List"
+            title="Challenge list"
             description="Completed cryptography challenge overview."
             image="/picoctf/challenges.png"
             alt="CyLab cryptography challenge list showing eight PicoCTF challenges"
+            width={1720}
+            height={914}
           />
           <EvidencePanel
-            id="picoctf-profile-evidence"
-            title="Profile & Completion Summary"
+            title="Profile and completion summary"
             description="Profile statistics and challenge completion chart."
             image="/picoctf/profile.png"
             alt="CyLab profile for Lareine showing eight completed challenges"
+            width={1720}
+            height={914}
           />
         </div>
       </section>
