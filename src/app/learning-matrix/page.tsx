@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Circle, ExternalLink, Table2 } from "lucide-react";
 import {
+  AtlasHero,
+  AtlasPage,
+  AtlasSectionHeading,
+  atlasStyles,
+} from "@/components/atlas/AtlasPage";
+import {
   certifications,
   htbAcademyModules,
   thmRooms,
@@ -342,7 +348,7 @@ function EvidenceLink({ evidence }: { evidence: Evidence }) {
     return (
       <Link
         href={evidence.url}
-        className="inline-flex items-center gap-1 text-[var(--cyber-green)] hover:text-[var(--cyber-blue)] transition-colors"
+        className={atlasStyles.matrixEvidence}
       >
         Source <ExternalLink className="w-3 h-3" />
       </Link>
@@ -354,7 +360,7 @@ function EvidenceLink({ evidence }: { evidence: Evidence }) {
       href={evidence.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 text-[var(--cyber-green)] hover:text-[var(--cyber-blue)] transition-colors"
+      className={atlasStyles.matrixEvidence}
     >
       Source <ExternalLink className="w-3 h-3" />
     </a>
@@ -374,28 +380,25 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
   return (
     <section
       id={category.title.toLowerCase().replace(/\s+/g, "-")}
-      className="mb-16 md:mb-20"
+      className={atlasStyles.matrixSection}
     >
-      <div className="mb-6">
-        <h2 className="text-2xl md:text-3xl font-display font-bold text-[var(--text-primary)] flex items-center gap-3">
-          <Table2 className="text-[var(--cyber-green)]" />
-          {category.title}
-        </h2>
-        <p className="mt-3 text-[var(--text-secondary)] font-mono text-sm md:text-base">
-          {category.description}
-        </p>
-      </div>
+      <AtlasSectionHeading
+        eyebrow={`${String(rows.length).padStart(2, "0")} observations`}
+        title={category.title}
+        action={<Table2 aria-hidden="true" />}
+      />
+      <p className={atlasStyles.matrixIntro}>{category.description}</p>
 
-      <div className="hidden overflow-hidden rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] md:block">
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[760px] text-left">
-            <thead className="bg-[var(--bg-tertiary)]">
-              <tr className="font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
-                <th className="px-4 py-4 w-16">#</th>
-                <th className="px-4 py-4 w-64">Provider</th>
-                <th className="px-4 py-4">Course / Room / Certificate</th>
-                <th className="px-4 py-4 w-36 text-center">Status</th>
-                <th className="px-4 py-4 w-32">Evidence</th>
+      <div className={`${atlasStyles.surface} ${atlasStyles.matrixSurface}`}>
+        <div className={atlasStyles.matrixTableFrame}>
+          <table className={atlasStyles.matrixTable}>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Provider</th>
+                <th>Course / Room / Certificate</th>
+                <th>Status</th>
+                <th>Evidence</th>
               </tr>
             </thead>
             <tbody>
@@ -405,47 +408,38 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
                   rowIndex === 0 || rows[rowIndex - 1].provider !== provider;
 
                 return (
-                  <tr
-                    key={`${provider}-${item.title}`}
-                    className={`border-t border-[var(--border-default)] ${
-                      isCompleted
-                        ? "bg-[var(--cyber-green)]/[0.03]"
-                        : "bg-transparent"
-                    }`}
-                  >
-                    <td className="px-4 py-3 font-mono text-sm text-[var(--text-muted)]">
+                  <tr key={`${provider}-${item.title}`}>
+                    <td className={atlasStyles.matrixIndex}>
                       {index}
                     </td>
-                    <td className="px-4 py-3">
+                    <td className={atlasStyles.matrixProvider}>
                       {isFirstProviderRow ? (
-                        <span className="font-display text-sm font-bold text-[var(--text-primary)]">
-                          {provider}
-                        </span>
+                        <span>{provider}</span>
                       ) : (
                         <span className="sr-only">{provider}</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 font-mono text-sm text-[var(--text-primary)]">
+                    <td className={atlasStyles.matrixTitle}>
                       {item.title}
                     </td>
-                    <td className="px-4 py-3 text-center">
+                    <td className={atlasStyles.matrixStatus}>
                       {isCompleted ? (
-                        <span className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--cyber-green)]/30 bg-[var(--cyber-green)]/10 px-3 py-1 text-xs font-mono text-[var(--cyber-green)]">
-                          <CheckCircle2 className="w-4 h-4" />
+                        <span className={atlasStyles.matrixDone}>
+                          <CheckCircle2 />
                           Done
                         </span>
                       ) : (
-                        <span className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--bg-card)] px-3 py-1 text-xs font-mono text-[var(--text-muted)]">
-                          <Circle className="w-4 h-4" />
+                        <span>
+                          <Circle />
                           Pending
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-3 font-mono text-xs">
+                    <td>
                       {evidence ? (
                         <EvidenceLink evidence={evidence} />
                       ) : (
-                        <span className="text-[var(--text-muted)]">—</span>
+                        <span className={atlasStyles.matrixDash}>—</span>
                       )}
                     </td>
                   </tr>
@@ -454,31 +448,29 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
             </tbody>
           </table>
         </div>
-      </div>
-
-      <div className="space-y-3 md:hidden">
+        <div className={atlasStyles.matrixMobile}>
         {rows.map(({ provider, index, item, evidence }) => {
           const isCompleted = Boolean(evidence);
 
           return (
-            <article key={`${provider}-${item.title}`} className="liquid-row p-4">
-              <div className="mb-3 flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
+            <article key={`${provider}-${item.title}`} className={atlasStyles.matrixMobileRow}>
+              <div className={atlasStyles.matrixMobileTop}>
+                <div>
+                  <p className={atlasStyles.matrixMobileProvider}>
                     {provider} · {String(index).padStart(2, "0")}
                   </p>
-                  <h3 className="mt-2 break-words text-sm font-semibold leading-relaxed text-[var(--text-primary)]">
+                  <h3 className={atlasStyles.matrixMobileTitle}>
                     {item.title}
                   </h3>
                 </div>
                 {isCompleted ? (
-                  <CheckCircle2 className="h-5 w-5 shrink-0 text-[var(--cyber-blue)]" aria-label="Completed" />
+                  <CheckCircle2 data-complete="true" aria-label="Completed" />
                 ) : (
-                  <Circle className="h-5 w-5 shrink-0 text-[var(--text-muted)]" aria-label="Pending" />
+                  <Circle aria-label="Pending" />
                 )}
               </div>
-              <div className="flex items-center justify-between border-t border-[var(--border-default)] pt-3 font-mono text-xs">
-                <span className={isCompleted ? "text-[var(--text-secondary)]" : "text-[var(--text-muted)]"}>
+              <div className={atlasStyles.matrixMobileBottom}>
+                <span>
                   {isCompleted ? "Completed" : "Pending"}
                 </span>
                 {evidence ? <EvidenceLink evidence={evidence} /> : null}
@@ -486,6 +478,7 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
             </article>
           );
         })}
+        </div>
       </div>
     </section>
   );
@@ -500,64 +493,41 @@ export default function LearningMatrixPage() {
   const pendingCount = totalCount - completedCount;
 
   return (
-    <div className="container-custom min-h-screen page-pad hud-page">
-      <div className="hud-page-intro mb-14 md:mb-16">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="h-px w-8 bg-[var(--cyber-green)]" />
-          <span className="font-mono text-xs text-[var(--cyber-green)] uppercase tracking-[0.2em]">
-            Progress Matrix
-          </span>
-        </div>
+    <AtlasPage tone="violet">
+      <AtlasHero
+        visual="matrix"
+        eyebrow="Progress matrix"
+        title="Learning Matrix"
+        description={
+          <p>
+            Cybersecurity, cryptology, and digital forensics mapped against
+            verified portfolio evidence.
+          </p>
+        }
+        compact
+        stats={[
+          { label: "Total items", value: totalCount, detail: "Mapped observations" },
+          { label: "Completed", value: completedCount, detail: "Evidence verified" },
+          { label: "Pending", value: pendingCount, detail: "Next coordinates" },
+        ]}
+        constellationCaption="A long route made visible, one observation at a time."
+      />
 
-        <h1 className="hud-page-title font-display font-bold text-[var(--text-primary)] mb-4 glitch-wrapper">
-          <span className="glitch-text" data-text="Learning">
-            Learning
-          </span>{" "}
-          <span className="text-[var(--cyber-green)]">Tables</span>
-        </h1>
-
-        <p className="text-[var(--text-secondary)] font-mono text-base md:text-lg max-w-4xl">
-          Tables recreated from the provided screenshots. Completed marks are
-          matched against the certificates, rooms, courses, modules, and
-          challenges already shown on this portfolio.
-        </p>
-      </div>
-
-      <div className="liquid-surface mb-12 grid grid-cols-3 overflow-hidden md:mb-16">
-        {[
-          { label: "Total items", value: totalCount },
-          { label: "Completed", value: completedCount },
-          { label: "Pending", value: pendingCount },
-        ].map((stat) => (
-          <div
-            key={stat.label}
-            className="border-l border-[var(--border-default)] p-3 first:border-l-0 sm:p-5 md:p-6"
-          >
-            <div className="text-2xl font-display font-bold text-[var(--text-primary)] md:text-3xl">
-              {stat.value}
-            </div>
-            <div className="mt-1 font-mono text-xs uppercase tracking-wide text-[var(--text-muted)] sm:tracking-wider">
-              {stat.label}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mb-12 flex flex-wrap gap-3">
+      <nav className={atlasStyles.matrixTabs} aria-label="Learning matrix categories">
         {matrixCategories.map((category) => (
           <a
             key={category.title}
             href={`#${category.title.toLowerCase().replace(/\s+/g, "-")}`}
-            className="cyber-tag hover:text-[var(--cyber-green)]"
+            className={atlasStyles.matrixTab}
           >
             {category.title}
           </a>
         ))}
-      </div>
+      </nav>
 
       {matrixCategories.map((category) => (
         <MatrixTable key={category.title} category={category} />
       ))}
-    </div>
+    </AtlasPage>
   );
 }

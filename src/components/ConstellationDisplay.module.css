@@ -1,0 +1,82 @@
+.display {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.display svg {
+  width: 108%;
+  height: 108%;
+  overflow: visible;
+  transform: rotate(-4deg);
+}
+
+.orbit,
+.orbitFine {
+  fill: none;
+  stroke: rgba(225, 226, 240, 0.16);
+  stroke-width: 0.75;
+}
+
+.orbit { animation: constellation-orbit 24s linear infinite; transform-origin: 50% 50%; }
+.orbitFine { stroke: rgba(161, 150, 255, 0.12); stroke-dasharray: 2 9; }
+.dust circle { fill: rgba(239, 240, 255, 0.72); animation: constellation-twinkle 5.2s ease-in-out infinite; }
+.dust circle:nth-child(3n) { animation-delay: -1.7s; }
+.dust circle:nth-child(4n) { animation-delay: -3.4s; }
+.paths line {
+  stroke-width: 1.05;
+  stroke-dasharray: 190;
+  stroke-dashoffset: 190;
+  animation: constellation-draw 1.55s cubic-bezier(0.34, 0.8, 0.4, 1) forwards;
+}
+.nodes g { animation: constellation-breathe 4.8s ease-in-out infinite; transform-origin: center; }
+.nodes circle:last-child { fill: #fffef9; }
+.cometPath {
+  fill: none;
+  stroke: rgba(185, 176, 255, 0.36);
+  stroke-width: 0.75;
+  stroke-dasharray: 2 10;
+  stroke-linecap: round;
+  animation: constellation-flow 14s linear infinite;
+}
+.signature {
+  position: absolute;
+  bottom: 8.5%;
+  left: 50%;
+  display: inline-flex;
+  max-width: calc(100% - 48px);
+  align-items: center;
+  gap: 0.8em;
+  color: rgba(222, 220, 239, 0.46);
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(0.5rem, 0.82vw, 0.62rem);
+  letter-spacing: 0.26em;
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(158, 147, 255, .32);
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.signature b { color: rgba(191, 183, 255, 0.82); font-size: 0.78rem; font-weight: 400; letter-spacing: 0; }
+
+@keyframes constellation-breathe {
+  0%, 100% { opacity: 0.62; }
+  50% { opacity: 1; }
+}
+
+@keyframes constellation-draw { to { stroke-dashoffset: 0; } }
+@keyframes constellation-flow { to { stroke-dashoffset: -96; } }
+@keyframes constellation-twinkle { 0%, 100% { opacity: 0.34; } 50% { opacity: 0.94; } }
+@keyframes constellation-orbit { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit,
+  .dust circle,
+  .paths line,
+  .nodes g,
+  .cometPath { animation: none; }
+
+  .paths line { stroke-dashoffset: 0; }
+}

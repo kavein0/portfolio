@@ -1,199 +1,87 @@
-"use client";
+import {
+  AtlasDetails,
+  AtlasHero,
+  AtlasPage,
+  AtlasRow,
+  AtlasSectionHeading,
+  AtlasSurface,
+} from "@/components/atlas/AtlasPage";
+import {
+  siteConfig,
+  thmBadges,
+  thmRooms,
+  type TryHackMeRoom,
+  type TryHackMeStats,
+} from "@/lib/data";
+import { Shield, Target, Trophy, Zap } from "lucide-react";
 
-import { m } from "framer-motion";
-import { TryHackMeStats, thmRooms, thmBadges, siteConfig, type TryHackMeRoom } from "@/lib/data";
-import { Trophy, Target, Zap, Shield, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
-
-function RoomCard({ room, index }: { room: TryHackMeRoom; index: number }) {
-  const content = (
-    <div className="flex justify-between items-center gap-4">
-      <div className="flex-1 min-w-0">
-        <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-red)] transition-colors truncate whitespace-normal break-words line-clamp-2">
-          {room.name}
-        </h3>
-        <div className="flex flex-wrap gap-2 mt-2">
-          <span className="text-xs font-mono text-[var(--text-muted)] uppercase bg-[var(--bg-tertiary)] px-2 py-1 rounded">
-            {room.type}
-          </span>
-          <span className={`text-xs font-mono px-2 py-1 rounded ${
-            room.difficulty === "Easy" ? "bg-green-500/10 text-green-400" :
-            room.difficulty === "Medium" ? "bg-yellow-500/10 text-yellow-400" :
-            room.difficulty === "Hard" ? "bg-red-500/10 text-red-400" :
-            "bg-blue-500/10 text-blue-400"
-          }`}>
-            {room.difficulty}
-          </span>
-          {!room.url && (
-            <span className="text-xs font-mono text-[var(--text-muted)] border border-[var(--border-default)] px-2 py-1 rounded">
-              Link pending
-            </span>
-          )}
-        </div>
-      </div>
-      {room.url && (
-        <ExternalLink className="w-5 h-5 flex-shrink-0 text-[var(--text-muted)] group-hover:text-[var(--cyber-red)] opacity-60 group-hover:opacity-100 transition-all" />
-      )}
-    </div>
-  );
-
-  const className =
-    "block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] hover:bg-[var(--cyber-red)]/5 transition-all group";
-
-  return room.url ? (
-    <m.a
+function RoomRow({ room }: { room: TryHackMeRoom }) {
+  return (
+    <AtlasRow
+      title={room.name}
+      description={`${room.type}${room.date ? ` · completed ${room.date}` : " · completed"}`}
+      meta={room.difficulty}
+      trailing={room.url ? room.date ?? "Archive" : "Link pending"}
       href={room.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.05 }}
-      className={className}
-    >
-      {content}
-    </m.a>
-  ) : (
-    <m.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.05 }}
-      className={className}
-    >
-      {content}
-    </m.div>
+      icon={<Target aria-hidden="true" />}
+    />
   );
 }
 
 export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
-  const [expandedRooms, setExpandedRooms] = useState(false);
-  const [expandedBadges, setExpandedBadges] = useState(false);
+  const primaryRooms = thmRooms.slice(0, 10);
+  const remainingRooms = thmRooms.slice(10);
 
-  const visibleRooms = expandedRooms ? thmRooms : thmRooms.slice(0, 10);
-  const visibleBadges = expandedBadges ? thmBadges : thmBadges.slice(0, 10);
   return (
-    <div className="container-custom min-h-screen page-pad hud-page">
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="hud-page-intro mb-12"
-      >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-          <div>
-            <h1 className="hud-page-title font-display font-bold text-[var(--text-primary)] mb-4 md:mb-2 glitch-wrapper glitch-red">
-              <span className="glitch-text" data-text="TryHackMe">TryHackMe</span> <span className="text-[var(--cyber-red)]">Profile</span>
-            </h1>
-            <p className="text-[var(--text-secondary)] font-mono text-lg">
-              Detailed overview of my learning paths, completed rooms, and earned badges.
-            </p>
-          </div>
-          <a
-            href={siteConfig.tryhackme.profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--cyber-red)]/10 text-[var(--cyber-red)] border border-[var(--cyber-red)]/20 hover:bg-[var(--cyber-red)]/20 hover:border-[var(--cyber-red)]/50 transition-all font-mono text-sm whitespace-nowrap group w-full md:w-auto"
-          >
-            <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            View Profile
-          </a>
-        </div>
-      </m.div>
+    <AtlasPage tone="red">
+      <AtlasHero
+        visual="tryhackme"
+        eyebrow="Training archive · TryHackMe"
+        title="TryHackMe Profile"
+        description={
+          <p>Detailed overview of my learning paths, completed rooms, and earned badges.</p>
+        }
+        action={{ label: "View Profile", href: siteConfig.tryhackme.profileUrl }}
+        constellationCaption="A patient route through reconnaissance, forensics, cryptography, and offensive security."
+        stats={[
+          { label: "Rank", value: stats.rank || "…", icon: <Trophy aria-hidden="true" /> },
+          { label: "Level", value: stats.level || "…", icon: <Zap aria-hidden="true" /> },
+          { label: "Rooms", value: stats.roomsCompleted || "…", detail: `${thmRooms.length} catalogued`, icon: <Target aria-hidden="true" /> },
+          { label: "Badges", value: stats.badges || "…", detail: `${thmBadges.length} documented`, icon: <Shield aria-hidden="true" /> },
+        ]}
+      />
 
-      {/* Stats Overview */}
-      <div className="hud-stat-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-        {[
-          { label: "Rank", value: stats.rank || "...", icon: Trophy, color: "text-yellow-400" },
-          { label: "Level", value: stats.level || "...", icon: Zap, color: "text-purple-400" },
-          { label: "Rooms", value: stats.roomsCompleted || "...", icon: Target, color: "text-red-400" },
-          { label: "Badges", value: stats.badges || "...", icon: Shield, color: "text-blue-400" },
-        ].map((stat, i) => (
-          <m.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] transition-all group"
-          >
-            <stat.icon className={`w-8 h-8 mb-4 ${stat.color} group-hover:scale-110 transition-transform`} />
-            <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{stat.value}</div>
-            <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</div>
-          </m.div>
+      <AtlasSectionHeading
+        eyebrow="Observation log 01"
+        title="Completed Paths & Rooms"
+        action={`${thmRooms.length} entries`}
+      />
+      <AtlasSurface>
+        {primaryRooms.map((room) => <RoomRow key={room.name} room={room} />)}
+        {remainingRooms.length ? (
+          <AtlasDetails label="Reveal remaining rooms" count={remainingRooms.length}>
+            {remainingRooms.map((room) => <RoomRow key={room.name} room={room} />)}
+          </AtlasDetails>
+        ) : null}
+      </AtlasSurface>
+
+      <AtlasSectionHeading
+        eyebrow="Observation log 02"
+        title="Earned Badges"
+        action={`${thmBadges.length} badges`}
+      />
+      <AtlasSurface>
+        {thmBadges.map((badge) => (
+          <AtlasRow
+            key={badge.name}
+            title={badge.name}
+            description={badge.description}
+            meta="Badge"
+            href={badge.url}
+            icon={<Trophy aria-hidden="true" />}
+          />
         ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Completed Rooms/Paths */}
-        <div>
-          <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-6 flex items-center gap-3">
-            <Target className="text-[var(--cyber-red)]" /> Completed Paths & Rooms
-          </h2>
-          <div className="space-y-4">
-            {visibleRooms.map((room, i) => (
-              <RoomCard
-                key={room.name}
-                room={room}
-                index={i}
-              />
-            ))}
-          </div>
-          {thmRooms.length > 10 && (
-            <div className="mt-6 flex justify-center">
-              <button
-                onClick={() => setExpandedRooms(!expandedRooms)}
-                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] text-[var(--text-primary)] hover:text-[var(--cyber-red)] transition-all group"
-              >
-                {expandedRooms ? (
-                  <>Show Less <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" /></>
-                ) : (
-                  <>Show More ({thmRooms.length - 10}) <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" /></>
-                )}
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* Badges */}
-        <div>
-          <h2 className="text-2xl font-display font-bold text-[var(--text-primary)] mb-6 flex items-center gap-3">
-            <Shield className="text-[var(--cyber-red)]" /> Earned Badges
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {visibleBadges.map((badge, i) => (
-              <m.a
-                key={badge.name}
-                href={badge.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="block p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] hover:bg-[var(--cyber-red)]/5 transition-all group text-center"
-              >
-                <div className="w-12 h-12 mx-auto bg-[var(--bg-tertiary)] rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                  <Trophy className="w-6 h-6 text-yellow-400" />
-                </div>
-                <h3 className="text-md font-bold text-[var(--text-primary)] group-hover:text-[var(--cyber-red)] transition-colors">
-                  {badge.name}
-                </h3>
-                <p className="text-sm text-[var(--text-muted)] mt-1">{badge.description}</p>
-              </m.a>
-            ))}
-          </div>
-          {thmBadges.length > 10 && (
-            <div className="mt-6 flex justify-center">
-              <button
-                onClick={() => setExpandedBadges(!expandedBadges)}
-                className="flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-red)] text-[var(--text-primary)] hover:text-[var(--cyber-red)] transition-all group"
-              >
-                {expandedBadges ? (
-                  <>Show Less <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" /></>
-                ) : (
-                  <>Show More ({thmBadges.length - 10}) <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" /></>
-                )}
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+      </AtlasSurface>
+    </AtlasPage>
   );
 }

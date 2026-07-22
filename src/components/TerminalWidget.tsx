@@ -38,6 +38,7 @@ type ProofItem = {
 
 const platformRoutes: RouteTarget[] = [
   { label: "Home", href: "/", aliases: ["home", "index", "root"] },
+  { label: "Cyber Stats", href: "/stats", aliases: ["stats", "progress", "overview"] },
   { label: "TryHackMe", href: "/tryhackme", aliases: ["tryhackme", "thm"] },
   { label: "HackTheBox", href: "/hackthebox", aliases: ["hackthebox", "htb"] },
   { label: "HTB Academy", href: "/htb-academy", aliases: ["htb-academy", "academy", "htba"] },
@@ -291,29 +292,33 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
     <AnimatePresence>
       {isOpen && (
         <m.div
+          role="dialog"
+          aria-labelledby="portfolio-terminal-title"
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className={`terminal-deck fixed z-[70] flex flex-col overflow-hidden transition-all duration-300 ${
+          className={`terminal-deck fixed z-[120] flex flex-col overflow-hidden transition-all duration-300 ${
             isMaximized ? "inset-4" : "bottom-4 right-4 w-[90vw] sm:w-[500px] h-[400px]"
           }`}
         >
           <div className="terminal-deck-header flex items-center justify-between px-4 py-3 border-b border-[var(--border-default)]">
             <div className="flex items-center gap-2 text-[var(--text-muted)]">
               <TerminalIcon className="w-4 h-4 text-[var(--cyber-green)]" />
-              <span className="font-mono text-xs tracking-wider">voron@system: ~</span>
+              <span id="portfolio-terminal-title" className="font-mono text-xs tracking-wider">voron@atlas: ~</span>
             </div>
             <div className="flex items-center gap-3">
               <button
+                type="button"
                 onClick={() => setIsMaximized(!isMaximized)}
-                className="text-[var(--text-muted)] hover:text-white transition-colors"
+                className="grid w-10 h-10 place-items-center text-[var(--text-muted)] hover:text-white transition-colors"
                 aria-label={isMaximized ? "Restore terminal" : "Maximize terminal"}
               >
                 {isMaximized ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
               </button>
               <button
+                type="button"
                 onClick={onClose}
-                className="text-[var(--text-muted)] hover:text-[var(--cyber-red)] transition-colors"
+                className="grid w-10 h-10 place-items-center text-[var(--text-muted)] hover:text-[var(--cyber-red)] transition-colors"
                 aria-label="Close terminal"
               >
                 <X className="w-4 h-4" />
@@ -323,6 +328,7 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
 
           <div className="flex-1 p-4 overflow-y-auto font-mono text-sm" onClick={() => inputRef.current?.focus()}>
             <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3" aria-live="polite" aria-relevant="additions">
               {history.map((record, i) => (
                 <div key={i} className="flex flex-col gap-1">
                   <div className="flex items-center gap-2">
@@ -333,6 +339,7 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
                   <div className="text-[var(--text-secondary)] whitespace-pre-wrap pl-5">{record.output}</div>
                 </div>
               ))}
+              </div>
 
               <form onSubmit={handleCommand} className="flex items-center gap-2">
                 <span className="text-[var(--cyber-green)]">❯</span>
@@ -348,6 +355,14 @@ export default function TerminalWidget({ isOpen, onClose }: TerminalProps) {
                   autoFocus
                   aria-label="Terminal command"
                 />
+                <button
+                  type="submit"
+                  disabled={!input.trim()}
+                  className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[var(--border-default)] text-[var(--text-muted)] transition-colors hover:border-[var(--border-hover)] hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+                  aria-label="Run command"
+                >
+                  ↵
+                </button>
               </form>
               <div ref={endRef} />
             </div>

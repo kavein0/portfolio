@@ -1,0 +1,1040 @@
+.page {
+  --atlas-bg: #03040b;
+  --atlas-surface: rgba(10, 13, 28, 0.58);
+  --atlas-surface-strong: rgba(9, 12, 27, 0.78);
+  --atlas-text: #f4f1eb;
+  --atlas-muted: #a6adbf;
+  --atlas-faint: #747d95;
+  --atlas-violet: #a89cff;
+  --atlas-ice: #9ddcff;
+  --atlas-line: rgba(200, 209, 242, 0.17);
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+  color: var(--atlas-text);
+}
+
+.page::before {
+  position: absolute;
+  z-index: -1;
+  top: -90px;
+  right: 0;
+  left: 0;
+  height: min(1220px, calc(100svh + 310px));
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(2,4,13,.57), rgba(2,4,13,.04) 47%, rgba(2,4,13,.12)),
+    linear-gradient(180deg, rgba(3,5,14,.04), rgba(3,4,12,.84)),
+    url("/atlas/celestial-ridge-v1.webp") center top / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 0 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0 72%, transparent 100%);
+}
+
+.shell {
+  width: min(100% - 48px, 1232px);
+  margin-inline: auto;
+}
+
+.hero {
+  position: relative;
+  min-height: calc(100svh - 108px);
+  padding: 4px 0 0;
+}
+
+.hero::before {
+  position: absolute;
+  top: 2%;
+  right: -9%;
+  width: min(62vw, 880px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  content: "";
+  border: 1px solid rgba(170, 158, 255, 0.09);
+  border-radius: 50%;
+  transform: rotate(-16deg) scaleY(0.42);
+}
+
+.heroGrid {
+  position: relative;
+  display: grid;
+  min-height: 610px;
+  grid-template-columns: minmax(0, 1.02fr) minmax(480px, 0.98fr);
+  align-items: center;
+  gap: clamp(24px, 3.8vw, 58px);
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  padding-block: 24px 34px;
+  transform: translateY(-32px);
+}
+
+.heroTitle {
+  max-width: 810px;
+  margin: 0;
+  color: var(--atlas-text);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(4.7rem, 8vw, 8rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.84;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.heroTitle span {
+  display: block;
+  animation: hero-line-in 900ms cubic-bezier(0.22, 0.76, 0.22, 1) both;
+}
+.heroTitle span:last-child { margin-left: 0; animation-delay: 90ms; }
+
+.nativeName {
+  margin: clamp(24px, 3.2vh, 34px) 0 0;
+  color: #8f97ae;
+  font-size: clamp(0.86rem, 1.15vw, 1.02rem);
+  letter-spacing: 0.19em;
+}
+
+.heroSummary {
+  max-width: 600px;
+  margin: 24px 0 0;
+  color: #c9ced9;
+  font-size: clamp(1.05rem, 1.45vw, 1.28rem);
+  line-height: 1.55;
+}
+
+.roleLine {
+  display: flex;
+  min-height: 30px;
+  align-items: center;
+  gap: 13px;
+  margin-top: 18px;
+  color: var(--atlas-violet);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.84rem;
+}
+
+.roleStar {
+  position: relative;
+  width: 14px;
+  height: 14px;
+}
+
+.roleStar::before,
+.roleStar::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  background: #ebe8ff;
+  box-shadow: 0 0 14px rgba(168, 156, 255, 0.52);
+  transform: translate(-50%, -50%);
+}
+
+.roleStar::before { width: 14px; height: 1px; }
+.roleStar::after { width: 1px; height: 14px; }
+
+.roleCaret {
+  width: 1px;
+  height: 17px;
+  background: rgba(220, 214, 255, 0.8);
+  animation: atlas-caret 1s steps(1) infinite;
+}
+
+@keyframes atlas-caret { 50% { opacity: 0; } }
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.primaryAction,
+.textAction {
+  display: inline-flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--atlas-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.primaryAction {
+  min-width: 218px;
+  padding: 0 28px;
+  border: 1px solid rgba(211, 217, 255, 0.34);
+  border-radius: 23px 30px 25px 32px / 24px 22px 30px 25px;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.075), transparent 38%),
+    rgba(13, 17, 35, 0.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset -1px -1px 0 rgba(128, 113, 255, 0.18),
+    0 16px 44px rgba(0, 0, 0, 0.28);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  backdrop-filter: blur(20px) saturate(130%);
+  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+}
+
+.primaryAction:hover {
+  border-color: rgba(221, 225, 255, 0.62);
+  background: rgba(25, 29, 56, 0.72);
+  transform: translateY(-2px);
+}
+
+.primaryAction svg,
+.textAction svg { width: 16px; height: 16px; }
+
+.textAction {
+  min-width: 142px;
+  border-bottom: 1px solid rgba(214, 218, 236, 0.42);
+  padding: 0 2px;
+  color: #d8d9df;
+}
+
+.textAction:hover { color: #fff; border-color: var(--atlas-violet); }
+
+.availability {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  margin-left: 6px;
+  border-left: 1px solid var(--atlas-line);
+  padding-left: 22px;
+  color: var(--atlas-muted);
+  font-size: 0.82rem;
+}
+
+.availability i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #c9c2ff;
+  box-shadow: 0 0 12px rgba(174, 161, 255, 0.75);
+}
+
+.lensScene {
+  position: relative;
+  z-index: 1;
+  min-height: 610px;
+  overflow: visible;
+  isolation: isolate;
+  transform: translateY(-6px);
+}
+
+.lensOrbit,
+.lensOrbitSecondary {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid rgba(210, 214, 235, 0.2);
+  border-radius: 50%;
+}
+
+.lensOrbit {
+  top: 45%;
+  right: -33%;
+  left: -26%;
+  height: 30%;
+  transform: rotate(-17deg);
+}
+
+.lensOrbitSecondary {
+  top: 11%;
+  right: 4%;
+  width: 55%;
+  aspect-ratio: 1;
+  border-color: rgba(158, 143, 255, 0.12);
+}
+
+.lensHalo {
+  position: absolute;
+  z-index: 0;
+  top: 52%;
+  left: 50%;
+  width: min(46vw, 622px);
+  min-width: 518px;
+  aspect-ratio: 1;
+  pointer-events: none;
+  border: 1px solid rgba(160, 186, 255, 0.38);
+  border-radius: 50%;
+  box-shadow:
+    2px 0 0 rgba(55, 145, 255, 0.64),
+    -2px 0 0 rgba(201, 139, 255, 0.46),
+    0 0 34px rgba(102, 113, 255, 0.12);
+  transform: translate(-50%, -50%) rotate(-5deg) scaleY(1.008);
+  animation: lens-halo-drift 13s ease-in-out infinite;
+}
+
+.lensHalo::before,
+.lensHalo::after {
+  position: absolute;
+  inset: 7px;
+  content: "";
+  border: 1px solid rgba(228, 235, 255, 0.2);
+  border-radius: inherit;
+}
+
+.lensHalo::after {
+  inset: -7px 10px 9px -5px;
+  border-color: rgba(126, 101, 255, 0.2);
+}
+
+.heroLens {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  width: min(44vw, 600px);
+  min-width: 500px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid rgba(239, 243, 255, 0.68);
+  border-radius: 50% 49% 51% 50% / 49% 51% 49% 51%;
+  background:
+    radial-gradient(ellipse at 26% 13%, rgba(255, 255, 255, 0.2), transparent 16%),
+    radial-gradient(circle at 48% 46%, rgba(29, 42, 88, 0.08), transparent 42%),
+    radial-gradient(circle at 70% 76%, rgba(96, 76, 196, 0.13), transparent 40%),
+    linear-gradient(132deg, rgba(226, 235, 255, 0.09), rgba(8, 11, 27, 0.34) 38%, rgba(3, 5, 16, 0.5));
+  box-shadow:
+    inset 16px 17px 38px rgba(255, 255, 255, 0.105),
+    inset -22px -24px 54px rgba(22, 16, 72, 0.34),
+    inset 0 0 54px rgba(98, 140, 219, 0.06),
+    2px 0 0 rgba(98, 206, 255, 0.72),
+    -2px 0 0 rgba(196, 133, 255, 0.48),
+    0 34px 96px rgba(0, 0, 0, 0.42),
+    0 0 28px rgba(111, 117, 255, 0.14);
+  transform: translate(-50%, -50%) rotate(-2deg);
+  -webkit-backdrop-filter: blur(24px) saturate(148%) brightness(1.05);
+  backdrop-filter: blur(24px) saturate(148%) brightness(1.05);
+  animation: lens-float 10s ease-in-out infinite;
+}
+
+.lensRefraction {
+  position: absolute;
+  z-index: 0;
+  inset: -9%;
+  pointer-events: none;
+  opacity: .76;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.035), rgba(5,8,20,.08)),
+    url("/atlas/celestial-ridge-v1.webp") 71% 5% / auto 810px no-repeat;
+  filter: saturate(1.3) contrast(1.07) brightness(.84);
+  transform: scale(1.09) rotate(1deg);
+}
+
+.heroLens::before {
+  position: absolute;
+  z-index: 2;
+  top: 3%;
+  right: 10%;
+  left: 12%;
+  height: 25%;
+  pointer-events: none;
+  content: "";
+  border-top: 2px solid rgba(255, 255, 255, 0.66);
+  border-radius: 50%;
+  opacity: 0.78;
+  filter: blur(0.4px);
+  transform: rotate(5deg);
+}
+
+.heroLens::after {
+  position: absolute;
+  inset: 8px;
+  pointer-events: none;
+  content: "";
+  border: 1px solid rgba(184, 212, 255, 0.22);
+  border-radius: inherit;
+  box-shadow: inset -8px -10px 26px rgba(116, 95, 216, 0.08);
+}
+
+.crescentMoon {
+  position: absolute;
+  z-index: 2;
+  right: -9%;
+  bottom: 12%;
+  width: 46px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.92), rgba(163, 174, 203, 0.88) 36%, rgba(55, 64, 92, 0.92) 72%);
+  box-shadow: -7px 1px 18px rgba(211, 221, 255, 0.28);
+  transform: rotate(-22deg);
+  animation: moon-drift 8s ease-in-out infinite;
+}
+
+.crescentMoon::after {
+  position: absolute;
+  inset: -5px -2px -3px 12px;
+  content: "";
+  border-radius: 50%;
+  background: #060814;
+}
+
+.evidenceRail {
+  display: grid;
+  border-top: 1px solid var(--atlas-line);
+  border-bottom: 1px solid rgba(205, 211, 239, 0.08);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.evidenceItem {
+  display: grid;
+  min-height: 102px;
+  align-content: center;
+  grid-template-columns: auto 1fr;
+  gap: 4px 15px;
+  padding: 18px clamp(18px, 3vw, 36px);
+  color: var(--atlas-text);
+  text-decoration: none;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.evidenceItem + .evidenceItem { border-left: 1px solid var(--atlas-line); }
+.evidenceItem:hover { background: rgba(144, 134, 240, 0.055); }
+.evidenceItem strong {
+  grid-row: 1;
+  color: #f1eee8;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2.4rem, 3.5vw, 3.4rem);
+  font-weight: 500;
+  line-height: 0.92;
+}
+.evidenceItem span { align-self: center; color: #b4bac9; font-size: 0.76rem; }
+.evidenceItem small { display: none; }
+
+.heroCoda {
+  position: relative;
+  min-height: 170px;
+  margin-top: 48px;
+  overflow: hidden;
+  border-top: 1px solid rgba(213, 218, 247, 0.4);
+  border-radius: 50% 50% 0 0 / 25px 22px 0 0;
+  background:
+    radial-gradient(ellipse 38% 90% at 18% 28%, rgba(62, 79, 126, 0.15), transparent 75%),
+    linear-gradient(180deg, rgba(9, 13, 28, 0.78), rgba(4, 6, 16, 0.46));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.heroCoda::before {
+  position: absolute;
+  top: -1px;
+  right: 8%;
+  width: 34%;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(181, 174, 255, 0.58), transparent);
+  filter: blur(0.4px);
+}
+
+.heroCoda > .shell { padding-top: 46px; }
+.heroCoda span {
+  display: block;
+  color: #a99eff;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+.heroCoda strong {
+  display: block;
+  margin-top: 21px;
+  color: #f1eee9;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.8rem, 2.6vw, 2.45rem);
+  font-weight: 500;
+}
+
+@keyframes hero-line-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lens-float {
+  0%, 100% { transform: translate(-50%, -50%) rotate(-2deg); }
+  50% { transform: translate(-50%, calc(-50% - 7px)) rotate(-1.2deg); }
+}
+
+@keyframes lens-halo-drift {
+  0%, 100% { transform: translate(-50%, -50%) rotate(-5deg) scaleY(1.008); opacity: 0.76; }
+  50% { transform: translate(-50%, calc(-50% - 4px)) rotate(2deg) scaleY(0.998); opacity: 1; }
+}
+
+@keyframes moon-drift {
+  0%, 100% { transform: translateY(0) rotate(-22deg); }
+  50% { transform: translateY(-9px) rotate(-19deg); }
+}
+
+.section {
+  position: relative;
+  padding: clamp(92px, 8vw, 124px) 0;
+  scroll-margin-top: 116px;
+}
+
+.sectionHeading {
+  display: block;
+  margin-bottom: clamp(46px, 5vw, 64px);
+}
+
+.sectionHeading::before {
+  display: block;
+  margin-bottom: 30px;
+  color: #aaa0ff;
+  content: "01   |   About me";
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+.sectionHeading h2,
+.contactTitle {
+  margin: 0;
+  color: var(--atlas-text);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(4.5rem, 8vw, 8rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.82;
+}
+
+.sectionHeading p {
+  max-width: 540px;
+  margin: 24px 0 0;
+  color: #bcc1ce;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  line-height: 1.25;
+}
+
+.profileGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(520px, 1.18fr);
+  align-items: start;
+  gap: clamp(56px, 6vw, 92px);
+  margin-bottom: 0;
+}
+
+.profileCopy { max-width: 510px; }
+.profileLead {
+  margin: 0;
+  color: #e4e2df;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.42rem, 2vw, 1.9rem);
+  line-height: 1.32;
+}
+
+.profileCopy p:not(.profileLead) {
+  max-width: 620px;
+  margin: 24px 0 0;
+  color: var(--atlas-muted);
+  font-size: 0.98rem;
+  line-height: 1.85;
+}
+
+.matrixLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  border-bottom: 1px solid rgba(168, 156, 255, 0.58);
+  padding-bottom: 7px;
+  color: #c5bdff;
+  font-size: 0.86rem;
+  text-decoration: none;
+}
+.matrixLink svg { width: 15px; height: 15px; }
+.matrixLink:hover { color: #f0edff; }
+
+.identityStage {
+  position: relative;
+  min-height: 520px;
+  align-self: start;
+}
+.identityStage::before {
+  position: absolute;
+  inset: 14% -18% 10% 12%;
+  pointer-events: none;
+  content: "";
+  border: 1px solid rgba(155, 145, 255, 0.12);
+  border-radius: 50%;
+  transform: rotate(-12deg) scaleY(0.62);
+}
+
+.identityLens {
+  position: absolute;
+  inset: 0 0 2% 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(237, 240, 255, 0.58);
+  border-radius: 48% 52% 45% 55% / 42% 40% 60% 58%;
+  background:
+    radial-gradient(circle at 34% 18%, rgba(255, 255, 255, 0.13), transparent 18%),
+    radial-gradient(circle at 68% 74%, rgba(102, 87, 201, 0.11), transparent 42%),
+    linear-gradient(145deg, rgba(217, 225, 255, 0.07), rgba(6, 8, 21, 0.66)),
+    url("/atlas/celestial-ridge-v1.webp") 65% 34% / cover no-repeat;
+  box-shadow:
+    inset 14px 18px 38px rgba(255, 255, 255, 0.085),
+    inset -16px -20px 44px rgba(24, 18, 76, 0.26),
+    2px 0 rgba(113, 218, 255, 0.54),
+    -2px 0 rgba(174, 130, 255, 0.45),
+    0 34px 82px rgba(0, 0, 0, 0.34),
+    0 0 30px rgba(116, 120, 255, 0.1);
+  -webkit-backdrop-filter: blur(24px) saturate(142%);
+  backdrop-filter: blur(24px) saturate(142%);
+  animation: identity-drift 11s ease-in-out infinite;
+}
+
+.identityLens::before {
+  position: absolute;
+  top: 4%;
+  right: 11%;
+  left: 15%;
+  height: 24%;
+  content: "";
+  z-index: 2;
+  border-top: 2px solid rgba(255, 255, 255, 0.58);
+  border-radius: 50%;
+  transform: rotate(4deg);
+}
+
+.identityCore { position: relative; z-index: 1; width: 70%; text-align: center; }
+.identityCore span {
+  display: block;
+  color: #a9a0ed;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+}
+.identityCore strong {
+  display: block;
+  margin-top: 18px;
+  color: #f0ede7;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(4rem, 6vw, 6.2rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+}
+.identityCore em {
+  display: block;
+  margin-top: 24px;
+  border-top: 1px solid rgba(207, 213, 239, 0.2);
+  padding-top: 20px;
+  color: #cbc7dc;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-style: normal;
+}
+.identityLocation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  color: #9098ae;
+  font-size: 0.74rem;
+}
+.identityLocation svg { width: 14px; height: 14px; color: var(--atlas-violet); }
+
+.disciplineOrbit {
+  position: relative;
+  display: grid;
+  margin-top: clamp(72px, 7vw, 96px);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.disciplineOrbit::before {
+  position: absolute;
+  top: 7px;
+  right: 2%;
+  left: 2%;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(169, 158, 255, 0.36) 15%, rgba(151, 215, 255, 0.24) 80%, transparent);
+}
+.discipline {
+  position: relative;
+  padding-top: 30px;
+  color: #d8d5d4;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+  line-height: 1.15;
+  text-align: center;
+}
+.discipline::before {
+  position: absolute;
+  z-index: 1;
+  top: 1px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  content: "";
+  background: linear-gradient(90deg, transparent 46%, #e9e8ff 47% 53%, transparent 54%), linear-gradient(0deg, transparent 46%, #e9e8ff 47% 53%, transparent 54%);
+  filter: drop-shadow(0 0 7px rgba(164, 153, 255, 0.75));
+  transform: translateX(-50%);
+}
+
+.skillsSection { padding-top: clamp(104px, 9vw, 128px); }
+.skillsSection .shell { width: min(100% - 64px, 1450px); }
+.skillsLens {
+  position: relative;
+  overflow: hidden;
+  min-height: 760px;
+  border: 1px solid rgba(230, 234, 255, 0.5);
+  border-radius: 9% 16% 10% 13% / 8% 12% 14% 10%;
+  padding: clamp(48px, 5vw, 78px) clamp(54px, 6vw, 94px);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.085), transparent 23%),
+    radial-gradient(circle at 82% 96%, rgba(100, 83, 194, 0.09), transparent 34%),
+    linear-gradient(145deg, rgba(215, 224, 255, 0.045), rgba(6, 8, 21, 0.72)),
+    url("/atlas/celestial-ridge-v1.webp") 66% 54% / cover no-repeat;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset -18px -20px 48px rgba(25, 18, 78, 0.2),
+    2px 0 rgba(124, 217, 255, 0.48),
+    -2px 0 rgba(172, 130, 255, 0.4),
+    0 36px 100px rgba(0, 0, 0, 0.34),
+    0 0 38px rgba(119, 121, 255, 0.1);
+  -webkit-backdrop-filter: blur(24px) saturate(136%);
+  backdrop-filter: blur(24px) saturate(136%);
+}
+
+.skillsLens::before {
+  position: absolute;
+  top: 0;
+  right: 18%;
+  left: 13%;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), rgba(151, 211, 255, 0.32), transparent);
+}
+
+.skillsLens::after {
+  position: absolute;
+  top: -35%;
+  bottom: -35%;
+  left: -18%;
+  width: 18%;
+  pointer-events: none;
+  content: "";
+  opacity: 0.38;
+  background: linear-gradient(90deg, transparent, rgba(229, 238, 255, 0.12), transparent);
+  filter: blur(18px);
+  transform: rotate(12deg);
+  animation: glass-glint 14s ease-in-out infinite;
+}
+
+.skillsHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 34px;
+}
+.skillsHeader h2 {
+  margin: 0;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(3.6rem, 6.2vw, 6.5rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.84;
+}
+.skillsHeader p { margin: 17px 0 0; color: var(--atlas-muted); font-size: 0.92rem; }
+.skillCount { display: none; }
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 3vw, 42px);
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(203, 209, 235, 0.14);
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.filters::-webkit-scrollbar { display: none; }
+.filterButton {
+  position: relative;
+  flex: 0 0 auto;
+  cursor: pointer;
+  border: 0;
+  padding: 12px 0 16px;
+  color: #81899f;
+  background: transparent;
+  font-size: 0.78rem;
+  transition: color 160ms ease;
+}
+.filterButton::after {
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  left: 0;
+  height: 1px;
+  content: "";
+  opacity: 0;
+  background: #b4a8ff;
+  box-shadow: 0 0 9px rgba(168, 156, 255, 0.62);
+  transition: opacity 160ms ease;
+}
+.filterButton:hover,
+.filterButtonActive { color: #f0edf7; }
+.filterButtonActive::after { opacity: 1; }
+
+.skillList {
+  display: grid;
+  margin-top: 28px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(42px, 6vw, 90px);
+}
+.skillRow {
+  position: relative;
+  display: grid;
+  min-height: 60px;
+  grid-template-columns: 20px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(203, 209, 235, 0.09);
+  transition: color 160ms ease, transform 160ms ease;
+}
+.skillRow::after {
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  width: 38px;
+  height: 24px;
+  pointer-events: none;
+  content: "";
+  border-top: 1px solid rgba(151, 141, 242, 0.17);
+  border-radius: 50%;
+  transform: rotate(-16deg);
+}
+.skillRow:hover { color: #fff; transform: translateX(3px); }
+.skillStar {
+  position: relative;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(90deg, transparent 45%, #e9e6ff 46% 54%, transparent 55%), linear-gradient(0deg, transparent 45%, #e9e6ff 46% 54%, transparent 55%);
+  filter: drop-shadow(0 0 5px rgba(166, 155, 255, 0.6));
+}
+.skillName { color: #e4e1df; font-family: var(--font-serif), Georgia, serif; font-size: clamp(1.05rem, 1.55vw, 1.35rem); font-weight: 500; }
+.skillCategory { color: #858da5; font-family: var(--font-mono), monospace; font-size: 0.56rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.skillLevel { min-width: 38px; color: #aaa1ef; font-family: var(--font-serif), Georgia, serif; font-size: 1.2rem; text-align: right; }
+
+.contactSection {
+  position: relative;
+  min-height: 900px;
+  padding: clamp(112px, 9vw, 126px) 0 120px;
+  scroll-margin-top: 116px;
+}
+.contactSection::before {
+  position: absolute;
+  z-index: -1;
+  right: -8%;
+  bottom: -180px;
+  left: -8%;
+  height: 470px;
+  content: "";
+  opacity: 0.46;
+  background:
+    radial-gradient(ellipse 42% 24% at 22% 54%, rgba(158, 137, 255, 0.24), transparent 64%),
+    radial-gradient(ellipse 55% 30% at 75% 64%, rgba(87, 128, 181, 0.2), transparent 67%),
+    linear-gradient(180deg, transparent 20%, rgba(8, 10, 24, 0.88) 68%);
+  clip-path: polygon(0 47%, 7% 42%, 13% 48%, 19% 39%, 27% 51%, 36% 42%, 46% 53%, 55% 44%, 65% 50%, 75% 39%, 83% 47%, 90% 36%, 100% 45%, 100% 100%, 0 100%);
+  filter: blur(7px);
+}
+
+.contactSection::after {
+  position: absolute;
+  z-index: -1;
+  right: -6%;
+  bottom: -155px;
+  left: -6%;
+  height: 390px;
+  content: "";
+  opacity: 0.82;
+  background:
+    radial-gradient(ellipse 34% 18% at 17% 42%, rgba(181, 144, 255, 0.18), transparent 74%),
+    linear-gradient(180deg, rgba(8, 11, 25, 0.16), rgba(2, 4, 12, 0.96));
+  clip-path: polygon(0 58%, 6% 48%, 12% 54%, 20% 43%, 28% 57%, 36% 49%, 44% 61%, 53% 51%, 61% 58%, 70% 45%, 78% 55%, 86% 42%, 93% 51%, 100% 44%, 100% 100%, 0 100%);
+  filter: blur(2px);
+}
+.contactGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(540px, 1.2fr);
+  align-items: center;
+  gap: clamp(60px, 7vw, 106px);
+}
+.contactTitle { max-width: 650px; font-size: clamp(4.4rem, 7.5vw, 7.6rem); line-height: 0.87; }
+.contactIntro { max-width: 520px; margin: 32px 0 0; color: #aeb4c6; font-size: clamp(1rem, 1.5vw, 1.25rem); line-height: 1.65; }
+.contactLocation { display: flex; align-items: center; gap: 10px; margin-top: 26px; color: #a3a9ba; font-size: 0.82rem; }
+.contactLocation svg { width: 17px; height: 17px; color: var(--atlas-violet); }
+.contactLens {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(233, 238, 255, 0.56);
+  border-radius: 28% 24% 29% 25% / 25% 31% 28% 32%;
+  padding: clamp(34px, 4.2vw, 58px) clamp(38px, 5vw, 68px);
+  background:
+    radial-gradient(circle at 30% 6%, rgba(255, 255, 255, 0.11), transparent 23%),
+    linear-gradient(138deg, rgba(218, 226, 255, 0.065), rgba(7, 10, 24, 0.72)),
+    url("/atlas/celestial-ridge-v1.webp") 74% 66% / cover no-repeat;
+  box-shadow:
+    inset 13px 16px 36px rgba(255, 255, 255, 0.08),
+    inset -16px -20px 44px rgba(26, 19, 75, 0.2),
+    2px 0 rgba(118, 218, 255, 0.48),
+    -2px 0 rgba(173, 132, 255, 0.42),
+    0 36px 90px rgba(0, 0, 0, 0.32),
+    0 0 36px rgba(112, 119, 255, 0.1);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(140%);
+}
+.contactLens::before {
+  position: absolute;
+  top: 0;
+  right: 16%;
+  left: 14%;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.64), transparent);
+}
+.contactRoute {
+  display: grid;
+  min-height: 112px;
+  grid-template-columns: 42px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 22px;
+  border-bottom: 1px solid rgba(204, 211, 237, 0.13);
+  color: var(--atlas-text);
+  text-decoration: none;
+  transition: padding 180ms ease, background 180ms ease;
+}
+.contactRoute:last-child { border-bottom: 0; }
+.contactRoute:hover { padding-inline: 8px; background: rgba(158, 145, 255, 0.035); }
+.contactRouteIcon { display: grid; width: 40px; height: 40px; place-items: center; color: #d5d1ff; }
+.contactRouteIcon svg { width: 28px; height: 28px; }
+.contactRoute > span:nth-child(2) { min-width: 0; }
+.contactRoute small { display: block; margin-bottom: 7px; color: #8b93aa; font-size: 0.68rem; letter-spacing: 0.08em; }
+.contactRoute strong { display: block; overflow: hidden; font-size: clamp(0.92rem, 1.4vw, 1.12rem); font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.contactRoute > svg { width: 19px; height: 19px; color: #a89cff; transition: transform 180ms ease; }
+.contactRoute:hover > svg { transform: translate(3px, -3px); }
+
+@keyframes identity-drift {
+  0%, 100% { transform: translateY(0) rotate(-0.6deg); }
+  50% { transform: translateY(-7px) rotate(0.35deg); }
+}
+
+@keyframes glass-glint {
+  0%, 18% { left: -18%; opacity: 0; }
+  32%, 42% { opacity: 0.42; }
+  58%, 100% { left: 108%; opacity: 0; }
+}
+
+@media (max-width: 1120px) {
+  .skillCategory { display: none; }
+  .skillRow { grid-template-columns: 20px minmax(0, 1fr) auto; }
+  .shell { width: min(100% - 36px, 760px); }
+  .skillsSection .shell { width: min(100% - 36px, 760px); }
+  .hero { padding-top: 22px; }
+  .heroGrid { min-height: auto; grid-template-columns: 1fr; gap: 10px; }
+  .heroCopy { padding-bottom: 0; transform: none; }
+  .heroTitle { max-width: 720px; font-size: clamp(4.4rem, 14vw, 7rem); }
+  .lensScene { min-height: 520px; margin-top: -18px; }
+  .heroLens { width: min(76vw, 520px); min-width: 0; }
+  .lensHalo { width: min(79vw, 540px); min-width: 0; }
+  .crescentMoon { right: 7%; bottom: 7%; }
+  .evidenceRail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .evidenceItem:nth-child(3) { border-left: 0; border-top: 1px solid var(--atlas-line); }
+  .evidenceItem:nth-child(4) { border-top: 1px solid var(--atlas-line); }
+  .sectionHeading { grid-template-columns: 1fr; gap: 24px; }
+  .sectionHeading p { margin: 20px 0 0; }
+  .profileGrid { margin-bottom: 0; grid-template-columns: 1fr; }
+  .identityStage { min-height: 500px; width: min(100%, 570px); margin-inline: auto; transform: none; }
+  .disciplineOrbit { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 46px; }
+  .disciplineOrbit::before { display: none; }
+  .skillList { grid-template-columns: 1fr; }
+  .skillsLens { border-radius: 48px 74px 58px 68px / 64px 44px 72px 50px; }
+  .contactGrid { grid-template-columns: 1fr; }
+  .contactLens { border-radius: 74px 52px 78px 58px / 56px 78px 52px 72px; }
+}
+
+@media (max-width: 620px) {
+  .shell { width: min(100% - 28px, 540px); }
+  .skillsSection .shell { width: min(100% - 28px, 540px); }
+  .hero { min-height: auto; padding-top: 8px; }
+  .hero::before { width: 110vw; }
+  .heroTitle { font-size: clamp(3.1rem, 14.5vw, 4.2rem); letter-spacing: -0.052em; line-height: 0.86; }
+  .heroTitle span:last-child { margin-top: 8px; margin-left: 0; }
+  .nativeName { font-size: 0.74rem; letter-spacing: 0.12em; }
+  .heroSummary { font-size: 1rem; }
+  .heroActions { align-items: stretch; }
+  .primaryAction { min-width: 155px; }
+  .availability { width: 100%; margin: 4px 0 0; border-left: 0; padding-left: 0; }
+  .lensScene { min-height: 390px; }
+  .heroLens { width: min(88vw, 400px); }
+  .lensHalo { width: min(91vw, 416px); }
+  .crescentMoon { right: 1%; width: 34px; }
+  .evidenceRail { margin-top: 14px; }
+  .evidenceItem { min-height: 92px; grid-template-columns: auto 1fr; gap: 3px 10px; padding: 16px 14px; }
+  .evidenceItem strong { font-size: 2.2rem; }
+  .evidenceItem span { font-size: 0.67rem; }
+  .evidenceItem small { display: none; }
+  .heroCoda { min-height: 148px; margin-top: 34px; border-radius: 50% 50% 0 0 / 16px 14px 0 0; }
+  .heroCoda > .shell { padding-top: 34px; }
+  .section { padding: 108px 0; }
+  .sectionHeading { margin-bottom: 42px; }
+  .sectionHeading h2 { font-size: 4.15rem; }
+  .sectionHeading p { font-size: 1.32rem; }
+  .profileLead { font-size: 1.45rem; }
+  .identityStage { min-height: 390px; }
+  .identityCore { width: 78%; }
+  .identityCore strong { font-size: 3.85rem; }
+  .identityCore em { font-size: 1.6rem; }
+  .disciplineOrbit { margin-top: 62px; gap: 34px 20px; }
+  .discipline { font-size: 1.05rem; }
+  .skillsLens { margin-inline: -5px; padding: 34px 20px 38px; border-radius: 34px 52px 38px 48px / 45px 32px 54px 36px; }
+  .skillsHeader { align-items: flex-start; }
+  .skillsHeader h2 { font-size: clamp(2.8rem, 14vw, 3.9rem); }
+  .skillCount { margin-top: 9px; }
+  .filters { gap: 24px; }
+  .skillRow { min-height: 58px; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 8px; }
+  .skillName { font-size: 1rem; }
+  .skillLevel { font-size: 1rem; }
+  .contactSection { min-height: auto; padding: 116px 0 80px; }
+  .contactTitle { font-size: clamp(3.8rem, 17vw, 5.4rem); }
+  .contactLens { padding: 28px 22px; border-radius: 50px 36px 56px 40px / 40px 58px 36px 54px; }
+  .contactRoute { min-height: 88px; grid-template-columns: 34px minmax(0, 1fr) 18px; gap: 14px; }
+  .contactRouteIcon { width: 32px; height: 32px; }
+  .contactRouteIcon svg { width: 23px; height: 23px; }
+  .contactRoute strong { font-size: 0.86rem; }
+}
+
+@media (max-width: 700px) {
+  .availability { flex-basis: 100%; width: 100%; margin-left: 0; border-left: 0; padding-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roleCaret { animation: none; opacity: 1; }
+  .heroTitle span,
+  .heroLens,
+  .lensHalo,
+  .crescentMoon,
+  .identityLens,
+  .skillsLens::after { animation: none; }
+  .primaryAction,
+  .skillRow,
+  .contactRoute,
+  .contactRoute > svg { transition: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .heroLens,.identityLens,.skillsLens,.contactLens { background-color:rgba(7,10,24,.94); -webkit-backdrop-filter:none; backdrop-filter:none; }
+  .lensRefraction { opacity:.2; }
+}

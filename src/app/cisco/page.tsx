@@ -1,138 +1,76 @@
-"use client";
-
-import { m } from "framer-motion";
+import {
+  AtlasDetails,
+  AtlasHero,
+  AtlasPage,
+  AtlasRow,
+  AtlasSectionHeading,
+  AtlasSurface,
+} from "@/components/atlas/AtlasPage";
 import { certifications } from "@/lib/data";
-import { Award, Calendar, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { Award, Calendar, Link2, Network } from "lucide-react";
+
+const certificateListUrl = "https://docs.google.com/document/d/1rDxT5uOPnRjDArVh8_8i-XTaQ_8xMxK-iMHaLFArj34/edit?usp=sharing";
+
+function CertificateRows({ start = 0 }: { start?: number }) {
+  return certifications.slice(start).map((certificate) => (
+    <AtlasRow
+      key={certificate.name}
+      title={certificate.name}
+      description={certificate.issuer}
+      meta={certificate.date}
+      trailing={certificate.url ? "View certificate" : "Record only"}
+      href={certificate.url}
+      icon={<Award aria-hidden="true" />}
+    />
+  ));
+}
 
 export default function CiscoPage() {
-  const [expanded, setExpanded] = useState(false);
-  const visibleCerts = expanded ? certifications : certifications.slice(0, 10);
+  const linkedCertificates = certifications.filter((certificate) => certificate.url).length;
+  const remainingCertificates = Math.max(0, certifications.length - 10);
 
   return (
-    <div className="container-custom min-h-screen page-pad hud-page">
-      {/* Header */}
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="hud-page-intro mb-12"
-      >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-          <div>
-            <h1 className="hud-page-title font-display font-bold text-[var(--text-primary)] mb-4 md:mb-2 glitch-wrapper glitch-blue">
-              <span className="glitch-text" data-text="Cisco Networking Academy">Cisco Networking Academy</span>{" "}
-              <span className="text-[var(--cyber-blue)]">Certifications</span>
-            </h1>
-            <p className="text-[var(--text-secondary)] font-mono text-lg">
-              My academic achievements and specialized training completed through Cisco NetAcad.
-            </p>
-          </div>
-          <a
-            href="https://docs.google.com/document/d/1rDxT5uOPnRjDArVh8_8i-XTaQ_8xMxK-iMHaLFArj34/edit?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--cyber-blue)]/10 text-[var(--cyber-blue)] border border-[var(--cyber-blue)]/20 hover:bg-[var(--cyber-blue)]/20 hover:border-[var(--cyber-blue)]/50 transition-all font-mono text-sm whitespace-nowrap group w-full md:w-auto"
-          >
-            <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            View Certificate List
-          </a>
-        </div>
-      </m.div>
+    <AtlasPage tone="ice">
+      <AtlasHero
+        visual="cisco"
+        eyebrow="Certification archive · Cisco NetAcad"
+        title="Cisco Networking Academy Certifications"
+        description={
+          <p>My academic achievements and specialized training completed through Cisco NetAcad.</p>
+        }
+        action={{ label: "View Certificate List", href: certificateListUrl }}
+        constellationCaption="A verified record of networking foundations, defensive practice, and technical discipline."
+        stats={[
+          { label: "Certifications Completed", value: certifications.length, icon: <Award aria-hidden="true" /> },
+          { label: "Linked Credentials", value: linkedCertificates, detail: "Credly records", icon: <Link2 aria-hidden="true" /> },
+          { label: "Training Window", value: "24–26", detail: "2024 to 2026", icon: <Calendar aria-hidden="true" /> },
+          { label: "Issuer", value: "Cisco", detail: "Networking Academy", icon: <Network aria-hidden="true" /> },
+        ]}
+      />
 
-      {/* Stats Overview */}
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-blue)] transition-all group flex flex-col items-center text-center mb-16"
-      >
-        <Award className="w-8 h-8 mb-4 text-[var(--cyber-blue)] group-hover:scale-110 transition-transform" />
-        <div className="text-3xl font-display font-bold text-[var(--text-primary)]">{certifications.length}</div>
-        <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">Certifications Completed</div>
-      </m.div>
-
-      {/* Certificates List */}
-      <div className="space-y-4">
-        {visibleCerts.map((cert, i) => {
-          const Wrapper = cert.url ? "a" : "div";
-          const wrapperProps = cert.url
-            ? { href: cert.url, target: "_blank", rel: "noopener noreferrer", className: "block group" }
-            : { className: "block" };
-
-          return (
-            <m.div
-              key={cert.name}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: Math.min(i * 0.04, 0.24), duration: 0.3, ease: "easeOut" }}
-            >
-              <Wrapper {...wrapperProps}>
-                <div
-                  className={`p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-default)] ${
-                    cert.url ? "group-hover:border-[var(--cyber-blue)] group-hover:bg-[var(--cyber-blue)]/5" : ""
-                  } transition-all relative overflow-hidden`}
-                >
-                  <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="flex items-start md:items-center gap-4 flex-1 min-w-0">
-                      <div
-                        className={`w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center flex-shrink-0 mt-1 md:mt-0 ${
-                          cert.url ? "group-hover:scale-110" : ""
-                        } transition-transform`}
-                      >
-                        <Award className="w-6 h-6 text-[var(--cyber-blue)]" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3
-                          className={`text-lg md:text-xl font-bold text-[var(--text-primary)] ${
-                            cert.url ? "group-hover:text-[var(--cyber-blue)]" : ""
-                          } transition-colors whitespace-normal break-words`}
-                        >
-                          {cert.name}
-                        </h3>
-                        <p className="text-sm font-mono text-[var(--text-muted)] mt-1 truncate">{cert.issuer}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 shrink-0 pt-3 md:pt-0 border-t border-[var(--border-default)] md:border-t-0 mt-2 md:mt-0 w-full md:w-auto justify-between md:justify-end">
-                      <div className="flex items-center gap-2 text-sm font-mono text-[var(--text-muted)] bg-[var(--bg-tertiary)] px-3 py-1.5 rounded-full">
-                        <Calendar className="w-4 h-4 shrink-0" />
-                        <span>{cert.date}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center text-sm font-bold font-mono text-[var(--cyber-blue)] bg-[var(--cyber-blue)]/10 border border-[var(--cyber-blue)]/30 rounded-md w-8 h-8">
-                          {cert.date.includes("2026") ? "6" : "5"}
-                        </div>
-                        {cert.url && (
-                          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--cyber-blue)]/20 bg-[var(--cyber-blue)]/10 px-3 py-1.5 text-xs font-mono text-[var(--cyber-blue)] transition-all group-hover:border-[var(--cyber-blue)]/50 group-hover:bg-[var(--cyber-blue)]/15">
-                            View Certificate
-                            <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Wrapper>
-            </m.div>
-          );
-        })}
-      </div>
-
-      {/* Show more / less */}
-      {certifications.length > 10 && (
-        <div className="mt-8 flex justify-center">
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-[var(--cyber-blue)] text-[var(--text-primary)] hover:text-[var(--cyber-blue)] transition-all group"
-          >
-            {expanded ? (
-              <>Show Less <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" /></>
-            ) : (
-              <>Show More ({certifications.length - 10}) <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" /></>
-            )}
-          </button>
-        </div>
-      )}
-    </div>
+      <AtlasSectionHeading
+        eyebrow="Credential ledger"
+        title="Certificate List"
+        action={`${certifications.length} completed`}
+      />
+      <AtlasSurface>
+        {certifications.slice(0, 10).map((certificate) => (
+          <AtlasRow
+            key={certificate.name}
+            title={certificate.name}
+            description={certificate.issuer}
+            meta={certificate.date}
+            trailing={certificate.url ? "View certificate" : "Record only"}
+            href={certificate.url}
+            icon={<Award aria-hidden="true" />}
+          />
+        ))}
+        {remainingCertificates ? (
+          <AtlasDetails label="Reveal remaining certificates" count={remainingCertificates}>
+            <CertificateRows start={10} />
+          </AtlasDetails>
+        ) : null}
+      </AtlasSurface>
+    </AtlasPage>
   );
 }

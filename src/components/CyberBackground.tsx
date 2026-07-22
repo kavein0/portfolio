@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import styles from "./CyberBackground.module.css";
 
 type Star = {
   x: number;
@@ -119,9 +120,9 @@ export default function CyberBackground() {
 
       if (pointer.active && !reducedMotion) {
         const glow = context.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 180);
-        glow.addColorStop(0, "rgba(157, 216, 245, 0.075)");
-        glow.addColorStop(0.42, "rgba(72, 151, 194, 0.035)");
-        glow.addColorStop(1, "rgba(28, 83, 116, 0)");
+        glow.addColorStop(0, "rgba(183, 170, 255, 0.07)");
+        glow.addColorStop(0.42, "rgba(111, 139, 218, 0.03)");
+        glow.addColorStop(1, "rgba(40, 48, 104, 0)");
         context.fillStyle = glow;
         context.fillRect(pointer.x - 180, pointer.y - 180, 360, 360);
       }
@@ -143,14 +144,6 @@ export default function CyberBackground() {
               star.vx += (dx / distance) * impulse;
               star.vy += (dy / distance) * impulse;
 
-              if (distance < 175 && star.depth > 0.42) {
-                context.beginPath();
-                context.moveTo(pointer.x, pointer.y);
-                context.lineTo(star.x, star.y);
-                context.strokeStyle = `rgba(132, 196, 227, ${influence * 0.2})`;
-                context.lineWidth = 0.55;
-                context.stroke();
-              }
             }
           }
 
@@ -177,8 +170,8 @@ export default function CyberBackground() {
 
         if (star.radius > 1.15) {
           const glow = context.createRadialGradient(x, y, 0, x, y, star.radius * 5);
-          glow.addColorStop(0, `rgba(205, 235, 250, ${alpha * 0.72})`);
-          glow.addColorStop(1, "rgba(80, 142, 178, 0)");
+          glow.addColorStop(0, `rgba(235, 232, 255, ${alpha * 0.72})`);
+          glow.addColorStop(1, "rgba(115, 105, 198, 0)");
           context.fillStyle = glow;
           context.beginPath();
           context.arc(x, y, star.radius * 5, 0, Math.PI * 2);
@@ -187,7 +180,7 @@ export default function CyberBackground() {
 
         context.beginPath();
         context.arc(x, y, star.radius, 0, Math.PI * 2);
-        context.fillStyle = `rgba(219, 240, 250, ${alpha})`;
+        context.fillStyle = `rgba(239, 237, 255, ${alpha})`;
         context.fill();
       }
 
@@ -204,12 +197,12 @@ export default function CyberBackground() {
 
           context.beginPath();
           context.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
-          context.strokeStyle = `rgba(151, 213, 242, ${ripple.alpha})`;
+          context.strokeStyle = `rgba(184, 172, 255, ${ripple.alpha})`;
           context.lineWidth = 1;
           context.stroke();
         }
 
-        if (Math.random() < 0.0035) {
+        if (Math.random() < 0.0007) {
           const dormantMeteor = meteors.find((meteor) => !meteor.active);
           if (dormantMeteor) launchMeteor(dormantMeteor);
         }
@@ -226,8 +219,8 @@ export default function CyberBackground() {
             meteor.x + meteor.length,
             meteor.y - meteor.length * 0.58,
           );
-          gradient.addColorStop(0, "rgba(220, 242, 252, 0.72)");
-          gradient.addColorStop(1, "rgba(88, 151, 188, 0)");
+          gradient.addColorStop(0, "rgba(239, 235, 255, 0.72)");
+          gradient.addColorStop(1, "rgba(127, 111, 211, 0)");
           context.beginPath();
           context.moveTo(meteor.x, meteor.y);
           context.lineTo(meteor.x + meteor.length, meteor.y - meteor.length * 0.58);
@@ -307,10 +300,10 @@ export default function CyberBackground() {
   }, []);
 
   return (
-    <div className="stellar-backdrop" aria-hidden="true">
-      <canvas ref={canvasRef} className="stellar-canvas" />
-      <div className="stellar-nebula" />
-      <div className="stellar-vignette" />
+    <div className={styles.backdrop} aria-hidden="true">
+      <canvas ref={canvasRef} className={styles.canvas} />
+      <div className={styles.nebula} />
+      <div className={styles.vignette} />
     </div>
   );
 }

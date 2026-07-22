@@ -1,9 +1,20 @@
-"use client";
-
-import { m } from "framer-motion";
-import { TryHackMeStats, HackTheBoxStats, siteConfig, certifications, htbAcademyModules, htbAcademyBadges } from "@/lib/data";
-import { Trophy, Target, Shield, Box, Terminal, ExternalLink, GraduationCap, Award, BookOpen } from "lucide-react";
+import {
+  AtlasPage,
+  AtlasHero,
+  AtlasRow,
+  AtlasSectionHeading,
+  AtlasSurface,
+} from "@/components/atlas/AtlasPage";
 import SkillsSection from "@/components/sections/SkillsSection";
+import {
+  type HackTheBoxStats,
+  type TryHackMeStats,
+  certifications,
+  htbAcademyBadges,
+  htbAcademyModules,
+  siteConfig,
+} from "@/lib/data";
+import { Award, Box, GraduationCap, Shield } from "lucide-react";
 
 export default function StatsClient({
   thmStats,
@@ -13,202 +24,64 @@ export default function StatsClient({
   htbStats: HackTheBoxStats;
 }) {
   return (
-    <div className="min-h-screen page-pad-lg">
-      <div className="container-custom hud-page">
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="hud-page-intro mb-16"
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-[1px] w-8 bg-[var(--cyber-blue)]" />
-            <span className="font-mono text-xs text-[var(--cyber-blue)] tracking-widest uppercase">
-              Metrics
-            </span>
-          </div>
-          <h1 className="hud-page-title font-black text-[var(--text-primary)] tracking-tight mb-4 uppercase">
-            Cyber <span className="text-[var(--cyber-blue)]">Stats</span>
-          </h1>
-          <p className="text-[var(--text-secondary)] text-lg max-w-2xl">
-            Overview of my performance on major cybersecurity platforms and technical skill distribution.
-          </p>
-        </m.div>
+    <AtlasPage tone="cyan">
+      <AtlasHero
+        visual="stats"
+        eyebrow="Metrics / celestial overview"
+        title="Cyber Stats"
+        description={<p>Overview of my performance on major cybersecurity platforms and technical skill distribution.</p>}
+        stats={[
+          { label: "TryHackMe rooms", value: thmStats.roomsCompleted, detail: `Rank ${thmStats.rank}`, icon: <Shield /> },
+          { label: "HTB machine owns", value: htbStats.systemOwns, detail: `Rank ${htbStats.rank}`, icon: <Box /> },
+          { label: "Academy modules", value: htbAcademyModules.length, detail: `${htbAcademyBadges.length} badges`, icon: <GraduationCap /> },
+          { label: "Cisco certificates", value: certifications.length, detail: "official certifications", icon: <Award /> },
+        ]}
+        constellationCaption="Four learning systems charted as one continuous practice."
+      />
 
-        {/* Platform Summaries */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* TryHackMe Card */}
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="glass-card p-6 border-l-2 border-l-[var(--cyber-green)] relative group overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--cyber-green)]/5 rounded-bl-full -z-10 group-hover:bg-[var(--cyber-green)]/10 transition-colors" />
-            
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h2 className="text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
-                  <Shield className="w-6 h-6 text-[var(--cyber-green)]" />
-                  TryHackMe
-                </h2>
-                <a
-                  href={siteConfig.tryhackme.profileUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-[var(--text-muted)] hover:text-[var(--cyber-green)] flex items-center gap-1 mt-1 transition-colors"
-                >
-                  @{siteConfig.tryhackme.username} <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
+      <AtlasSectionHeading
+        eyebrow="Platform constellation"
+        title="Observation log"
+        action={<span>04 active archives</span>}
+      />
+      <AtlasSurface>
+        <AtlasRow
+          title="TryHackMe"
+          description={`@${siteConfig.tryhackme.username} · ${thmStats.roomsCompleted} completed rooms`}
+          meta={`Rank ${thmStats.rank}`}
+          href={siteConfig.tryhackme.profileUrl}
+          icon={<Shield />}
+          trailing="THM"
+        />
+        <AtlasRow
+          title="HackTheBox"
+          description={`@${siteConfig.hackthebox.username} · ${htbStats.systemOwns} machine owns`}
+          meta={`Rank ${htbStats.rank}`}
+          href={siteConfig.hackthebox.profileUrl}
+          icon={<Box />}
+          trailing="HTB"
+        />
+        <AtlasRow
+          title="HTB Academy"
+          description={`${htbAcademyModules.length} completed modules · ${htbAcademyBadges.length} badges`}
+          meta="Continuous learning"
+          href="/htb-academy"
+          icon={<GraduationCap />}
+          trailing="ACADEMY"
+        />
+        <AtlasRow
+          title="Cisco Academy"
+          description={`${certifications.length} official certifications`}
+          meta="Credential archive"
+          href="/cisco"
+          icon={<Award />}
+          trailing="CISCO"
+        />
+      </AtlasSurface>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
-                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
-                  <Trophy className="w-3 h-3 text-[#ffbd2e]" /> Rank
-                </div>
-                <div className="text-xl font-bold text-[var(--text-primary)]">
-                  {thmStats.rank.toLocaleString()}
-                </div>
-              </div>
-              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
-                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
-                  <Target className="w-3 h-3 text-[var(--cyber-green)]" /> Rooms
-                </div>
-                <div className="text-xl font-bold text-[var(--text-primary)]">
-                  {thmStats.roomsCompleted}
-                </div>
-              </div>
-            </div>
-          </m.div>
-
-          {/* HackTheBox Card */}
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="glass-card p-6 border-l-2 border-l-[var(--cyber-blue)] relative group overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--cyber-blue)]/5 rounded-bl-full -z-10 group-hover:bg-[var(--cyber-blue)]/10 transition-colors" />
-            
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h2 className="text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
-                  <Box className="w-6 h-6 text-[var(--cyber-blue)]" />
-                  HackTheBox
-                </h2>
-                <a
-                  href={siteConfig.hackthebox.profileUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-[var(--text-muted)] hover:text-[var(--cyber-blue)] flex items-center gap-1 mt-1 transition-colors"
-                >
-                  @{siteConfig.hackthebox.username} <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
-                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
-                  <Trophy className="w-3 h-3 text-[var(--cyber-blue)]" /> Rank
-                </div>
-                <div className="text-xl font-bold text-[var(--text-primary)] capitalize">
-                  {htbStats.rank}
-                </div>
-              </div>
-              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
-                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
-                  <Terminal className="w-3 h-3 text-[var(--cyber-purple)]" /> Machine Owns
-                </div>
-                <div className="text-xl font-bold text-[var(--text-primary)]">
-                  {htbStats.systemOwns}
-                </div>
-              </div>
-            </div>
-          </m.div>
-
-          {/* HTB Academy Card */}
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="glass-card p-6 border-l-2 border-l-[var(--cyber-purple)] relative group overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--cyber-purple)]/5 rounded-bl-full -z-10 group-hover:bg-[var(--cyber-purple)]/10 transition-colors" />
-            
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h2 className="text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
-                  <GraduationCap className="w-6 h-6 text-[var(--cyber-purple)]" />
-                  HTB Academy
-                </h2>
-                <p className="text-sm text-[var(--text-muted)] mt-1">
-                  Continuous Learning
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
-                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
-                  <BookOpen className="w-3 h-3 text-[var(--cyber-purple)]" /> Modules
-                </div>
-                <div className="text-xl font-bold text-[var(--text-primary)]">
-                  {htbAcademyModules.length}
-                </div>
-              </div>
-              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
-                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
-                  <Award className="w-3 h-3 text-[var(--cyber-blue)]" /> Badges
-                </div>
-                <div className="text-xl font-bold text-[var(--text-primary)]">
-                  {htbAcademyBadges.length}
-                </div>
-              </div>
-            </div>
-          </m.div>
-
-          {/* Cisco Academy Card */}
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="glass-card p-6 border-l-2 border-l-[#00bceb] relative group overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#00bceb]/5 rounded-bl-full -z-10 group-hover:bg-[#00bceb]/10 transition-colors" />
-            
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h2 className="text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
-                  <Award className="w-6 h-6 text-[#00bceb]" />
-                  Cisco Academy
-                </h2>
-                <p className="text-sm text-[var(--text-muted)] mt-1">
-                  Official Certifications
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4">
-              <div className="p-4 rounded-lg bg-[var(--bg-tertiary)]/50 border border-[var(--border-default)]">
-                <div className="text-xs font-mono text-[var(--text-muted)] mb-1 flex items-center gap-2">
-                  <Award className="w-3 h-3 text-[#00bceb]" /> Total Certifications
-                </div>
-                <div className="text-xl font-bold text-[var(--text-primary)]">
-                  {certifications.length}
-                </div>
-              </div>
-            </div>
-          </m.div>
-        </div>
-      </div>
-
-      {/* Skills Section */}
-      <div className="-mt-10">
+      <div style={{ marginTop: "clamp(44px, 7vw, 92px)" }}>
         <SkillsSection />
       </div>
-    </div>
+    </AtlasPage>
   );
 }
