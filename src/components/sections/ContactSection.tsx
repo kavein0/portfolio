@@ -15,8 +15,8 @@ export default function ContactSection() {
       <div className={styles.shell}>
         <div className={styles.contactGrid}>
           <div>
-            <h2 className={styles.contactTitle}>Establish a secure channel.</h2>
-            <p className={styles.contactIntro}>Open to internships, cybersecurity collaboration and CTF teams.</p>
+            <h2 className={styles.contactTitle}>Get in touch</h2>
+            <p className={styles.contactIntro}>Open to internships, junior security roles, and CTF team collaborations.</p>
             <div className={styles.contactLocation}><MapPin aria-hidden="true" />Kamianets-Podilskyi, Ukraine</div>
           </div>
 

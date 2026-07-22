@@ -19,7 +19,7 @@ export default function SkillsSection() {
           <div className={styles.skillsHeader}>
             <div>
               <h2>Capabilities</h2>
-              <p>Tools I use to investigate, build and defend.</p>
+              <p>Technologies, programming languages, and tools I work with.</p>
             </div>
             <span className={styles.skillCount} aria-live="polite">{visibleSkills.length} skills</span>
           </div>

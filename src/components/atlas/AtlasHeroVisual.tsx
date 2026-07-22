@@ -13,15 +13,15 @@ export type AtlasVisualVariant =
   | "stats";
 
 const visualLabels: Record<AtlasVisualVariant, string> = {
-  capricorn: "CONSTELLATION / OBSERVATORY",
-  tryhackme: "TRYHACKME / FIELD PATH",
-  hackthebox: "HACK THE BOX / LAB ORBIT",
-  academy: "HTB ACADEMY / LEARNING PATH",
-  cisco: "CISCO / VERIFIED NETWORK",
-  picoctf: "PICOCTF / CIPHER LAB",
-  cryptohack: "CRYPTOHACK / KEYSPACE",
-  matrix: "LEARNING MATRIX / ROUTE MAP",
-  stats: "CYBER STATS / SIGNAL MAP",
+  capricorn: "PROFILE / OVERVIEW",
+  tryhackme: "TRYHACKME",
+  hackthebox: "HACK THE BOX",
+  academy: "HTB ACADEMY",
+  cisco: "CISCO NETACAD",
+  picoctf: "PICOCTF",
+  cryptohack: "CRYPTOHACK",
+  matrix: "LEARNING MATRIX",
+  stats: "PROGRESS STATS",
 };
 
 function NetworkVisual() {
@@ -188,7 +188,6 @@ export default function AtlasHeroVisual({ variant }: { variant: AtlasVisualVaria
     <>
       <span className={styles.lensRefraction} aria-hidden="true" />
       <div className={styles.heroVisual} data-visual={variant}>{visual}</div>
-      <span className={styles.lensLabel}>{visualLabels[variant]}</span>
     </>
   );
 }

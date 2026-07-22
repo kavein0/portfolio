@@ -33,13 +33,13 @@ export default function CiscoPage() {
     <AtlasPage tone="ice">
       <AtlasHero
         visual="cisco"
-        eyebrow="Certification archive · Cisco NetAcad"
+        eyebrow="Cisco NetAcad"
         title="Cisco Networking Academy Certifications"
         description={
           <p>My academic achievements and specialized training completed through Cisco NetAcad.</p>
         }
         action={{ label: "View Certificate List", href: certificateListUrl }}
-        constellationCaption="A verified record of networking foundations, defensive practice, and technical discipline."
+        constellationCaption="Cisco NetAcad courses and verified certificates."
         stats={[
           { label: "Certifications Completed", value: certifications.length, icon: <Award aria-hidden="true" /> },
           { label: "Linked Credentials", value: linkedCertificates, detail: "Credly records", icon: <Link2 aria-hidden="true" /> },
@@ -49,7 +49,7 @@ export default function CiscoPage() {
       />
 
       <AtlasSectionHeading
-        eyebrow="Credential ledger"
+        eyebrow="Certificates"
         title="Certificate List"
         action={`${certifications.length} completed`}
       />

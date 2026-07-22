@@ -26,13 +26,13 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
     <AtlasPage tone="green">
       <AtlasHero
         visual="hackthebox"
-        eyebrow="Operations archive · Hack The Box"
+        eyebrow="Hack The Box"
         title="HackTheBox Profile"
         description={
           <p>Compromised machines, solved challenges, and overall ownership statistics.</p>
         }
         action={{ label: "View Profile", href: siteConfig.hackthebox.profileUrl }}
-        constellationCaption="A field record of owned systems, solved challenges, and steadily expanding capability."
+        constellationCaption="Hack The Box machine owns and challenge write-ups."
         stats={[
           { label: "Rank", value: stats.rank || "…", icon: <Terminal aria-hidden="true" /> },
           { label: "Points", value: stats.points || "…", icon: <Crosshair aria-hidden="true" /> },
@@ -42,7 +42,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
       />
 
       <AtlasSectionHeading
-        eyebrow="Observation log 01"
+        eyebrow="Machines"
         title="Owned Machines"
         action={`${htbMachines.length} machines`}
       />
@@ -61,7 +61,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
       </AtlasSurface>
 
       <AtlasSectionHeading
-        eyebrow="Observation log 02"
+        eyebrow="Challenges"
         title="Solved Challenges"
         action={`${htbChallenges.length} challenges`}
       />

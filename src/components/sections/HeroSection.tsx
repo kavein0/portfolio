@@ -6,10 +6,10 @@ import { certifications, htbAcademyModules, siteConfig, thmRooms } from "@/lib/d
 import styles from "./Home.module.css";
 
 const roles = [
-  "Penetration Tester",
-  "Digital Forensics Explorer",
+  "Cybersecurity Student",
+  "Reverse Engineering & Automation",
   "CTF Player",
-  "Security Researcher",
+  "Software Development",
 ] as const;
 
 const evidence = [
@@ -41,7 +41,7 @@ export default function HeroSection() {
             </div>
 
             <div className={styles.heroActions}>
-              <Link href="/stats" className={styles.primaryAction}>
+              <Link href="/learning-matrix" className={styles.primaryAction}>
                 View progress <ArrowRight aria-hidden="true" />
               </Link>
               <a href="#contact" className={styles.textAction}>Get in touch</a>
@@ -72,12 +72,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className={styles.heroCoda} aria-hidden="true">
-        <div className={styles.shell}>
-          <span>Atlas</span>
-          <strong>Charting curiosity.</strong>
-        </div>
-      </div>
     </section>
   );
 }

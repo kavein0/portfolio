@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, ChevronDown, Mail, Menu, Sparkles, Terminal as TerminalIcon, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, FolderOpen, Mail, Menu, Terminal as TerminalIcon, X } from "lucide-react";
 import { GithubIcon } from "@/components/icons/BrandIcons";
 import { siteConfig } from "@/lib/data";
 import styles from "./SiteChrome.module.css";
@@ -295,7 +295,7 @@ export default function Navbar() {
         <div className={styles.navGlass}>
           <Link href="/" onClick={closeMenus} className={styles.brand} aria-label="Yevhenii Voronianskyi — home">
             <span className={styles.brandStar} aria-hidden="true" />
-            <span><strong>V.E</strong><small>celestial atlas</small></span>
+            <span><strong>V.E</strong><small>portfolio</small></span>
           </Link>
 
           <nav ref={primaryNavRef} className={styles.primaryNav} aria-label="Primary navigation">
@@ -345,7 +345,7 @@ export default function Navbar() {
               aria-expanded={archiveOpen}
               aria-controls="portfolio-archive"
             >
-              <Sparkles aria-hidden="true" />
+              <FolderOpen aria-hidden="true" />
               <span>Explore archive</span>
               <ChevronDown aria-hidden="true" />
             </button>
@@ -391,8 +391,8 @@ export default function Navbar() {
               className={styles.archivePanel}
             >
               <div className={styles.archiveIntro}>
-                <strong>Fieldwork archive</strong>
-                <span>Courses, challenges and evidence from every platform.</span>
+                <strong>Platform archive</strong>
+                <span>Courses, certifications and completed challenges.</span>
               </div>
               <div className={styles.archiveGrid}>
                 {archiveLinks.map((link, index) => (

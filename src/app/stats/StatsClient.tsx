@@ -27,7 +27,7 @@ export default function StatsClient({
     <AtlasPage tone="cyan">
       <AtlasHero
         visual="stats"
-        eyebrow="Metrics / celestial overview"
+        eyebrow="Platform Overview"
         title="Cyber Stats"
         description={<p>Overview of my performance on major cybersecurity platforms and technical skill distribution.</p>}
         stats={[
@@ -36,13 +36,13 @@ export default function StatsClient({
           { label: "Academy modules", value: htbAcademyModules.length, detail: `${htbAcademyBadges.length} badges`, icon: <GraduationCap /> },
           { label: "Cisco certificates", value: certifications.length, detail: "official certifications", icon: <Award /> },
         ]}
-        constellationCaption="Four learning systems charted as one continuous practice."
+        constellationCaption="Summary of progress across cybersecurity learning platforms."
       />
 
       <AtlasSectionHeading
-        eyebrow="Platform constellation"
-        title="Observation log"
-        action={<span>04 active archives</span>}
+        eyebrow="Platforms"
+        title="Learning Platforms"
+        action={<span>4 active platforms</span>}
       />
       <AtlasSurface>
         <AtlasRow

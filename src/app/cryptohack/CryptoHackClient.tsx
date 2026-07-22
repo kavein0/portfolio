@@ -7,7 +7,7 @@ import {
   AtlasSurface,
   atlasStyles,
 } from "@/components/atlas/AtlasPage";
-import { Award, BookOpen, Orbit, Sparkles } from "lucide-react";
+import { Award, BookOpen, Orbit, Zap } from "lucide-react";
 
 const cryptohackStats = {
   level: 10,
@@ -35,21 +35,21 @@ export default function CryptoHackClient() {
     <AtlasPage tone="violet">
       <AtlasHero
         visual="cryptohack"
-        eyebrow="Applied cryptography / course atlas"
+        eyebrow="Applied Cryptography"
         title="CryptoHack Progress"
         description={<p>Completed courses, current level and verified profile progress.</p>}
         action={{ label: "View profile", href: cryptohackStats.profileUrl }}
         stats={[
           { label: "Level", value: cryptohackStats.level, detail: `rank ${cryptohackStats.rank}`, icon: <Orbit /> },
-          { label: "Experience", value: cryptohackStats.experience, detail: `${cryptohackStats.pointsToNextLevel} to next level`, icon: <Sparkles /> },
+          { label: "Experience", value: cryptohackStats.experience, detail: `${cryptohackStats.pointsToNextLevel} to next level`, icon: <Zap /> },
           { label: "Courses", value: cryptohackCourses.length, detail: "completed", icon: <Award /> },
           { label: "Lessons", value: totalLessons, detail: "across five courses", icon: <BookOpen /> },
         ]}
-        constellationCaption="A five-course route from foundations to elliptic curves."
+        constellationCaption="CryptoHack course completions and cryptography challenges."
       />
 
       <AtlasSectionHeading
-        eyebrow="Current trajectory"
+        eyebrow="Level Status"
         title="Level progress"
         action={<span>{cryptohackStats.pointsToNextLevel} points remaining</span>}
       />

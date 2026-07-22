@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import AtlasHeroVisual, { type AtlasVisualVariant } from "./AtlasHeroVisual";
 import styles from "./AtlasPage.module.css";
 
@@ -56,7 +56,7 @@ export function AtlasHero({
   return (
     <section className={`${styles.hero}${compact ? ` ${styles.heroCompact}` : ""}`} data-visual={visual}>
       <div className={styles.heroCopy}>
-        <p className={styles.eyebrow}><Sparkles aria-hidden="true" />{eyebrow}</p>
+        <p className={styles.eyebrow}>{eyebrow}</p>
         <h1 className={styles.heroTitle}>{title}</h1>
         <div className={styles.heroDescription}>{description}</div>
         {action ? (
