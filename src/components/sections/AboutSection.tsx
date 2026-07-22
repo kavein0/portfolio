@@ -3,32 +3,28 @@ import { ArrowUpRight, MapPin } from "lucide-react";
 import { siteConfig } from "@/lib/data";
 import styles from "./Home.module.css";
 
-const disciplines = [
-  "Penetration testing",
-  "Digital forensics",
-  "Network security",
-  "DevOps infrastructure",
-] as const;
-
 export default function AboutSection() {
   return (
     <section id="about" className={styles.section}>
       <div className={styles.shell}>
         <header className={styles.sectionHeading}>
           <h2>Profile</h2>
-          <p>Security practice grounded in evidence, infrastructure and public service.</p>
+          <p>Security practice grounded in evidence, software engineering and public service.</p>
         </header>
 
         <div className={styles.profileGrid}>
           <div className={styles.profileCopy}>
             <p className={styles.profileLead}>
-              I&apos;m a 3rd-year cadet at {siteConfig.university}, focused on cybersecurity and digital forensics.
+              I&apos;m a 3rd-year cadet at {siteConfig.university}, focusing my professional growth on cybersecurity with an emphasis on programming, reverse engineering, and process automation.
             </p>
             <p>
-              My work connects offensive security with infrastructure knowledge: CTF practice, homelab environments, Linux, network security and automation. I study how systems fail so they can be defended with better evidence and clearer engineering.
+              My work connects offensive security with low-level systems and infrastructure knowledge: CTF practice, homelab environments, Linux internals, network security, and automation. I study how systems fail so they can be defended with better evidence and clearer engineering.
             </p>
             <p>
-              The long-term objective is to contribute to Ukraine&apos;s cyber defence by combining law-enforcement education with practical technical experience.
+              I strive to apply and deepen my skills in Python, Rust, C/C++, and C# to build custom tools for system analysis, data processing, and solving digital forensics tasks.
+            </p>
+            <p>
+              My long-term objective is to contribute to Ukraine&apos;s cyber defence by combining law-enforcement education with practical technical and software development capabilities.
             </p>
             <Link href="/learning-matrix" className={styles.matrixLink}>
               Open learning matrix <ArrowUpRight aria-hidden="true" />
@@ -45,10 +41,6 @@ export default function AboutSection() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className={styles.disciplineOrbit} aria-label="Core disciplines">
-          {disciplines.map((discipline) => <div key={discipline} className={styles.discipline}>{discipline}</div>)}
         </div>
       </div>
     </section>

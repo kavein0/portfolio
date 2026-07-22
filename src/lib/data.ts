@@ -49,27 +49,27 @@ export interface Skill {
 
 export const skills: Skill[] = [
   // Offensive
-  { name: "Pentesting Fundamentals", level: 85, category: "offensive" },
-  { name: "Web App Security", level: 75, category: "offensive" },
-  { name: "Network Security", level: 85, category: "networking" },
-  { name: "Windows Forensics", level: 78, category: "defensive" },
-  { name: "Linux System Internals", level: 82, category: "programming" },
-  { name: "Digital Forensics", level: 70, category: "defensive" },
-  { name: "Reverse Engineering", level: 55, category: "offensive" },
-  { name: "Python for Security", level: 75, category: "programming" },
-  { name: "C++ for Low-Level", level: 50, category: "programming" },
-  { name: "Docker & Container Security", level: 60, category: "devops" },
+  { name: "Pentesting Fundamentals", level: 60, category: "offensive" },
+  { name: "Web App Security", level: 50, category: "offensive" },
+  { name: "Network Security", level: 60, category: "networking" },
+  { name: "Windows Forensics", level: 50, category: "defensive" },
+  { name: "Linux System Internals", level: 55, category: "programming" },
+  { name: "Digital Forensics", level: 50, category: "defensive" },
+  { name: "Reverse Engineering", level: 35, category: "offensive" },
+  { name: "Python for Security", level: 55, category: "programming" },
+  { name: "C++ for Low-Level", level: 35, category: "programming" },
+  { name: "Docker & Container Security", level: 40, category: "devops" },
 
   // DevOps
-  { name: "Linux Administration", level: 75, category: "devops" },
-  { name: "Docker", level: 50, category: "devops" },
-  { name: "Git / Version Control", level: 60, category: "devops" },
+  { name: "Linux Administration", level: 55, category: "devops" },
+  { name: "Docker", level: 40, category: "devops" },
+  { name: "Git / Version Control", level: 50, category: "devops" },
 
   // Programming
-  { name: "Bash / Shell", level: 70, category: "programming" },
-  { name: "Python", level: 65, category: "programming" },
-  { name: "SQL", level: 50, category: "programming" },
-  { name: "C / C++", level: 45, category: "programming" },
+  { name: "Bash / Shell", level: 55, category: "programming" },
+  { name: "Python", level: 55, category: "programming" },
+  { name: "SQL", level: 40, category: "programming" },
+  { name: "C / C++", level: 35, category: "programming" },
 ];
 
 export const skillCategories = [
