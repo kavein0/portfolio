@@ -2,13 +2,14 @@ import EvidencePanel from "@/components/EvidencePanel";
 import {
   AtlasPage,
   AtlasHero,
+  AtlasDetails,
   AtlasRow,
   AtlasSectionHeading,
   AtlasSurface,
   atlasStyles,
 } from "@/components/atlas/AtlasPage";
 import { Award, BookOpen, Orbit, Zap } from "lucide-react";
-import type { CryptoHackStats } from "@/lib/api/cryptohack";
+import type { CryptoHackChallenge, CryptoHackStats } from "@/lib/api/cryptohack";
 
 const cryptohackCourses = [
   { title: "Introduction to CryptoHack", lessons: 10, tags: ["#beginner"] },
@@ -19,7 +20,15 @@ const cryptohackCourses = [
 ] as const;
 
 const totalLessons = cryptohackCourses.reduce((sum, course) => sum + course.lessons, 0);
+function ChallengeRows({ challenges, profileUrl }: { challenges: CryptoHackChallenge[]; profileUrl: string }) {
+  return challenges.map((challenge, index) => <AtlasRow
+    key={`${challenge.name}-${challenge.solvedAt}-${index}`} title={challenge.name}
+    description={challenge.category} meta={challenge.solvedAt.slice(0, 10)}
+    trailing={`${challenge.points} points`} href={profileUrl} />);
+}
+
 export default function CryptoHackClient({ stats: cryptohackStats }: { stats: CryptoHackStats }) {
+  const challenges = cryptohackStats.challenges;
   return (
     <AtlasPage tone="violet">
       <AtlasHero
@@ -60,6 +69,18 @@ export default function CryptoHackClient({ stats: cryptohackStats }: { stats: Cr
             style={{ width: `${cryptohackStats.levelProgress}%` }}
           />
         </div>
+      </AtlasSurface>
+
+      <AtlasSectionHeading eyebrow="Public profile activity" title="Solved challenges"
+        action={challenges === null ? "Currently unavailable" : `${challenges.length} challenges`} />
+      <AtlasSurface>
+        {challenges === null ? <p>The challenge list is temporarily unavailable. View the public profile for the latest progress.</p> :
+          challenges.length === 0 ? <p>No solved challenges are listed on this profile.</p> : <>
+            <ChallengeRows challenges={challenges.slice(0, 10)} profileUrl={cryptohackStats.profileUrl} />
+            {challenges.length > 10 ? <AtlasDetails label="Reveal earlier challenges" count={challenges.length - 10}>
+              <ChallengeRows challenges={challenges.slice(10)} profileUrl={cryptohackStats.profileUrl} />
+            </AtlasDetails> : null}
+          </>}
       </AtlasSurface>
 
       <AtlasSectionHeading

@@ -1,5 +1,6 @@
 import {
   AtlasHero,
+  AtlasDetails,
   AtlasPage,
   AtlasRow,
   AtlasSectionHeading,
@@ -12,6 +13,7 @@ import {
   type HackTheBoxStats,
 } from "@/lib/data";
 import { Box, Crosshair, Server, Terminal } from "lucide-react";
+import type { HackTheBoxActivity } from "@/lib/api/hackthebox";
 
 const semesterForMachine = (name: string, date: string) =>
   date === "2026" || name === "MonitorsFour" ? "Semester 6" : "Semester 5";
@@ -21,7 +23,17 @@ const semesterForChallenge = (name: string) =>
     ? "Semester 6"
     : "Semester 5";
 
-export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) {
+const activityLabel: Record<string, string> = {
+  user: "Machine · user flag", root: "Machine · root flag", challenge: "Challenge", sherlock: "Sherlock",
+};
+
+function ActivityRows({ events }: { events: HackTheBoxActivity[] }) {
+  return events.map((event) => <AtlasRow key={`${event.type}-${event.id}-${event.ownDate}`}
+    title={event.name} description={[activityLabel[event.type] ?? `Activity · ${event.type}`, event.categoryName].filter(Boolean).join(" · ")}
+    meta={event.ownDate.slice(0, 10)} href={siteConfig.hackthebox.profileUrl} icon={<Box aria-hidden="true" />} />);
+}
+
+export default function HackTheBoxClient({ stats, activity }: { stats: HackTheBoxStats; activity: HackTheBoxActivity[] | null }) {
   return (
     <AtlasPage tone="green">
       <AtlasHero
@@ -29,7 +41,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
         eyebrow="Hack The Box"
         title="HackTheBox Profile"
         description={
-          <p>Profile totals and a curated archive of machines and challenges. {stats.source === "live" ? "Profile statistics are rechecked after 15 minutes when the page is visited." : "Profile statistics are a snapshot from 28 October 2026; the source is currently unavailable."} The lists below are maintained separately.</p>
+          <p>Profile totals, live achievement history and a curated archive. {stats.source === "live" ? "Profile data is rechecked after 15 minutes when the page is visited." : "Profile statistics are a snapshot from 28 October 2026; the source is currently unavailable."}</p>
         }
         action={{ label: "View Profile", href: siteConfig.hackthebox.profileUrl }}
         constellationCaption="Hack The Box machine owns and challenge write-ups."
@@ -41,8 +53,20 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
         ]}
       />
 
+      <AtlasSectionHeading eyebrow="Public profile activity" title="Achievement history"
+        action={activity === null ? "Currently unavailable" : `${activity.length} events`} />
+      <AtlasSurface>
+        {activity === null ? <p>Live achievement history is temporarily unavailable. The documented archive remains below.</p> :
+          activity.length === 0 ? <p>No public activity is available on this profile.</p> : <>
+            <ActivityRows events={activity.slice(0, 10)} />
+            {activity.length > 10 ? <AtlasDetails label="Reveal earlier activity" count={activity.length - 10}>
+              <ActivityRows events={activity.slice(10)} />
+            </AtlasDetails> : null}
+          </>}
+      </AtlasSurface>
+
       <AtlasSectionHeading
-        eyebrow="Machines"
+        eyebrow="Documented archive · machines"
         title="Owned Machines"
         action={`${htbMachines.length} machines`}
       />
@@ -61,7 +85,7 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
       </AtlasSurface>
 
       <AtlasSectionHeading
-        eyebrow="Challenges"
+        eyebrow="Documented archive · challenges"
         title="Solved Challenges"
         action={`${htbChallenges.length} challenges`}
       />

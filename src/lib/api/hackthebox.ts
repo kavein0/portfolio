@@ -1,5 +1,50 @@
 import { HackTheBoxStats, siteConfig } from "@/lib/data";
 
+export interface HackTheBoxActivity {
+  type: string;
+  id: number;
+  name: string;
+  ownDate: string;
+  categoryName?: string;
+}
+
+// The public profile supplies individual flag, challenge and Sherlock events.
+export async function fetchHackTheBoxActivity(userId: number): Promise<HackTheBoxActivity[] | null> {
+  try {
+    const events: HackTheBoxActivity[] = [];
+    const seen = new Set<string>();
+    const limit = 100;
+    for (let page = 1; page <= 50; page++) {
+      const url = new URL(`https://labs.hackthebox.com/api/v5/user/profile/activity/${userId}`);
+      url.searchParams.set("per_page", String(limit));
+      url.searchParams.set("page", String(page));
+      const response = await fetch(url, { next: { revalidate: 900 }, signal: AbortSignal.timeout(8000) });
+      if (!response.ok || !response.headers.get("content-type")?.includes("application/json")) return null;
+      const result = await response.json();
+      if (!Array.isArray(result.data) || !Number.isInteger(result.meta?.page) ||
+          result.meta.page !== page || !Number.isInteger(result.meta.lastPage) ||
+          result.meta.lastPage < page || !Number.isInteger(result.meta.totalItems) ||
+          result.meta.totalItems < 0) return null;
+      for (const event of result.data) {
+        if (typeof event.type !== "string" || !event.type.trim() ||
+            !Number.isInteger(event.id) || event.id <= 0 || typeof event.name !== "string" ||
+            !event.name.trim() || typeof event.ownDate !== "string" ||
+            !Number.isFinite(Date.parse(event.ownDate))) return null;
+        const key = `${event.type}:${event.id}:${event.ownDate}`;
+        if (seen.has(key)) return null;
+        seen.add(key);
+        events.push({ type: event.type, id: event.id, name: event.name, ownDate: event.ownDate,
+          categoryName: typeof event.categoryName === "string" ? event.categoryName : undefined });
+      }
+      if (page === result.meta.lastPage) return events.length === result.meta.totalItems ? events : null;
+      if (result.data.length === 0) return null;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchHackTheBoxStats(userId: number): Promise<HackTheBoxStats | null> {
   try {
     const base = "https://labs.hackthebox.com/api/v4/profile";

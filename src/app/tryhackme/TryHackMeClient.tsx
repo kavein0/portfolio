@@ -14,6 +14,7 @@ import {
   type TryHackMeStats,
 } from "@/lib/data";
 import { Shield, Target, Trophy, Zap } from "lucide-react";
+import type { TryHackMeAchievements } from "@/lib/api/tryhackme";
 
 function RoomRow({ room }: { room: TryHackMeRoom }) {
   return (
@@ -28,9 +29,11 @@ function RoomRow({ room }: { room: TryHackMeRoom }) {
   );
 }
 
-export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
-  const primaryRooms = thmRooms.slice(0, 10);
-  const remainingRooms = thmRooms.slice(10);
+export default function TryHackMeClient({ stats, achievements }: { stats: TryHackMeStats; achievements: TryHackMeAchievements | null }) {
+  const rooms = achievements?.rooms ?? thmRooms;
+  const badges = achievements?.badges ?? thmBadges;
+  const primaryRooms = rooms.slice(0, 10);
+  const remainingRooms = rooms.slice(10);
 
   return (
     <AtlasPage tone="red">
@@ -39,22 +42,22 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
         eyebrow="Training archive · TryHackMe"
         title="TryHackMe Profile"
         description={
-          <p>Profile totals and a curated archive of rooms and badges. {stats.source === "live" ? "Profile statistics are rechecked after 15 minutes when the page is visited." : "Profile statistics are a snapshot from 28 October 2026; the source is currently unavailable."} The lists below are maintained separately.</p>
+          <p>Profile totals and completed rooms and badges. {stats.source === "live" ? "Profile statistics are rechecked after 15 minutes when the page is visited." : "Profile statistics are a snapshot from 28 October 2026; the source is currently unavailable."} {achievements ? "Lists are retrieved from the public profile." : "The lists below are a curated archive; the public lists are currently unavailable."}</p>
         }
         action={{ label: "View Profile", href: siteConfig.tryhackme.profileUrl }}
         constellationCaption="A patient route through reconnaissance, forensics, cryptography, and offensive security."
         stats={[
           { label: "Rank", value: stats.rank || "…", icon: <Trophy aria-hidden="true" /> },
           { label: "Level", value: stats.level || "…", icon: <Zap aria-hidden="true" /> },
-          { label: "Rooms", value: stats.roomsCompleted || "…", detail: `${thmRooms.length} catalogued`, icon: <Target aria-hidden="true" /> },
-          { label: "Badges", value: stats.badges || "…", detail: `${thmBadges.length} documented`, icon: <Shield aria-hidden="true" /> },
+          { label: "Rooms", value: stats.roomsCompleted, detail: `${rooms.length} listed`, icon: <Target aria-hidden="true" /> },
+          { label: "Badges", value: stats.badges, detail: `${badges.length} listed`, icon: <Shield aria-hidden="true" /> },
         ]}
       />
 
       <AtlasSectionHeading
         eyebrow="Observation log 01"
         title="Completed Paths & Rooms"
-        action={`${thmRooms.length} entries`}
+        action={`${rooms.length} entries`}
       />
       <AtlasSurface>
         {primaryRooms.map((room) => <RoomRow key={room.name} room={room} />)}
@@ -68,10 +71,10 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
       <AtlasSectionHeading
         eyebrow="Observation log 02"
         title="Earned Badges"
-        action={`${thmBadges.length} badges`}
+        action={`${badges.length} badges`}
       />
       <AtlasSurface>
-        {thmBadges.map((badge) => (
+        {badges.map((badge) => (
           <AtlasRow
             key={badge.name}
             title={badge.name}

@@ -21,7 +21,7 @@ Currently a 3rd-year cadet at KNUIA (Kharkiv National University of Internal Aff
 
 Install dependencies with `npm ci`, then start the development server with `npm run dev`. Use `npm run build` to verify the production build. Deploy as a Next.js application on Vercel; a static export cannot refresh these server-side statistics.
 
-The site reads only public profile data and does not require account credentials. Access to TryHackMe can be blocked by its security checkpoint; in that case the site displays the dated snapshot, and availability from the deployment must be checked separately. CryptoHack's public HTML is parsed and may need maintenance if its markup changes. The detailed achievement lists for TryHackMe, Hack The Box, HTB Academy, Cisco and CyLab are curated and do not automatically include newly completed items.
+The site reads only public profile data and does not require account credentials. Hack The Box public activity and CryptoHack solved challenges are refreshed alongside profile statistics; the older curated Hack The Box lists remain as a separate archive. TryHackMe rooms and badges are fetched when its public profile API is accessible, with the curated archive shown if it is not. TryHackMe can block server requests with a security checkpoint, so verify availability from the deployment. CryptoHack's public HTML is parsed and may need maintenance if its markup changes. The HTB Academy, Cisco and CyLab lists are curated and do not automatically include newly completed items.
 
 ## 💻 Tech Stack
 
