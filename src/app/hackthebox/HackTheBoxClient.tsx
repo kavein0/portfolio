@@ -29,13 +29,13 @@ export default function HackTheBoxClient({ stats }: { stats: HackTheBoxStats }) 
         eyebrow="Hack The Box"
         title="HackTheBox Profile"
         description={
-          <p>Compromised machines, solved challenges, and overall ownership statistics.</p>
+          <p>Profile totals and a curated archive of machines and challenges. {stats.source === "live" ? "Profile statistics are rechecked after 15 minutes when the page is visited." : "Profile statistics are a snapshot from 28 October 2026; the source is currently unavailable."} The lists below are maintained separately.</p>
         }
         action={{ label: "View Profile", href: siteConfig.hackthebox.profileUrl }}
         constellationCaption="Hack The Box machine owns and challenge write-ups."
         stats={[
           { label: "Rank", value: stats.rank || "…", icon: <Terminal aria-hidden="true" /> },
-          { label: "Points", value: stats.points || "…", icon: <Crosshair aria-hidden="true" /> },
+          { label: "Points", value: stats.points, icon: <Crosshair aria-hidden="true" /> },
           { label: "Machine Owns", value: stats.systemOwns || "…", detail: `${htbMachines.length} documented`, icon: <Server aria-hidden="true" /> },
           { label: "Challenges", value: stats.challenges || "…", detail: `${htbChallenges.length} documented`, icon: <Box aria-hidden="true" /> },
         ]}

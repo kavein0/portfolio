@@ -1,50 +1,27 @@
-import { TryHackMeStats, thmRooms } from "@/lib/data";
+import { TryHackMeStats } from "@/lib/data";
 
-const THM_BASE = "https://tryhackme.com/api";
-
-export async function fetchTryHackMeStats(
-  username: string
-): Promise<TryHackMeStats | null> {
+// The public profile endpoint was discovered from the site's own requests.
+export async function fetchTryHackMeStats(username: string): Promise<TryHackMeStats | null> {
   try {
-    const res = await fetch(`${THM_BASE}/user/rank/${username}`, {
-      next: { revalidate: 3600 }, // cache 1 hour
-      headers: { "User-Agent": "PortfolioBot/1.0" },
-    });
-
-    if (!res.ok) return null;
-
-    const contentType = res.headers.get("content-type");
-    if (!contentType || !contentType.includes("application/json")) {
-      return null;
-    }
-
-    const data = await res.json();
-
+    const url = new URL("https://tryhackme.com/api/v2/public-profile");
+    url.searchParams.set("username", username);
+    const res = await fetch(url, { next: { revalidate: 900 }, signal: AbortSignal.timeout(8000) });
+    if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return null;
+    const { data } = await res.json();
+    if (!data || data.username?.toLowerCase() !== username.toLowerCase() ||
+        ![data.level, data.totalPoints, data.badgesNumber, data.completedRoomsNumber, data.streak, data.topPercentage].every(Number.isFinite)) return null;
     return {
-      rank: data.userRank ?? "—",
-      points: data.points ?? 0,
-      roomsCompleted: data.roomsCompleted ?? 0,
-      streak: data.streak ?? 0,
-      badges: data.badges ?? 0,
-      level: data.level ?? 0,
-      avatar: data.avatar
-        ? `https://tryhackme-images.s3.amazonaws.com/${data.avatar}`
-        : undefined,
+      source: "live", rank: `Top ${data.topPercentage}%`, points: data.totalPoints,
+      roomsCompleted: data.completedRoomsNumber, streak: data.streak,
+      badges: data.badgesNumber, level: data.level,
+      avatar: typeof data.avatar === "string" ? data.avatar : undefined,
     };
-  } catch (err) {
-    console.error("[THM] Failed to fetch stats:", err);
+  } catch {
     return null;
   }
 }
 
-// Fallback demo data (used when API is unreachable or no username set)
+// Browser-observed public profile on 28 October 2026; not presented as live data.
 export function getTryHackMeDemoStats(): TryHackMeStats {
-  return {
-    rank: "Top 15% (Adept)",
-    points: 0,
-    roomsCompleted: thmRooms.length,
-    streak: 0,
-    badges: 3,
-    level: 44,
-  };
+  return { source: "snapshot", rank: "Top 7%", points: 6672, roomsCompleted: 53, streak: 2, badges: 7, level: 8 };
 }

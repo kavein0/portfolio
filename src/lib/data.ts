@@ -190,6 +190,7 @@ export const certifications: Certification[] = [
 // ============================================================
 
 export interface TryHackMeStats {
+  source: "live" | "snapshot";
   rank: string;
   points: number;
   roomsCompleted: number;
@@ -200,6 +201,7 @@ export interface TryHackMeStats {
 }
 
 export interface HackTheBoxStats {
+  source: "live" | "snapshot";
   rank: string;
   points: number;
   ownership: number;

@@ -1,62 +1,32 @@
-import { HackTheBoxStats, htbMachines, htbChallenges } from "@/lib/data";
+import { HackTheBoxStats, siteConfig } from "@/lib/data";
 
-const HTB_BASE = "https://www.hackthebox.com/api/v4";
-
-export async function fetchHackTheBoxStats(
-  username: string,
-  apiToken?: string
-): Promise<HackTheBoxStats | null> {
+export async function fetchHackTheBoxStats(userId: number): Promise<HackTheBoxStats | null> {
   try {
-    const headers: HeadersInit = {
-      "User-Agent": "PortfolioBot/1.0",
-      Accept: "application/json",
-    };
-
-    if (apiToken) {
-      headers.Authorization = `Bearer ${apiToken}`;
-    }
-
-    // Try the public profile endpoint
-    const res = await fetch(`${HTB_BASE}/profile/public/${username}`, {
-      next: { revalidate: 3600 },
-      headers,
-    });
-
-    if (!res.ok) return null;
-
-    const contentType = res.headers.get("content-type");
-    if (!contentType || !contentType.includes("application/json")) {
-      return null;
-    }
-
-    const json = await res.json();
-    const profile = json.profile;
-
+    const base = "https://labs.hackthebox.com/api/v4/profile";
+    const options = { next: { revalidate: 900 }, signal: AbortSignal.timeout(8000) };
+    const [profileResponse, challengesResponse] = await Promise.all([
+      fetch(`${base}/${userId}`, options),
+      fetch(`${base}/progress/challenges/${userId}`, options),
+    ]);
+    if (!profileResponse.ok || !challengesResponse.ok ||
+        !profileResponse.headers.get("content-type")?.includes("application/json") ||
+        !challengesResponse.headers.get("content-type")?.includes("application/json")) return null;
+    const { profile } = await profileResponse.json();
+    const challenges = (await challengesResponse.json()).profile?.challenge_owns?.solved;
+    if (profile?.id !== userId || profile?.name?.toLowerCase() !== siteConfig.hackthebox.username.toLowerCase() ||
+        typeof profile.rank !== "string" ||
+        ![profile.points, profile.user_owns, profile.system_owns, profile.ranking, challenges].every(Number.isFinite)) return null;
     return {
-      rank: profile?.rank_text ?? "—",
-      points: profile?.points ?? 0,
-      ownership: profile?.user_owns ?? 0,
-      userOwns: profile?.user_owns ?? 0,
-      systemOwns: profile?.system_owns ?? 0,
-      challenges: profile?.challenge_owns ?? 0,
-      ranking: profile?.ranking ?? 0,
-      avatar: profile?.avatar ? `https://www.hackthebox.com${profile.avatar}` : undefined,
+      source: "live", rank: profile.rank, points: profile.points,
+      ownership: profile.system_owns, userOwns: profile.user_owns,
+      systemOwns: profile.system_owns, challenges, ranking: profile.ranking,
     };
-  } catch (err) {
-    console.error("[HTB] Failed to fetch stats:", err);
+  } catch {
     return null;
   }
 }
 
-// Fallback demo data
+// Browser-observed public profile on 28 October 2026; not presented as live data.
 export function getHackTheBoxDemoStats(): HackTheBoxStats {
-  return {
-    rank: "Apprentice (Lv. 29)",
-    points: 0,
-    ownership: htbMachines.length,
-    userOwns: htbMachines.length,
-    systemOwns: htbMachines.length,
-    challenges: htbChallenges.length,
-    ranking: 0,
-  };
+  return { source: "snapshot", rank: "Hacker", points: 0, ownership: 10, userOwns: 12, systemOwns: 10, challenges: 10, ranking: 1019 };
 }

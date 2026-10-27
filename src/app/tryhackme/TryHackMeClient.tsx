@@ -39,7 +39,7 @@ export default function TryHackMeClient({ stats }: { stats: TryHackMeStats }) {
         eyebrow="Training archive · TryHackMe"
         title="TryHackMe Profile"
         description={
-          <p>Detailed overview of my learning paths, completed rooms, and earned badges.</p>
+          <p>Profile totals and a curated archive of rooms and badges. {stats.source === "live" ? "Profile statistics are rechecked after 15 minutes when the page is visited." : "Profile statistics are a snapshot from 28 October 2026; the source is currently unavailable."} The lists below are maintained separately.</p>
         }
         action={{ label: "View Profile", href: siteConfig.tryhackme.profileUrl }}
         constellationCaption="A patient route through reconnaissance, forensics, cryptography, and offensive security."

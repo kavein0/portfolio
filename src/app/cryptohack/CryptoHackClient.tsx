@@ -8,15 +8,7 @@ import {
   atlasStyles,
 } from "@/components/atlas/AtlasPage";
 import { Award, BookOpen, Orbit, Zap } from "lucide-react";
-
-const cryptohackStats = {
-  level: 10,
-  experience: 2180,
-  pointsToNextLevel: 380,
-  rank: "#4262",
-  joined: "12 Jun 2026",
-  profileUrl: "https://cryptohack.org/user/Larein/",
-} as const;
+import type { CryptoHackStats } from "@/lib/api/cryptohack";
 
 const cryptohackCourses = [
   { title: "Introduction to CryptoHack", lessons: 10, tags: ["#beginner"] },
@@ -27,17 +19,14 @@ const cryptohackCourses = [
 ] as const;
 
 const totalLessons = cryptohackCourses.reduce((sum, course) => sum + course.lessons, 0);
-const nextLevelTotal = cryptohackStats.experience + cryptohackStats.pointsToNextLevel;
-const levelProgress = (cryptohackStats.experience / nextLevelTotal) * 100;
-
-export default function CryptoHackClient() {
+export default function CryptoHackClient({ stats: cryptohackStats }: { stats: CryptoHackStats }) {
   return (
     <AtlasPage tone="violet">
       <AtlasHero
         visual="cryptohack"
         eyebrow="Applied Cryptography"
         title="CryptoHack Progress"
-        description={<p>Completed courses, current level and verified profile progress.</p>}
+        description={<p>Completed courses and profile progress. {cryptohackStats.source === "live" ? "Profile statistics are rechecked after 15 minutes when the page is visited." : "Profile statistics are a snapshot from 28 October 2026; the source is currently unavailable."}</p>}
         action={{ label: "View profile", href: cryptohackStats.profileUrl }}
         stats={[
           { label: "Level", value: cryptohackStats.level, detail: `rank ${cryptohackStats.rank}`, icon: <Orbit /> },
@@ -61,14 +50,14 @@ export default function CryptoHackClient() {
         <div
           role="progressbar"
           aria-label="CryptoHack level progress"
-          aria-valuenow={cryptohackStats.experience}
+          aria-valuenow={Math.round(cryptohackStats.levelProgress)}
           aria-valuemin={0}
-          aria-valuemax={nextLevelTotal}
+          aria-valuemax={100}
           className="mt-6 h-1.5 overflow-hidden rounded-full bg-white/10"
         >
           <span
             className="block h-full rounded-full bg-[#aa9cff] shadow-[0_0_18px_rgba(170,156,255,0.5)]"
-            style={{ width: `${levelProgress}%` }}
+            style={{ width: `${cryptohackStats.levelProgress}%` }}
           />
         </div>
       </AtlasSurface>

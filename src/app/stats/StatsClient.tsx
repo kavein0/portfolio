@@ -29,7 +29,7 @@ export default function StatsClient({
         visual="stats"
         eyebrow="Platform Overview"
         title="Cyber Stats"
-        description={<p>Overview of my performance on major cybersecurity platforms and technical skill distribution.</p>}
+        description={<p>Overview of my performance on major cybersecurity platforms and technical skill distribution. THM: {thmStats.source === "live" ? "refreshed from profile" : "snapshot from 28 October 2026"}; HTB: {htbStats.source === "live" ? "refreshed from profile" : "snapshot from 28 October 2026"}.</p>}
         stats={[
           { label: "TryHackMe rooms", value: thmStats.roomsCompleted, detail: `Rank ${thmStats.rank}`, icon: <Shield /> },
           { label: "HTB machine owns", value: htbStats.systemOwns, detail: `Rank ${htbStats.rank}`, icon: <Box /> },
