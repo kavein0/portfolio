@@ -1,15 +1,8 @@
-export type TrainingEvidence = {
-  imageUrl: string;
-  originalUrl: string;
-  width: number;
-  height: number;
-  issuedOn: string;
-  number: string;
-  durationHours?: number;
-};
+import type { TrainingEvidence } from "./training-evidence";
 
 function document(slug: string, number: string, issuedOn: string, durationHours?: number, height = 1101): TrainingEvidence {
   return {
+    id: number,
     imageUrl: `/certificates/ec-council/${slug}.webp`,
     originalUrl: `/certificates/ec-council/${slug}.png`,
     width: 1428, height, issuedOn, number, durationHours,

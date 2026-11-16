@@ -34,7 +34,7 @@ export default function CertificatesPage() {
         return <section key={provider} id={`provider-${index}`} className="rf-training-section">
           <AtlasSectionHeading title={provider} action={<Link href={trainingProviderLinks[provider]}>{records.length} completed · Open archive ↗</Link>} />
           <AtlasSurface>
-            {records.map((record) => <AtlasRow key={record.name} title={record.name} description={record.kind} meta="Completed" trailing={record.evidence ? "View certificate" : "Evidence pending"} href={record.evidence ? `${trainingProviderLinks[provider]}#certificate-${record.evidence.number}` : trainingProviderLinks[provider]} icon={<CheckCircle2 aria-hidden="true" />} />)}
+            {records.map((record) => <AtlasRow key={record.name} title={record.name} description={record.kind} meta="Completed" trailing={record.evidence ? "View certificate" : "Evidence pending"} href={record.evidence ? `${trainingProviderLinks[provider]}#certificate-${record.evidence.id}` : trainingProviderLinks[provider]} icon={<CheckCircle2 aria-hidden="true" />} />)}
           </AtlasSurface>
         </section>;
       })}

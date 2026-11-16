@@ -1,4 +1,6 @@
-import { ecCouncilEvidence, type TrainingEvidence } from "./ec-council-evidence";
+import { ecCouncilEvidence } from "./ec-council-evidence";
+import { baselEvidence } from "./basel-evidence";
+import type { TrainingEvidence } from "./training-evidence";
 
 export type TrainingProvider = "Basel LEARN" | "Great Learning Academy" | "TryHackMe!" | "EC-Council" | "PicoCTF";
 
@@ -20,7 +22,7 @@ export const completedTraining: CompletedTraining[] = [
     "Financial Analysis using Excel",
     "Visualise Cases and Flows of Money",
     "Source and Application of Funds Analysis",
-  ].map((name): CompletedTraining => ({ name, provider: "Basel LEARN", kind: "Course", status: "Completed" })),
+  ].map((name): CompletedTraining => ({ name, provider: "Basel LEARN", kind: "Course", status: "Completed", evidence: baselEvidence[name] })),
   ...[
     "Introduction to Ethical Hacking",
     "Become an Ethical Hacker",

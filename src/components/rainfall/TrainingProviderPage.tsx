@@ -6,7 +6,7 @@ import TrainingRecords, { type TrainingRecord } from "./TrainingRecords";
 type Provider = Extract<TrainingProvider, "Basel LEARN" | "Great Learning Academy" | "EC-Council"> | "IBM";
 const descriptions: Record<Provider, string> = {
   "EC-Council": "Course records from EC-Council and CodeRed, with original completion documents, issue dates and certificate numbers.",
-  "Basel LEARN": "Completed courses in open-source intelligence, financial analysis and the investigation of suspicious transactions.",
+  "Basel LEARN": "Completed courses in open-source intelligence, financial analysis and the investigation of suspicious transactions, with the supplied completion certificates and original PNG downloads.",
   "Great Learning Academy": "Completed introductory courses in ethical hacking. Supporting documents have not been attached yet.",
   "IBM": "Planned courses in cybersecurity, blockchain, cloud computing and artificial intelligence. These courses have not been completed yet.",
 };

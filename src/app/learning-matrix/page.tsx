@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Circle, ExternalLink, Table2 } from "lucide-react";
-import { completedTraining, findCompletedTraining } from "@/lib/completed-training";
+import { completedTraining, findCompletedTraining, trainingProviderLinks } from "@/lib/completed-training";
 import {
   AtlasHero,
   AtlasPage,
@@ -339,8 +339,8 @@ function normalizeTitle(title: string) {
 }
 
 function findEvidence(item: MatrixItem, provider?: string): Evidence | undefined {
-  const document = provider ? findCompletedTraining(provider, [item.title, ...(item.aliases ?? [])])?.evidence : undefined;
-  if (document) return { title: item.title, url: `/ec-council#certificate-${document.number}` };
+  const record = provider ? findCompletedTraining(provider, [item.title, ...(item.aliases ?? [])]) : undefined;
+  if (record?.evidence) return { title: item.title, url: `${trainingProviderLinks[record.provider]}#certificate-${record.evidence.id}` };
   const candidates = [item.title, ...(item.aliases ?? [])].map(normalizeTitle);
 
   const matched = evidenceSources.find((source) =>

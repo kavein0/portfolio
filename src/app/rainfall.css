@@ -165,3 +165,5 @@ body:has(.rf-evidence-modal[open]){overflow:hidden}
 @media(max-width:640px){.rf-training-tools{display:grid;grid-template-columns:1fr}.rf-training-record{padding:18px 14px}.rf-training-record>header{grid-template-columns:22px minmax(0,1fr);gap:10px}.rf-training-record>header>svg{width:21px;height:21px}.rf-training-record h2{font-size:22px}.rf-training-status{grid-column:2;padding-top:2px}.rf-training-document-meta{gap:16px 24px}.rf-training-record .rf-evidence-trigger{padding:14px 10px}.rf-training-record .rf-evidence-trigger strong{font-size:12px}}
 
 .rf-evidence-full-image{display:flex;justify-content:center}.rf-evidence-full-image img{max-height:calc(100svh - 140px);object-fit:contain}
+
+.rf-training-source-note{color:#aac2d3;font-size:12px;line-height:1.7;margin:16px 0;padding:12px 14px;border-left:2px solid #9ab9ce55;background:#b7d8ef08}.rf-training-record>.rf-evidence{margin-top:18px}
