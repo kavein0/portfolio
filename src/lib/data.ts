@@ -1,3 +1,6 @@
+import { htbNewMachines } from "./htb-completions";
+export { htbSherlocks } from "./htb-completions";
+
 // ============================================================
 // Site-wide configuration — single source of truth
 // ============================================================
@@ -273,6 +276,7 @@ export const thmBadges = [
 // ============================================================
 
 export const htbMachines = [
+  ...htbNewMachines,
   // === Semester 5 (2025, excl. MonitorsFour) ===
   { name: "Outbound",     os: "Linux",   difficulty: "Easy",   date: "2025", url: "https://labs.hackthebox.com/achievement/machine/1945093/672" },
   { name: "Editor",       os: "Linux",   difficulty: "Easy",   date: "2025", url: "https://labs.hackthebox.com/achievement/machine/1945093/684" },

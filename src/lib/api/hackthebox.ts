@@ -8,6 +8,13 @@ export interface HackTheBoxActivity {
   categoryName?: string;
 }
 
+export function hackTheBoxAchievementUrl(event: Pick<HackTheBoxActivity, "type" | "id">): string {
+  const type = event.type === "user" || event.type === "root" ? "machine" : event.type;
+  return ["machine", "sherlock", "challenge"].includes(type)
+    ? `https://labs.hackthebox.com/achievement/${type}/${siteConfig.hackthebox.userId}/${event.id}`
+    : siteConfig.hackthebox.profileUrl;
+}
+
 // The public profile supplies individual flag, challenge and Sherlock events.
 export async function fetchHackTheBoxActivity(userId: number): Promise<HackTheBoxActivity[] | null> {
   try {

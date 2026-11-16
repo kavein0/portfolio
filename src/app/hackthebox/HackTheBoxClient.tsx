@@ -9,14 +9,12 @@ import {
 import {
   htbChallenges,
   htbMachines,
+  htbSherlocks,
   siteConfig,
   type HackTheBoxStats,
 } from "@/lib/data";
-import { Box, Crosshair, Server, Terminal } from "lucide-react";
-import type { HackTheBoxActivity } from "@/lib/api/hackthebox";
-
-const semesterForMachine = (name: string, date: string) =>
-  date === "2026" || name === "MonitorsFour" ? "Semester 6" : "Semester 5";
+import { Box, Crosshair, FileSearch, Server, Terminal } from "lucide-react";
+import { hackTheBoxAchievementUrl, type HackTheBoxActivity } from "@/lib/api/hackthebox";
 
 const semesterForChallenge = (name: string) =>
   ["CubeMadness2", "Broken Shell", "Not Posixtive", "Lucky Dice", "Micro Storage", "r0bob1rd"].includes(name)
@@ -30,7 +28,7 @@ const activityLabel: Record<string, string> = {
 function ActivityRows({ events }: { events: HackTheBoxActivity[] }) {
   return events.map((event) => <AtlasRow key={`${event.type}-${event.id}-${event.ownDate}`}
     title={event.name} description={[activityLabel[event.type] ?? `Activity · ${event.type}`, event.categoryName].filter(Boolean).join(" · ")}
-    meta={event.ownDate.slice(0, 10)} href={siteConfig.hackthebox.profileUrl} icon={<Box aria-hidden="true" />} />);
+    meta={event.ownDate.slice(0, 10)} href={hackTheBoxAchievementUrl(event)} icon={<Box aria-hidden="true" />} />);
 }
 
 export default function HackTheBoxClient({ stats, activity }: { stats: HackTheBoxStats; activity: HackTheBoxActivity[] | null }) {
@@ -52,6 +50,8 @@ export default function HackTheBoxClient({ stats, activity }: { stats: HackTheBo
         ]}
       />
 
+      <nav className="rf-training-links" aria-label="Hack The Box archives"><a href="#htb-machines">Machines · {htbMachines.length}</a><a href="#htb-sherlocks">Sherlocks · {htbSherlocks.length}</a><a href="#htb-challenges">Challenges · {htbChallenges.length}</a></nav>
+
       <AtlasSectionHeading eyebrow="Public profile activity" title="Achievement history"
         action={activity === null ? "Currently unavailable" : `${activity.length} events`} />
       <AtlasSurface>
@@ -64,6 +64,7 @@ export default function HackTheBoxClient({ stats, activity }: { stats: HackTheBo
           </>}
       </AtlasSurface>
 
+      <section id="htb-machines" style={{ scrollMarginTop: 24 }}>
       <AtlasSectionHeading
         eyebrow="Documented archive · machines"
         title="Owned Machines"
@@ -76,13 +77,22 @@ export default function HackTheBoxClient({ stats, activity }: { stats: HackTheBo
             title={machine.name}
             description={`${machine.os ?? "Unknown OS"} · ${machine.difficulty ?? "Unrated"}`}
             meta={machine.date ?? "Archive"}
-            trailing={semesterForMachine(machine.name, machine.date ?? "")}
+            trailing="View achievement"
             href={machine.url}
             icon={<Server aria-hidden="true" />}
           />
         ))}
       </AtlasSurface>
+      </section>
 
+      <section id="htb-sherlocks" style={{ scrollMarginTop: 24 }}>
+      <AtlasSectionHeading eyebrow="Completed investigations" title="Solved Sherlocks" action={`${htbSherlocks.length} sherlocks`} />
+      <AtlasSurface>
+        {htbSherlocks.map((sherlock) => <AtlasRow key={sherlock.name} title={sherlock.name} description={`${sherlock.category} · ${sherlock.difficulty}`} meta={sherlock.date} trailing="View achievement" href={sherlock.url} icon={<FileSearch aria-hidden="true" />} />)}
+      </AtlasSurface>
+      </section>
+
+      <section id="htb-challenges" style={{ scrollMarginTop: 24 }}>
       <AtlasSectionHeading
         eyebrow="Documented archive · challenges"
         title="Solved Challenges"
@@ -101,6 +111,7 @@ export default function HackTheBoxClient({ stats, activity }: { stats: HackTheBo
           />
         ))}
       </AtlasSurface>
+      </section>
     </AtlasPage>
   );
 }
