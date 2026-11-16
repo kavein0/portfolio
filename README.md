@@ -5,7 +5,7 @@
 ![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
-A high-performance, interactive personal portfolio website designed with a cyberpunk aesthetic to showcase my skills, certifications, and achievements in the cybersecurity field. 
+A personal cybersecurity portfolio with a rainy-night glass interface, platform archives, certificates, and learning progress.
 
 Currently a 3rd-year cadet at KNUIA (Kharkiv National University of Internal Affairs), specializing in penetration testing, DevOps, and digital forensics.
 
@@ -13,7 +13,9 @@ Currently a 3rd-year cadet at KNUIA (Kharkiv National University of Internal Aff
 
 - **Profile statistics:** TryHackMe and Hack The Box public profile statistics and CryptoHack profile data are refreshed on the server, with a 15-minute revalidation interval. If a source is unavailable, a dated snapshot is shown instead. Training lists and other certificates remain curated records.
 - **Interactive UI:** Smooth reveal animations, custom cursor interactions, and terminal emulations built with **Framer Motion**.
-- **Cyberpunk Aesthetic:** Minimalist dark mode with glowing glassmorphism effects, neon accents, and a custom CSS radial background matrix.
+- **Rainfall interface:** Wet glass platform navigation, a desktop preview panel, and a mobile achievement sheet.
+- **Training archive:** 30 owner-recorded completions from Basel LEARN, IBM, TryHackMe, EC-Council and picoCTF. Supporting evidence is pending. Great Learning Academy remains pending in the Learning Matrix.
+- **Learning Matrix:** Completion status is tracked separately from supporting evidence; records without documents can be completed without being presented as verified credentials.
 - **Mobile First:** Fully responsive design adapting flawlessly to both desktop and mobile devices.
 - **Performance Optimized:** Built on Next.js App Router with server-side revalidation on Vercel.
 
@@ -32,7 +34,7 @@ The site reads only public profile data and does not require account credentials
 - **Language:** TypeScript
 
 ## 🌐 Live Demo
-[*(Link will be updated upon Vercel deployment)*]
+[veportfolio12.vercel.app](https://veportfolio12.vercel.app/)
 
 ## 📫 Connect
 - **GitHub:** [kavein0](https://github.com/kavein0)

@@ -1,3 +1,4 @@
+import ArchiveNav from "@/components/rainfall/ArchiveNav";
 import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -25,7 +26,7 @@ export function AtlasPage({ children, tone = "violet", className }: AtlasPagePro
   return (
     <div className={`${styles.page}${className ? ` ${className}` : ""}`} data-tone={tone}>
       <div className={styles.skyWash} aria-hidden="true" />
-      <div className={styles.shell}>{children}</div>
+      <div className={styles.shell}><div className="rf-archive-layout"><ArchiveNav/><div className="rf-archive-content">{children}</div></div></div>
     </div>
   );
 }

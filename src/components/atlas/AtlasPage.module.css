@@ -573,3 +573,4 @@
   .heroLens,.statsRail,.surface,.heroAction { background-color:rgba(7,10,24,.94); -webkit-backdrop-filter:none; backdrop-filter:none; }
   .lensRefraction { opacity:.24; }
 }
+.page[data-tone]{--tone:#b5ccdc;--tone-rgb:181,204,220;--atlas-text:#e5edf2;--atlas-muted:#aabecb;--atlas-faint:#92aaba}.skyWash{background:linear-gradient(180deg,#080e1455,#080e14 90%),url('/rainfall/reference-night.webp') center top/cover}.orbitalStage{display:none}.hero{grid-template-columns:1fr;min-height:0;padding-bottom:40px;gap:30px}.surface,.statsRail{border-radius:3px;background:#101c27eb;box-shadow:none}.statsRail{margin-top:0}.heroTitle{max-width:900px;font-size:clamp(42px,5vw,72px)}

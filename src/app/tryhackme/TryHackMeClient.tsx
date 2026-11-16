@@ -15,6 +15,7 @@ import {
 } from "@/lib/data";
 import { Shield, Target, Trophy, Zap } from "lucide-react";
 import type { TryHackMeAchievements } from "@/lib/api/tryhackme";
+import { completedTraining } from "@/lib/completed-training";
 
 function RoomRow({ room }: { room: TryHackMeRoom }) {
   return (
@@ -54,9 +55,16 @@ export default function TryHackMeClient({ stats, achievements }: { stats: TryHac
         ]}
       />
 
+      <AtlasSectionHeading title="Completed learning paths" action="3 entries" />
+      <AtlasSurface>
+        {completedTraining.filter((record) => record.provider === "TryHackMe!").map((record) => (
+          <AtlasRow key={record.name} title={record.name} description="Learning path · completed" meta="Completed" trailing="Evidence pending" icon={<Target aria-hidden="true" />} />
+        ))}
+      </AtlasSurface>
+
       <AtlasSectionHeading
         eyebrow="Observation log 01"
-        title="Completed Paths & Rooms"
+        title="Completed Rooms"
         action={`${rooms.length} entries`}
       />
       <AtlasSurface>

@@ -8,6 +8,7 @@ import {
   atlasStyles,
 } from "@/components/atlas/AtlasPage";
 import { Binary, CheckCircle2, LockKeyhole } from "lucide-react";
+import { completedTraining } from "@/lib/completed-training";
 
 const picoChallenges = [
   { name: "interencdec", difficulty: "Easy" },
@@ -30,10 +31,10 @@ export default function PicoCTFClient() {
         visual="picoctf"
         eyebrow="CyLab Academy / cryptography"
         title="PicoCTF Challenges"
-        description={<p>Completed cryptography challenges with profile evidence from CyLab Academy.</p>}
+        description={<p>Completed cryptography, web and general skills challenges. The original eight cryptography records have profile captures; six additional completions are recorded without supporting evidence yet.</p>}
         action={{ label: "View profile", href: "https://learn.cylabacademy.org/users/Lareine" }}
         stats={[
-          { label: "Completed", value: picoChallenges.length, detail: "verified challenges", icon: <CheckCircle2 /> },
+          { label: "Completed", value: picoChallenges.length + completedTraining.filter((record) => record.provider === "PicoCTF").length, detail: "recorded challenges", icon: <CheckCircle2 /> },
           { label: "Easy", value: easyCount, detail: "foundation orbit", icon: <Binary /> },
           { label: "Medium", value: mediumCount, detail: "deeper cryptography", icon: <LockKeyhole /> },
         ]}
@@ -54,6 +55,13 @@ export default function PicoCTFClient() {
             meta={challenge.difficulty}
             trailing={String(index + 1).padStart(2, "0")}
           />
+        ))}
+      </AtlasSurface>
+
+      <AtlasSectionHeading title="Web & general skills" action="06 entries" />
+      <AtlasSurface>
+        {completedTraining.filter((record) => record.provider === "PicoCTF").map((record) => (
+          <AtlasRow key={record.name} title={record.name} description="Challenge · completed" meta="Completed" trailing="Evidence pending" />
         ))}
       </AtlasSurface>
 

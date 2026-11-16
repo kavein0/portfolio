@@ -4,8 +4,8 @@ export default function Loading() {
   return (
     <div className={styles.state}>
       <div className={styles.loadingGroup} role="status" aria-live="polite">
-        <div className={styles.loadingLens} aria-hidden="true">♑</div>
-        <p className={styles.label}>Aligning the atlas</p>
+
+        <p className={styles.label}>Loading portfolio…</p>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, JetBrains_Mono, Manrope } from "next/font/google";
 import "./globals.css";
+import "./rainfall.css";
 import { siteConfig } from "@/lib/data";
 
 const sans = Manrope({
@@ -52,9 +53,8 @@ export const metadata: Metadata = {
   },
 };
 
-import Navbar from "@/components/Navbar";
-import CyberBackgroundWrapper from "@/components/CyberBackgroundWrapper";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/rainfall/Nav";
+import Link from "next/link";
 import MotionProvider from "@/components/MotionProvider";
 
 export default function RootLayout({
@@ -67,12 +67,11 @@ export default function RootLayout({
       <body className={`${sans.variable} ${serif.variable} ${mono.variable} noise`}>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <MotionProvider>
-          <CyberBackgroundWrapper />
           <Navbar />
           <main id="main-content" className="site-main relative z-10">
             {children}
           </main>
-          <Footer />
+          <footer className="rf-footer"><span>{siteConfig.nameEn}</span><Link href="/#main-content">Back to top ↑</Link></footer>
         </MotionProvider>
       </body>
     </html>

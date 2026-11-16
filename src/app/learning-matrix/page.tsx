@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Circle, ExternalLink, Table2 } from "lucide-react";
+import { completedTraining, findCompletedTraining } from "@/lib/completed-training";
 import {
   AtlasHero,
   AtlasPage,
@@ -131,6 +132,10 @@ const matrixCategories: MatrixCategory[] = [
           { title: "SQL Injection Fundamentals" },
           { title: "Brief Intro to Hardware Attacks" },
         ],
+      },
+      {
+        provider: "Basel LEARN",
+        items: completedTraining.filter((record) => record.provider === "Basel LEARN").map((record) => ({ title: record.name })),
       },
       {
         provider: "IBM",
@@ -339,6 +344,10 @@ function findEvidence(item: MatrixItem): Evidence | undefined {
   return matched ?? item.fallbackEvidence;
 }
 
+function isComplete(provider: string, item: MatrixItem) {
+  return Boolean(findCompletedTraining(provider, [item.title, ...(item.aliases ?? [])]) || findEvidence(item));
+}
+
 function isInternalUrl(url: string) {
   return url.startsWith("/");
 }
@@ -403,7 +412,7 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
             </thead>
             <tbody>
               {rows.map(({ provider, index, item, evidence }, rowIndex) => {
-                const isCompleted = Boolean(evidence);
+                const isCompleted = isComplete(provider, item);
                 const isFirstProviderRow =
                   rowIndex === 0 || rows[rowIndex - 1].provider !== provider;
 
@@ -439,7 +448,7 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
                       {evidence ? (
                         <EvidenceLink evidence={evidence} />
                       ) : (
-                        <span className={atlasStyles.matrixDash}>—</span>
+                        <span className={atlasStyles.matrixDash}>{isCompleted ? "Evidence pending" : "—"}</span>
                       )}
                     </td>
                   </tr>
@@ -450,7 +459,7 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
         </div>
         <div className={atlasStyles.matrixMobile}>
         {rows.map(({ provider, index, item, evidence }) => {
-          const isCompleted = Boolean(evidence);
+          const isCompleted = isComplete(provider, item);
 
           return (
             <article key={`${provider}-${item.title}`} className={atlasStyles.matrixMobileRow}>
@@ -473,7 +482,7 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
                 <span>
                   {isCompleted ? "Completed" : "Pending"}
                 </span>
-                {evidence ? <EvidenceLink evidence={evidence} /> : null}
+                {evidence ? <EvidenceLink evidence={evidence} /> : isCompleted ? <span>Evidence pending</span> : null}
               </div>
             </article>
           );
@@ -486,9 +495,9 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
 
 export default function LearningMatrixPage() {
   const allRows = matrixCategories.flatMap((category) =>
-    category.sections.flatMap((section) => section.items),
+    category.sections.flatMap((section) => section.items.map((item) => ({ provider: section.provider, item }))),
   );
-  const completedCount = allRows.filter((item) => findEvidence(item)).length;
+  const completedCount = allRows.filter(({ provider, item }) => isComplete(provider, item)).length;
   const totalCount = allRows.length;
   const pendingCount = totalCount - completedCount;
 
@@ -500,14 +509,14 @@ export default function LearningMatrixPage() {
         title="Learning Matrix"
         description={
           <p>
-            Cybersecurity, cryptology, and digital forensics mapped against
-            verified portfolio evidence.
+            Cybersecurity, cryptology, and digital forensics learning progress.
+            Completion status and supporting evidence are tracked separately.
           </p>
         }
         compact
         stats={[
           { label: "Total items", value: totalCount, detail: "Mapped observations" },
-          { label: "Completed", value: completedCount, detail: "Evidence verified" },
+          { label: "Completed", value: completedCount, detail: "Recorded completions" },
           { label: "Pending", value: pendingCount, detail: "Next coordinates" },
         ]}
         constellationCaption="A long route made visible, one observation at a time."
