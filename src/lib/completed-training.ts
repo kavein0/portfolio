@@ -1,4 +1,4 @@
-export type TrainingProvider = "Basel LEARN" | "IBM" | "TryHackMe!" | "EC-Council" | "PicoCTF";
+export type TrainingProvider = "Basel LEARN" | "Great Learning Academy" | "TryHackMe!" | "EC-Council" | "PicoCTF";
 
 export type CompletedTraining = {
   name: string;
@@ -20,11 +20,9 @@ export const completedTraining: CompletedTraining[] = [
     "Source and Application of Funds Analysis",
   ].map((name): CompletedTraining => ({ name, provider: "Basel LEARN", kind: "Course", status: "Completed" })),
   ...[
-    "Кібербезпека",
-    "Блокчейн",
-    "Хмарні обчислення",
-    "Штучний інтелект",
-  ].map((name): CompletedTraining => ({ name, provider: "IBM", kind: "Course", status: "Completed" })),
+    "Introduction to Ethical Hacking",
+    "Become an Ethical Hacker",
+  ].map((name): CompletedTraining => ({ name, provider: "Great Learning Academy", kind: "Course", status: "Completed" })),
   ...[
     "Introduction to Cyber Security",
     "Pre Security",
@@ -53,7 +51,7 @@ export const completedTraining: CompletedTraining[] = [
   ].map((name): CompletedTraining => ({ name, provider: "PicoCTF", kind: "Challenge", status: "Completed" })),
 ];
 
-export const trainingProviders: TrainingProvider[] = ["Basel LEARN", "IBM", "TryHackMe!", "EC-Council", "PicoCTF"];
+export const trainingProviders: TrainingProvider[] = ["Basel LEARN", "Great Learning Academy", "TryHackMe!", "EC-Council", "PicoCTF"];
 
 export function findCompletedTraining(provider: string, names: string[]) {
   const normalized = names.map((name) => name.toLowerCase().trim());

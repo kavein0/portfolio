@@ -6,7 +6,7 @@ import { completedTraining, trainingProviders } from "@/lib/completed-training";
 
 export const metadata: Metadata = {
   title: "Certificates & training | Yevhenii Voronianskyi",
-  description: "Completed courses, learning paths and challenges from Basel LEARN, IBM, TryHackMe, EC-Council and picoCTF.",
+  description: "Completed courses, learning paths and challenges from Basel LEARN, Great Learning Academy, TryHackMe, EC-Council and picoCTF.",
 };
 
 export default function CertificatesPage() {
