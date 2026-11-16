@@ -1,3 +1,5 @@
+import { ecCouncilEvidence, type TrainingEvidence } from "./ec-council-evidence";
+
 export type TrainingProvider = "Basel LEARN" | "Great Learning Academy" | "TryHackMe!" | "EC-Council" | "PicoCTF";
 
 export type CompletedTraining = {
@@ -5,7 +7,7 @@ export type CompletedTraining = {
   provider: TrainingProvider;
   kind: "Course" | "Learning path" | "Challenge";
   status: "Completed";
-  evidenceUrl?: string;
+  evidence?: TrainingEvidence;
 };
 
 // Completion is recorded at the portfolio owner's request. Evidence and dates
@@ -40,7 +42,8 @@ export const completedTraining: CompletedTraining[] = [
     "Introduction to SAN and NAS Storage",
     "SQL Injection Attacks",
     "Cybersecurity for Businesses - The Fundamental Edition",
-  ].map((name): CompletedTraining => ({ name, provider: "EC-Council", kind: "Course", status: "Completed" })),
+    "Digital Forensics Essentials (DFE)",
+  ].map((name): CompletedTraining => ({ name, provider: "EC-Council", kind: "Course", status: "Completed", evidence: ecCouncilEvidence[name] })),
   ...[
     "Super SSH",
     "Local Authority",
@@ -52,6 +55,17 @@ export const completedTraining: CompletedTraining[] = [
 ];
 
 export const trainingProviders: TrainingProvider[] = ["Basel LEARN", "Great Learning Academy", "TryHackMe!", "EC-Council", "PicoCTF"];
+
+export const trainingProviderLinks: Record<TrainingProvider | "IBM", string> = {
+  "Basel LEARN": "/basel-learn",
+  "Great Learning Academy": "/great-learning",
+  "EC-Council": "/ec-council",
+  "TryHackMe!": "/tryhackme",
+  "PicoCTF": "/picoctf",
+  "IBM": "/ibm",
+};
+
+export const ibmCourses = ["Кібербезпека", "Блокчейн", "Хмарні обчислення", "Штучний інтелект"];
 
 export function findCompletedTraining(provider: string, names: string[]) {
   const normalized = names.map((name) => name.toLowerCase().trim());

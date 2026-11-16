@@ -14,7 +14,8 @@ Currently a 3rd-year cadet at KNUIA (Kharkiv National University of Internal Aff
 - **Profile statistics:** TryHackMe and Hack The Box public profile statistics and CryptoHack profile data are refreshed on the server, with a 15-minute revalidation interval. If a source is unavailable, a dated snapshot is shown instead. Training lists and other certificates remain curated records.
 - **Interactive UI:** Smooth reveal animations, custom cursor interactions, and terminal emulations built with **Framer Motion**.
 - **Rainfall interface:** Wet glass platform navigation, a desktop preview panel, and a mobile achievement sheet.
-- **Training archive:** 28 owner-recorded completions from Basel LEARN, Great Learning Academy, TryHackMe, EC-Council and picoCTF. Supporting evidence is pending. The four IBM courses remain pending in the Learning Matrix.
+- **Training archive:** 29 recorded completions from Basel LEARN, Great Learning Academy, TryHackMe, EC-Council and picoCTF. Nine EC-Council documents include issue dates, certificate numbers, previews and unchanged original PNG downloads. Other records without documents remain labelled accordingly. The four IBM courses remain pending in the Learning Matrix.
+- **Provider pages:** EC-Council, Basel LEARN, Great Learning Academy and IBM have dedicated searchable archives alongside the existing platform pages.
 - **Learning Matrix:** Completion status is tracked separately from supporting evidence; records without documents can be completed without being presented as verified credentials.
 - **Mobile First:** Fully responsive design adapting flawlessly to both desktop and mobile devices.
 - **Performance Optimized:** Built on Next.js App Router with server-side revalidation on Vercel.

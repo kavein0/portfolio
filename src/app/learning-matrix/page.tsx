@@ -254,6 +254,10 @@ const matrixCategories: MatrixCategory[] = [
       "Digital forensics courses, labs, and PicoCTF forensic-style challenges from the provided table.",
     sections: [
       {
+        provider: "EC-Council",
+        items: [{ title: "Digital Forensics Essentials (DFE)" }],
+      },
+      {
         provider: "Cyber 5W",
         items: [
           { title: "Prepare Your Forensic Environment" },
@@ -334,7 +338,9 @@ function normalizeTitle(title: string) {
     .trim();
 }
 
-function findEvidence(item: MatrixItem): Evidence | undefined {
+function findEvidence(item: MatrixItem, provider?: string): Evidence | undefined {
+  const document = provider ? findCompletedTraining(provider, [item.title, ...(item.aliases ?? [])])?.evidence : undefined;
+  if (document) return { title: item.title, url: `/ec-council#certificate-${document.number}` };
   const candidates = [item.title, ...(item.aliases ?? [])].map(normalizeTitle);
 
   const matched = evidenceSources.find((source) =>
@@ -345,7 +351,7 @@ function findEvidence(item: MatrixItem): Evidence | undefined {
 }
 
 function isComplete(provider: string, item: MatrixItem) {
-  return Boolean(findCompletedTraining(provider, [item.title, ...(item.aliases ?? [])]) || findEvidence(item));
+  return Boolean(findCompletedTraining(provider, [item.title, ...(item.aliases ?? [])]) || findEvidence(item, provider));
 }
 
 function isInternalUrl(url: string) {
@@ -382,7 +388,7 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
       provider: section.provider,
       index: index + 1,
       item,
-      evidence: findEvidence(item),
+      evidence: findEvidence(item, section.provider),
     })),
   );
 

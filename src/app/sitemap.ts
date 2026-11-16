@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/learning-matrix`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/cisco`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/certificates`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    ...["ec-council", "basel-learn", "great-learning", "ibm"].map((path) => ({ url: `${BASE_URL}/${path}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 })),
     { url: `${BASE_URL}/stats`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
   ];
 }

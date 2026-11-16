@@ -11,6 +11,7 @@ type EvidencePanelProps = {
   alt: string;
   width: number;
   height: number;
+  downloadUrl?: string;
 };
 
 export default function EvidencePanel({
@@ -20,6 +21,7 @@ export default function EvidencePanel({
   alt,
   width,
   height,
+  downloadUrl,
 }: EvidencePanelProps) {
   const generatedId = useId();
   const panelId = `evidence-${generatedId.replace(/:/g, "")}`;
@@ -54,6 +56,7 @@ export default function EvidencePanel({
 
       {isOpen ? (
         <div id={panelId} className="rf-evidence-content">
+          {downloadUrl ? <a className="rf-evidence-download" href={downloadUrl} download>Download original PNG ↗</a> : null}
           <button
             type="button"
             onClick={() => dialog.current?.showModal()}
