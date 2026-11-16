@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import { ChevronDown, Expand, X } from "lucide-react";
-import { useEffect, useId, useState } from "react";
-import { createPortal } from "react-dom";
+import { useId, useRef, useState } from "react";
 
 type EvidencePanelProps = {
   title: string;
@@ -25,44 +24,27 @@ export default function EvidencePanel({
   const generatedId = useId();
   const panelId = `evidence-${generatedId.replace(/:/g, "")}`;
   const [isOpen, setIsOpen] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-
-  useEffect(() => {
-    if (!isFullscreen) return;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsFullscreen(false);
-    };
-
-    window.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [isFullscreen]);
+  const dialog = useRef<HTMLDialogElement>(null);
 
   return (
     <>
-    <div className="liquid-surface overflow-hidden">
+    <div className="rf-evidence">
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
         aria-expanded={isOpen}
         aria-controls={panelId}
-        className="evidence-trigger group"
+        className="rf-evidence-trigger"
       >
-        <span className="min-w-0">
-          <span className="block text-sm font-semibold text-[var(--text-primary)]">
+        <span>
+          <strong>
             {title}
-          </span>
-          <span className="mt-1 block text-sm text-[var(--text-muted)]">
+          </strong>
+          <small>
             {description}
-          </span>
+          </small>
         </span>
-        <span className="flex shrink-0 items-center gap-2 font-mono text-xs text-[var(--text-secondary)]">
+        <span className="rf-evidence-state">
           {isOpen ? "Hide" : "Show"}
           <ChevronDown
             className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
@@ -71,11 +53,11 @@ export default function EvidencePanel({
       </button>
 
       {isOpen ? (
-        <div id={panelId} className="border-t border-[var(--border-default)] p-3 sm:p-4">
+        <div id={panelId} className="rf-evidence-content">
           <button
             type="button"
-            onClick={() => setIsFullscreen(true)}
-            className="group relative block w-full overflow-hidden rounded-xl border border-[var(--border-default)] bg-black/60"
+            onClick={() => dialog.current?.showModal()}
+            className="rf-evidence-image"
             aria-label={`Open ${title} fullscreen`}
           >
             <Image
@@ -83,12 +65,12 @@ export default function EvidencePanel({
               alt={alt}
               width={width}
               height={height}
-              className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.01]"
+              className="rf-evidence-capture"
               sizes="(max-width: 768px) 100vw, 1200px"
               loading="eager"
               style={{ width: "100%", height: "auto" }}
             />
-            <span className="absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-black/70 px-3 py-2 font-mono text-xs text-white backdrop-blur-md">
+            <span className="rf-evidence-expand">
               <Expand className="h-4 w-4" />
               Fullscreen
             </span>
@@ -98,25 +80,22 @@ export default function EvidencePanel({
 
     </div>
 
-      {isFullscreen ? createPortal(
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#020407]/95 p-3 sm:p-8"
-          role="dialog"
-          aria-modal="true"
+      <dialog ref={dialog}
+          className="rf-evidence-modal"
           aria-label={title}
           onMouseDown={(event) => {
-            if (event.target === event.currentTarget) setIsFullscreen(false);
+            if (event.target === event.currentTarget) dialog.current?.close();
           }}
         >
           <button
             type="button"
-            onClick={() => setIsFullscreen(false)}
-            className="absolute right-4 top-4 z-10 rounded-lg border border-white/10 bg-black/60 p-2 text-white backdrop-blur-md"
+            onClick={() => dialog.current?.close()}
+            className="rf-evidence-close"
             aria-label="Close fullscreen screenshot"
           >
             <X className="h-5 w-5" />
           </button>
-          <div className="max-h-full max-w-[min(1600px,100%)] overflow-auto rounded-xl border border-[var(--border-strong)] bg-black shadow-2xl">
+          <div className="rf-evidence-full-image">
               <Image
                 src={image}
                 alt={alt}
@@ -128,9 +107,7 @@ export default function EvidencePanel({
                 style={{ width: "100%", height: "auto", maxWidth: `${width}px` }}
               />
           </div>
-        </div>,
-        document.body,
-      ) : null}
+        </dialog>
     </>
   );
 }

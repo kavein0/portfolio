@@ -37,16 +37,15 @@ export default function TryHackMeClient({ stats, achievements }: { stats: TryHac
   const remainingRooms = rooms.slice(10);
 
   return (
-    <AtlasPage tone="red">
+    <AtlasPage>
       <AtlasHero
-        visual="tryhackme"
         eyebrow="Training archive · TryHackMe"
         title="TryHackMe Profile"
         description={
           <p>Profile totals and completed rooms and badges. {stats.source === "live" ? "Profile statistics are rechecked after 15 minutes when the page is visited." : "Profile statistics are a snapshot from 28 October 2026; the source is currently unavailable."} {achievements ? "Lists are retrieved from the public profile." : "The lists below are a curated archive; the public lists are currently unavailable."}</p>
         }
         action={{ label: "View Profile", href: siteConfig.tryhackme.profileUrl }}
-        constellationCaption="A patient route through reconnaissance, forensics, cryptography, and offensive security."
+
         stats={[
           { label: "Rank", value: stats.rank || "…", icon: <Trophy aria-hidden="true" /> },
           { label: "Level", value: stats.level || "…", icon: <Zap aria-hidden="true" /> },
@@ -63,7 +62,7 @@ export default function TryHackMeClient({ stats, achievements }: { stats: TryHac
       </AtlasSurface>
 
       <AtlasSectionHeading
-        eyebrow="Observation log 01"
+        eyebrow="Learning archive"
         title="Completed Rooms"
         action={`${rooms.length} entries`}
       />
@@ -77,7 +76,7 @@ export default function TryHackMeClient({ stats, achievements }: { stats: TryHac
       </AtlasSurface>
 
       <AtlasSectionHeading
-        eyebrow="Observation log 02"
+        eyebrow="Badge archive"
         title="Earned Badges"
         action={`${badges.length} badges`}
       />

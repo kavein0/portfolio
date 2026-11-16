@@ -5,6 +5,7 @@ export default function Loading() {
     <div className={styles.state}>
       <div className={styles.loadingGroup} role="status" aria-live="polite">
 
+        <span className={styles.loadingMark} aria-hidden="true" />
         <p className={styles.label}>Loading portfolio…</p>
       </div>
     </div>

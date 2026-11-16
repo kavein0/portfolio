@@ -1,0 +1,21 @@
+.rf-glass-filter { position: absolute; overflow: hidden; pointer-events: none; }
+.rf-liquid { isolation: isolate; }
+.rf-liquid > .rf-glass-layer { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
+.rf-liquid > .rf-glass-refraction { z-index: -3; overflow: hidden; backdrop-filter: blur(3px) saturate(115%); -webkit-backdrop-filter: blur(3px) saturate(115%); filter: url('#rainfall-glass-distortion'); }
+.rf-liquid > .rf-glass-tint { z-index: -2; background: linear-gradient(125deg, #e5f3ff0b, #a3cce303 45%, #09223122); }
+.rf-liquid > .rf-glass-rim { z-index: -1; box-shadow: inset 1px 1px 1px #e4f3ff55, inset -1px -1px 1px #c2defa26, 0 6px 16px #0002; }
+.rf-preview.rf-liquid { position: relative; background: linear-gradient(125deg, #ffffff08, transparent 50%), #0c1b27b8; backdrop-filter: none; }
+.rf-nav.rf-liquid { background: #0a1b2822; border-radius: 0 0 10px 10px; }
+.rf-platform-nav.rf-liquid { position: relative; background: #08182399; }
+.rf-contact-links a.rf-liquid { position: relative; background: linear-gradient(110deg, #c1deed0b, #091a28b3); transition: border-color 200ms ease, background 200ms ease; }
+.rf-contact-links a.rf-liquid:hover { border-color: #cbe6f8bb; background-color: #20405366; }
+@supports not ((backdrop-filter: blur(3px)) or (-webkit-backdrop-filter: blur(3px))) {
+  .rf-liquid > .rf-glass-refraction { display: none; }
+  .rf-preview.rf-liquid, .rf-platform-nav.rf-liquid, .rf-nav.rf-liquid { background-color: #102330f5; }
+}
+@media (max-width: 767px) { .rf-liquid > .rf-glass-refraction { filter: none; } }
+@media (prefers-reduced-motion: reduce) { .rf-liquid { transition: none; } }
+@media (prefers-reduced-transparency: reduce) {
+  .rf-liquid > .rf-glass-refraction { display: none; }
+  .rf-preview.rf-liquid, .rf-platform-nav.rf-liquid, .rf-nav.rf-liquid, .rf-contact-links a.rf-liquid { background: #102330; }
+}

@@ -1,13 +1,10 @@
 import ArchiveNav from "@/components/rainfall/ArchiveNav";
 import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import AtlasHeroVisual, { type AtlasVisualVariant } from "./AtlasHeroVisual";
-import styles from "./AtlasPage.module.css";
+import { ArrowUpRight, ChevronDown, FileText } from "lucide-react";
+import styles from "../rainfall/Archive.module.css";
 
 export const atlasStyles = styles;
-
-export type AtlasTone = "violet" | "ice" | "green" | "red" | "cyan";
 
 export type AtlasStat = {
   label: string;
@@ -18,15 +15,17 @@ export type AtlasStat = {
 
 type AtlasPageProps = {
   children: ReactNode;
-  tone?: AtlasTone;
   className?: string;
 };
 
-export function AtlasPage({ children, tone = "violet", className }: AtlasPageProps) {
+export function AtlasPage({ children, className }: AtlasPageProps) {
   return (
-    <div className={`${styles.page}${className ? ` ${className}` : ""}`} data-tone={tone}>
-      <div className={styles.skyWash} aria-hidden="true" />
-      <div className={styles.shell}><div className="rf-archive-layout"><ArchiveNav/><div className="rf-archive-content">{children}</div></div></div>
+    <div className={`${styles.page}${className ? ` ${className}` : ""}`}>
+      <div className={`rf-archive-shell ${styles.shell}`}>
+        <nav className="rf-breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><Link href="/#achievements">Achievements</Link></nav>
+        <div className="rf-archive-layout"><ArchiveNav mode="desktop"/><div className="rf-archive-content"><ArchiveNav mode="mobile"/>{children}</div></div>
+        <div className={styles.archiveBottom}><Link href="/#achievements">← Back to platforms</Link><Link href="/certificates">Certificates &amp; training ↗</Link></div>
+      </div>
     </div>
   );
 }
@@ -37,9 +36,6 @@ type AtlasHeroProps = {
   description: ReactNode;
   action?: { label: string; href: string };
   stats?: readonly AtlasStat[];
-  constellationCaption?: string;
-  compact?: boolean;
-  visual?: AtlasVisualVariant;
 };
 
 export function AtlasHero({
@@ -48,14 +44,11 @@ export function AtlasHero({
   description,
   action,
   stats,
-  constellationCaption = "Ambition, discipline, and the long climb to mastery.",
-  compact = false,
-  visual = "capricorn",
 }: AtlasHeroProps) {
   const external = action?.href.startsWith("http");
 
   return (
-    <section className={`${styles.hero}${compact ? ` ${styles.heroCompact}` : ""}`} data-visual={visual}>
+    <section className={styles.hero}>
       <div className={styles.heroCopy}>
         <p className={styles.eyebrow}>{eyebrow}</p>
         <h1 className={styles.heroTitle}>{title}</h1>
@@ -67,18 +60,9 @@ export function AtlasHero({
             target={external ? "_blank" : undefined}
             rel={external ? "noopener noreferrer" : undefined}
           >
-            {action.label}<ArrowRight aria-hidden="true" />
+            {action.label}<ArrowUpRight aria-hidden="true" />
           </Link>
         ) : null}
-      </div>
-
-      <div className={styles.orbitalStage} data-visual={visual} aria-hidden="true">
-        <div className={styles.heroOrbit} />
-        <div className={styles.heroOrbitFine} />
-        <span className={styles.smallMoon} />
-        <div className={styles.heroLens} data-visual={visual}>
-          <AtlasHeroVisual variant={visual} />
-        </div>
       </div>
 
       {stats?.length ? <AtlasStatRail stats={stats} /> : null}
@@ -95,7 +79,7 @@ export function AtlasStatRail({ stats }: { stats: readonly AtlasStat[] }) {
     >
       {stats.map((stat, index) => (
         <div className={styles.stat} key={`${stat.label}-${index}`}>
-          {stat.icon ? <span className={styles.statIcon}>{stat.icon}</span> : <i className={styles.statStar} aria-hidden="true" />}
+          {stat.icon ? <span className={styles.statIcon}>{stat.icon}</span> : null}
           <span className={styles.statCopy}>
             <small>{stat.label}</small>
             <strong>{stat.value}</strong>
@@ -149,15 +133,14 @@ type AtlasRowProps = {
 export function AtlasRow({ title, description, meta, href, icon, trailing, className }: AtlasRowProps) {
   const content = (
     <>
-      <span className={styles.rowStar} aria-hidden="true" />
-      {icon ? <span className={styles.rowIcon}>{icon}</span> : null}
+      <span className={styles.rowIcon}>{icon ?? <FileText aria-hidden="true" />}</span>
       <span className={styles.rowCopy}>
         <strong>{title}</strong>
         {description ? <small>{description}</small> : null}
       </span>
       {meta ? <span className={styles.rowMeta}>{meta}</span> : null}
       {trailing ? <span className={styles.rowTrailing}>{trailing}</span> : null}
-      {href ? <ArrowRight className={styles.rowArrow} aria-hidden="true" /> : null}
+      {href ? <ArrowUpRight className={styles.rowArrow} aria-hidden="true" /> : null}
     </>
   );
   const rowClass = `${styles.row}${className ? ` ${className}` : ""}`;
@@ -180,7 +163,7 @@ export function AtlasDetails({
 }) {
   return (
     <details className={styles.details}>
-      <summary>{label}{typeof count === "number" ? ` (${count})` : ""}<span aria-hidden="true" /></summary>
+      <summary>{label}{typeof count === "number" ? ` (${count})` : ""}<ChevronDown aria-hidden="true" /></summary>
       <div className={styles.detailsContent}>{children}</div>
     </details>
   );

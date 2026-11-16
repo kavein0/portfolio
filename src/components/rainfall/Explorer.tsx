@@ -2,6 +2,7 @@
 import {useEffect,useRef,useState} from "react";
 import type {CSSProperties} from "react";
 import Link from "next/link";
+import {GlassLayers} from "./LiquidGlass";
 import {ArrowUpRight,ArrowRight,CloudRain,Box,GraduationCap,Radio,KeyRound,Landmark,X,FileText,Info,List,Sun,VolumeX} from "lucide-react";
 export type Preview={id:string;name:string;href?:string;kind:string;source:string;records:{title:string;url?:string}[]};
 const icons=[CloudRain,Box,GraduationCap,Radio,KeyRound,Info,Landmark];
@@ -23,7 +24,7 @@ function PlatformSymbol({id,Icon}:{id:string;Icon:typeof CloudRain}){
 }
 function Panel({p}:{p?:Preview}){
  if(!p)return <div className="rf-empty"><h3>Choose a platform</h3><p>Select a shard to see certificates and achievements.</p></div>;
- return <><h3>{p.name}</h3><div className="rf-preview-sub"><p>{p.id==="cisco"?"Certificates":p.kind}</p><small>{p.source}</small></div><ul>{p.records.map(r=><li key={r.title}>{r.url?<a href={r.url} target="_blank" rel="noreferrer"><FileText/><span>{r.title}</span><ArrowRight/></a>:<span><FileText/>{r.title}</span>}</li>)}</ul>{p.href?<><Link className="rf-action" href={p.href}>View {p.id==="cisco"?"certificates":p.id==="academy"?"modules":"achievements"}<ArrowRight size={17}/></Link><Link className="rf-open-platform" href={p.href}>Open platform <ArrowUpRight size={16}/></Link></>:<p>CyLab is not connected yet. No achievement records are available.</p>}</>;
+ return <><h3>{p.name}</h3><div className="rf-preview-sub"><p>{p.id==="cisco"?"Certificates":p.kind}</p><small>{p.source}</small></div><ul>{p.records.map((r,index)=><li key={`${p.id}:${r.title}:${index}`}>{r.url?<a href={r.url} target="_blank" rel="noreferrer"><FileText/><span>{r.title}</span><ArrowRight/></a>:<span><FileText/>{r.title}</span>}</li>)}</ul>{p.href?<><Link className="rf-action" href={p.href}>View {p.id==="cisco"?"certificates":p.id==="academy"?"modules":"achievements"}<ArrowRight size={17}/></Link><Link className="rf-open-platform" href={p.href}>Open platform <ArrowUpRight size={16}/></Link></>:<p>CyLab is not connected yet. No achievement records are available.</p>}</>;
 }
 export default function Explorer({platforms}:{platforms:Preview[]}){
  const[active,setActive]=useState<string>();const[list,setList]=useState(false);const[motion,setMotion]=useState(true);const dialog=useRef<HTMLDialogElement>(null);
@@ -41,7 +42,7 @@ export default function Explorer({platforms}:{platforms:Preview[]}){
  {platforms.map((p,i)=>{const Icon=icons[i];const pos=coordinates[i];return <button key={p.id} type="button" aria-label={p.name} aria-pressed={active===p.id} className={`rf-shard ${active===p.id?"rf-selected":""}`} style={{"--clip":clips[i],"--mobile-clip":mobileClips[i],"--x":pos[0]+"%","--y":pos[1]+"%","--mx":pos[2]+"%","--my":pos[3]+"%"}as CSSProperties} onPointerDown={e=>{if(e.pointerType==="mouse")e.preventDefault()}} onPointerEnter={e=>{if(e.pointerType==="mouse")hover(p.id)}} onPointerLeave={cancelHover} onFocus={()=>setActive(p.id)} onClick={()=>select(p.id)}><span className="rf-shard-art" aria-hidden="true"/><span className="rf-shard-label"><PlatformSymbol id={p.id} Icon={Icon}/><span>{p.name}</span>{!p.href&&<small>Not connected</small>}</span></button>})}
  </div>}
  <noscript><nav>{platforms.filter(p=>p.href).map(p=><Link key={p.id} href={p.href!}>{p.name} · </Link>)}</nav></noscript>
- </div><aside className="rf-preview" aria-label="Selected platform"><Panel p={chosen}/></aside></div>
+ </div><aside className="rf-preview rf-liquid" aria-label="Selected platform"><GlassLayers/><Panel p={chosen}/></aside></div>
  <div className="rf-tools"><span className="rf-hover-hint"><Info size={20}/>Hover or select a shard to explore.</span><div className="rf-toggle"><button aria-pressed={!list} onClick={()=>setList(false)}>Glass</button><button aria-pressed={list} onClick={()=>setList(true)}><List size={16}/>List</button></div><div className="rf-environment"><button className="rf-motion" aria-pressed={motion} onClick={()=>setMotion(!motion)}><Sun size={18}/>Motion {motion?"on":"off"}</button><span><VolumeX size={18}/>Sound off</span></div></div>
  <dialog ref={dialog} className="rf-sheet" aria-label={chosen?.name} onClick={e=>{if(e.target===e.currentTarget)dialog.current?.close()}}><button className="rf-close" aria-label="Close preview" onClick={()=>dialog.current?.close()}><X/></button><Panel p={chosen}/><button className="rf-sheet-close" onClick={()=>dialog.current?.close()}>Close</button></dialog>
  </div>;

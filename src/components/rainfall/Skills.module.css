@@ -1,0 +1,31 @@
+.section { margin-top: 38px; }
+.shell { width: 100%; }
+.skillsLens { border-top: 1px solid #9ab9ce30; padding-top: 28px; }
+.skillsHeader { display: flex; align-items: start; justify-content: space-between; gap: 20px; }
+.skillsHeader h2 { margin: 0; font: 500 40px/1.1 var(--font-serif), Georgia, serif; }
+.skillsHeader p { margin: 12px 0 0; color: #b2c7d6; font-size: 14px; line-height: 1.7; }
+.skillCount { color: #94afc1; font-size: 12px; white-space: nowrap; padding-top: 10px; }
+.filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+.filterButton { min-height: 40px; padding: 9px 14px; border: 1px solid #96b6cb44; border-radius: 7px; background: #0e223066; color: #b2c7d6; font-size: 12px; cursor: pointer; }
+.filterButton:hover { color: #fff; border-color: #bed7e7aa; }
+.filterButtonActive { background: linear-gradient(110deg, #cee0ee, #abc5d9); border-color: #c3dbe9; color: #0c2230; }
+.filterButtonActive:hover { color: #0c2230; }
+.skillList { border: 1px solid #9ab9ce30; border-radius: 10px; overflow: hidden; padding: 0 20px; background: #071722b8; }
+.skillRow { display: grid; grid-template-columns: minmax(0, 1fr) 145px 140px; align-items: center; gap: 20px; min-height: 65px; padding: 15px 0; border-bottom: 1px solid #9ab9ce30; }
+.skillRow:last-child { border: 0; }
+.skillName { color: #e5edf4; font-size: 14px; font-weight: 500; line-height: 1.6; overflow-wrap: anywhere; }
+.skillCategory { color: #94afc1; font-size: 12px; }
+.skillLevel { display: flex; align-items: center; gap: 14px; justify-content: end; color: #bfd7e7; font-size: 12px; }
+.meter { width: 84px; height: 3px; background: #9ab9ce30; overflow: hidden; border-radius: 2px; }
+.meter i { display: block; height: 100%; background: #b7d3e5; }
+@media (max-width: 640px) {
+  .skillsHeader h2 { font-size: 32px; }
+  .skillsHeader p { font-size: 13px; }
+  .skillList { padding-inline: 14px; }
+  .skillRow { grid-template-columns: minmax(0, 1fr) 100px; gap: 8px 16px; }
+  .skillName { font-size: 13px; }
+  .skillCategory { grid-column: 1; grid-row: 2; font-size: 11px; }
+  .skillLevel { grid-column: 2; grid-row: 1 / span 2; gap: 8px; font-size: 11px; }
+  .meter { width: 55px; }
+  .filterButton { font-size: 11px; padding: 9px 11px; }
+}

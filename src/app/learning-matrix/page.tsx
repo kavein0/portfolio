@@ -392,7 +392,7 @@ function MatrixTable({ category }: { category: MatrixCategory }) {
       className={atlasStyles.matrixSection}
     >
       <AtlasSectionHeading
-        eyebrow={`${String(rows.length).padStart(2, "0")} observations`}
+        eyebrow={`${String(rows.length).padStart(2, "0")} records`}
         title={category.title}
         action={<Table2 aria-hidden="true" />}
       />
@@ -502,9 +502,8 @@ export default function LearningMatrixPage() {
   const pendingCount = totalCount - completedCount;
 
   return (
-    <AtlasPage tone="violet">
+    <AtlasPage>
       <AtlasHero
-        visual="matrix"
         eyebrow="Progress matrix"
         title="Learning Matrix"
         description={
@@ -513,13 +512,11 @@ export default function LearningMatrixPage() {
             Completion status and supporting evidence are tracked separately.
           </p>
         }
-        compact
         stats={[
-          { label: "Total items", value: totalCount, detail: "Mapped observations" },
+          { label: "Total items", value: totalCount, detail: "Learning records" },
           { label: "Completed", value: completedCount, detail: "Recorded completions" },
-          { label: "Pending", value: pendingCount, detail: "Next coordinates" },
+          { label: "Pending", value: pendingCount, detail: "Not completed yet" },
         ]}
-        constellationCaption="A long route made visible, one observation at a time."
       />
 
       <nav className={atlasStyles.matrixTabs} aria-label="Learning matrix categories">

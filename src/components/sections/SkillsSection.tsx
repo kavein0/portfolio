@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { skillCategories, skills } from "@/lib/data";
-import styles from "./Home.module.css";
+import styles from "@/components/rainfall/Skills.module.css";
 
 const categoryLabels = new Map(skillCategories.map((category) => [category.id, category.label]));
 
@@ -13,7 +13,7 @@ export default function SkillsSection() {
     : skills.filter((skill) => skill.category === activeCategory);
 
   return (
-    <section id="skills" className={`${styles.section} ${styles.skillsSection}`}>
+    <section id="skills" className={styles.section}>
       <div className={styles.shell}>
         <div className={styles.skillsLens}>
           <div className={styles.skillsHeader}>
@@ -49,10 +49,9 @@ export default function SkillsSection() {
           <div className={styles.skillList} role="list">
             {visibleSkills.map((skill) => (
               <div key={skill.name} role="listitem" className={styles.skillRow}>
-                <i className={styles.skillStar} aria-hidden="true" />
                 <strong className={styles.skillName}>{skill.name}</strong>
                 <span className={styles.skillCategory}>{categoryLabels.get(skill.category)}</span>
-                <span className={styles.skillLevel}>{skill.level}%</span>
+                <span className={styles.skillLevel}><span className={styles.meter} aria-hidden="true"><i style={{ width: `${skill.level}%` }} /></span>{skill.level}%</span>
               </div>
             ))}
           </div>

@@ -24,19 +24,17 @@ export default function StatsClient({
   htbStats: HackTheBoxStats;
 }) {
   return (
-    <AtlasPage tone="cyan">
+    <AtlasPage>
       <AtlasHero
-        visual="stats"
         eyebrow="Platform Overview"
-        title="Cyber Stats"
+        title="Progress overview"
         description={<p>Overview of my performance on major cybersecurity platforms and technical skill distribution. THM: {thmStats.source === "live" ? "refreshed from profile" : "snapshot from 28 October 2026"}; HTB: {htbStats.source === "live" ? "refreshed from profile" : "snapshot from 28 October 2026"}.</p>}
         stats={[
           { label: "TryHackMe rooms", value: thmStats.roomsCompleted, detail: `Rank ${thmStats.rank}`, icon: <Shield /> },
           { label: "HTB machine owns", value: htbStats.systemOwns, detail: `Rank ${htbStats.rank}`, icon: <Box /> },
           { label: "Academy modules", value: htbAcademyModules.length, detail: `${htbAcademyBadges.length} badges`, icon: <GraduationCap /> },
-          { label: "Cisco certificates", value: certifications.length, detail: "official certifications", icon: <Award /> },
+          { label: "Cisco certificates", value: certifications.length, detail: "course records", icon: <Award /> },
         ]}
-        constellationCaption="Summary of progress across cybersecurity learning platforms."
       />
 
       <AtlasSectionHeading
@@ -71,7 +69,7 @@ export default function StatsClient({
         />
         <AtlasRow
           title="Cisco Academy"
-          description={`${certifications.length} official certifications`}
+          description={`${certifications.length} completed course records`}
           meta="Credential archive"
           href="/cisco"
           icon={<Award />}

@@ -17,10 +17,10 @@ export default function Error({
   return (
     <div className={styles.state}>
       <div className={styles.errorLens}>
-        <p className={styles.errorEyebrow}>Lost coordinate · ♑</p>
-        <h1>Something drifted off course</h1>
+        <p className={styles.errorEyebrow}>Unable to load this page</p>
+        <h1>Let’s try that again.</h1>
         <p className={styles.errorMessage}>
-          {error.message || "The atlas could not resolve this observation."}
+          The page could not be loaded. Please try again in a moment.
         </p>
         <button onClick={reset} className={styles.retry}>Try again</button>
       </div>

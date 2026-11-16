@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, JetBrains_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import "./rainfall.css";
+import "./liquid-glass.css";
+import { GlassFilter } from "@/components/rainfall/LiquidGlass";
 import { siteConfig } from "@/lib/data";
 
 const sans = Manrope({
@@ -65,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" data-scroll-behavior="smooth">
       <body className={`${sans.variable} ${serif.variable} ${mono.variable} noise`}>
+        <GlassFilter />
         <a className="skip-link" href="#main-content">Skip to content</a>
         <MotionProvider>
           <Navbar />

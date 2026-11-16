@@ -5,14 +5,14 @@ export default function NotFound() {
   return (
     <div className={styles.state}>
       <div className={styles.errorLens}>
-        <p className={styles.errorEyebrow}>Uncharted coordinate · ♑</p>
-        <h1>This star is not in the atlas</h1>
+        <p className={styles.errorEyebrow}>404 · Page not found</p>
+        <h1>Nothing here tonight.</h1>
         <p className={styles.errorMessage}>
-          The requested page does not exist, but the verified archive is still within reach.
+          This address does not lead to a page. You can return home or browse the achievement archive.
         </p>
         <div className={styles.stateActions}>
           <Link href="/" className={styles.retry}>Return home</Link>
-          <Link href="/stats" className={styles.retry}>Open the archive</Link>
+          <Link href="/certificates" className={styles.retry}>Browse achievements</Link>
         </div>
       </div>
     </div>

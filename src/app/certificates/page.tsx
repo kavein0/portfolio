@@ -11,9 +11,8 @@ export const metadata: Metadata = {
 
 export default function CertificatesPage() {
   return (
-    <AtlasPage tone="ice">
+    <AtlasPage>
       <AtlasHero
-        compact
         eyebrow="Training archive"
         title="Certificates & training"
         description={<p>Completed courses, learning paths and challenges. These completion records were added by the portfolio owner; supporting documents have not been attached yet.</p>}

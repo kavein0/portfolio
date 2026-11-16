@@ -26,19 +26,17 @@ export default function PicoCTFClient() {
   const mediumCount = picoChallenges.length - easyCount;
 
   return (
-    <AtlasPage tone="ice">
+    <AtlasPage>
       <AtlasHero
-        visual="picoctf"
         eyebrow="CyLab Academy / cryptography"
         title="PicoCTF Challenges"
         description={<p>Completed cryptography, web and general skills challenges. The original eight cryptography records have profile captures; six additional completions are recorded without supporting evidence yet.</p>}
         action={{ label: "View profile", href: "https://learn.cylabacademy.org/users/Lareine" }}
         stats={[
           { label: "Completed", value: picoChallenges.length + completedTraining.filter((record) => record.provider === "PicoCTF").length, detail: "recorded challenges", icon: <CheckCircle2 /> },
-          { label: "Easy", value: easyCount, detail: "foundation orbit", icon: <Binary /> },
-          { label: "Medium", value: mediumCount, detail: "deeper cryptography", icon: <LockKeyhole /> },
+          { label: "Easy", value: easyCount, detail: "archived cryptography", icon: <Binary /> },
+          { label: "Medium", value: mediumCount, detail: "archived cryptography", icon: <LockKeyhole /> },
         ]}
-        constellationCaption="A measured course through classical and applied cryptography."
       />
 
       <AtlasSectionHeading

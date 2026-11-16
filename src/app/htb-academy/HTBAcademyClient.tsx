@@ -49,16 +49,15 @@ export default function HTBAcademyClient() {
   const remainingBadges = Math.max(0, htbAcademyBadges.length - 10);
 
   return (
-    <AtlasPage tone="green">
+    <AtlasPage>
       <AtlasHero
-        visual="academy"
         eyebrow="Learning archive · HTB Academy"
         title="HTB Academy"
         description={
           <p>Completed learning modules and achievement badges from HackTheBox Academy.</p>
         }
         action={{ label: "View Profile", href: siteConfig.hackthebox.profileUrl }}
-        constellationCaption="Foundations become a durable map through repetition, practice, and documented progress."
+
         stats={[
           { label: "Modules Completed", value: htbAcademyModules.length, icon: <BookOpen aria-hidden="true" /> },
           { label: "Badges Earned", value: htbAcademyBadges.length, icon: <Award aria-hidden="true" /> },
@@ -68,7 +67,7 @@ export default function HTBAcademyClient() {
       />
 
       <AtlasSectionHeading
-        eyebrow="Observation log 01"
+        eyebrow="Learning archive"
         title="Completed Modules"
         action={`${htbAcademyModules.length} modules`}
       />
@@ -92,7 +91,7 @@ export default function HTBAcademyClient() {
       </AtlasSurface>
 
       <AtlasSectionHeading
-        eyebrow="Observation log 02"
+        eyebrow="Badge archive"
         title="Completion Badges"
         action={`${htbAcademyBadges.length} badges`}
       />

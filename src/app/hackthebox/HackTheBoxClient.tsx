@@ -35,16 +35,15 @@ function ActivityRows({ events }: { events: HackTheBoxActivity[] }) {
 
 export default function HackTheBoxClient({ stats, activity }: { stats: HackTheBoxStats; activity: HackTheBoxActivity[] | null }) {
   return (
-    <AtlasPage tone="green">
+    <AtlasPage>
       <AtlasHero
-        visual="hackthebox"
         eyebrow="Hack The Box"
         title="HackTheBox Profile"
         description={
           <p>Profile totals, live achievement history and a curated archive. {stats.source === "live" ? "Profile data is rechecked after 15 minutes when the page is visited." : "Profile statistics are a snapshot from 28 October 2026; the source is currently unavailable."}</p>
         }
         action={{ label: "View Profile", href: siteConfig.hackthebox.profileUrl }}
-        constellationCaption="Hack The Box machine owns and challenge write-ups."
+
         stats={[
           { label: "Rank", value: stats.rank || "…", icon: <Terminal aria-hidden="true" /> },
           { label: "Points", value: stats.points, icon: <Crosshair aria-hidden="true" /> },
